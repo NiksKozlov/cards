@@ -1,6 +1,6 @@
 {
   "name": "cards-front",
-  "homepage": "https://NiksKozlov.github.io/cards/#",
+  "homepage": "https://NiksKozlov.github.io/cards/#/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
