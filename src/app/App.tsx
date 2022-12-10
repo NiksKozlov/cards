@@ -14,8 +14,8 @@ function App() {
                 <Route path={'/'} element={<Profile />} />
                 <Route path={'/login'} element={<Login />} />
                 <Route path={'/register'} element={<Register />} />
-                <Route path={'/resetPassword'} element={<ResetPassword />} />
-                <Route path={'/newPassword'} element={<NewPassword />} />
+                <Route path={'/reset-password'} element={<ResetPassword />} />
+                <Route path={'/new-password'} element={<NewPassword />} />
                 <Route path={'/404'} element={<h1 style={{textAlign: 'center'}}>404: PAGE NOT FOUND</h1>} />
                 <Route path={'*'} element={<Navigate to={'/404'} />} />
             </Routes>
