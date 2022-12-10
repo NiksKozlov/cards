@@ -2,8 +2,8 @@ import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from 'r
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {appReducer} from './app-reducer';
-import {authReducer} from '../features/Login/auth-reducer';
-import {profileReducer} from '../features/Profile/profile-reducer';
+import {authReducer} from '../features/login/auth-reducer';
+import {profileReducer} from '../features/profile/profile-reducer';
 
 
 // объединяя reducer-ы с помощью combineReducers,
