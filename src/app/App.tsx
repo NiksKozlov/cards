@@ -7,7 +7,7 @@ import {Register} from '../features/Register/Register';
 import {ResetPassword} from '../features/Password/ResetPassword';
 import {NewPassword} from '../features/Password/NewPassword';
 
-function App() {
+const App = () => {
     return (
         <div className="App">
             <Routes>
