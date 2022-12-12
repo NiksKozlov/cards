@@ -4,6 +4,7 @@ export const Login = () => {
     return (
         <div>
             Login
+            Hi, Nikita and Pasha!
         </div>
     );
 };
