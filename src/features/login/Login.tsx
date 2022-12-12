@@ -3,8 +3,8 @@ import React from 'react';
 export const Login = () => {
     return (
         <div>
-            Login
-            Hi, Nikita and Pasha!
+            <div>Login</div>
+            <div>Hi, Nikita and Pasha!</div>
         </div>
     );
 };
