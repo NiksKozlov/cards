@@ -2,17 +2,17 @@ import React from "react";
 
 export const Profile = () => {
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
       <h3>Personal information</h3>
       <div>
         <img
           style={{ height: "100px" }}
-          src="https://st4.depositphotos.com/1012074/25277/v/600/depositphotos_252773324-stock-illustration-young-avatar-face-with-sunglasses.jpg"
+          src="https://dl.memuplay.com/new_market/img/com.vicman.newprofilepic.icon.2022-06-07-21-33-07.png"
           alt="profile photo"
         />
       </div>
-      <div>Name</div>
-      <div>Email</div>
+      <h4>Name</h4>
+      <h5>Email@gmail.com</h5>
       <button>Logout</button>
     </div>
   );
