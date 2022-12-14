@@ -1,8 +1,8 @@
 const initialState = {
   isLoggedIn: false,
-}
+};
 
-type InitialStateType = typeof initialState
+type InitialStateType = typeof initialState;
 
 export const authReducer = (
   state: InitialStateType = initialState,
@@ -10,6 +10,6 @@ export const authReducer = (
 ): InitialStateType => {
   switch (action.type) {
     default:
-      return state
+      return state;
   }
-}
+};

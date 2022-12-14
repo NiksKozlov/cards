@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/store";
+import { Navigate } from "react-router-dom";
+import { meTC } from "./profile-reducer";
 
 export const Profile = () => {
+  const dispatch = useAppDispatch();
+  const isInitialized = useAppSelector((state) => state.profile.isInitialized);
+
+  useEffect(() => {
+    dispatch(meTC());
+  }, []);
+
+  if (!isInitialized) {
+    return <Navigate to={"/login"} />;
+  }
+
   return (
     <div style={{ textAlign: "center" }}>
       <h3>Personal information</h3>
