@@ -1,0 +1,14 @@
+.registerContainer {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerFormBlock {
+    background-color: #d5d2d2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
