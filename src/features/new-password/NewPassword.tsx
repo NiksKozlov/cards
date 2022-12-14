@@ -1,9 +1,5 @@
-import React from 'react';
+import React from 'react'
 
 export const NewPassword = () => {
-    return (
-        <div>
-            Enter new password
-        </div>
-    );
-};
+  return <div>Enter new password</div>
+}
