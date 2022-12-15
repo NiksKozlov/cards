@@ -4,6 +4,7 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {appReducer} from './app-reducer';
 import {authReducer} from '../features/login/auth-reducer';
 import {profileReducer} from '../features/profile/profile-reducer';
+import {registerReducer} from "../features/register/register-reducer";
 
 
 // объединяя reducer-ы с помощью combineReducers,
@@ -11,7 +12,8 @@ import {profileReducer} from '../features/profile/profile-reducer';
 const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    register: registerReducer
 })
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))
 

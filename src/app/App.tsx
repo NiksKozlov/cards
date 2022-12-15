@@ -11,7 +11,7 @@ const App = () => {
     return (
         <div className="App">
             <Routes>
-                <Route path={'/'} element={<Profile />} />
+                <Route path={'/'} element={<Register />} />
                 <Route path={'/login'} element={<Login />} />
                 <Route path={'/register'} element={<Register />} />
                 <Route path={'/reset-forgot-password'} element={<ForgotPassword />} />
