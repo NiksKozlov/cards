@@ -1,5 +1,1 @@
-
-
-export const registerReducer = () => {
-
-}
+export const registerReducer = () => {}
