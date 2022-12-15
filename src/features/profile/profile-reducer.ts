@@ -1,43 +1,68 @@
-import { Dispatch } from "redux";
+import { AxiosError } from "axios";
 import { authAPI } from "../../api/cards-api";
+import { AppThunkDispatch } from "../../app/store";
+import { setIsLoggedInAC } from "../login/auth-reducer";
 
-const initialState = {
-  isInitialized: false,
+const profileInitialState = {
+  _id: "",
+  email: "",
+  name: "",
+  avatar: "",
+  publicCardPacksCount: 0,
+  created: "",
+  updated: "",
+  isAdmin: false,
+  verified: false,
+  rememberMe: false,
+  error: "",
 };
 
-export type InitialStateType = typeof initialState;
+const initialState = {
+  profile: profileInitialState,
+};
+
+type InitialStateType = typeof initialState;
 
 export const profileReducer = (
   state: InitialStateType = initialState,
-  action: SetInitializedActionType
+  action: ActionsTypes
 ): InitialStateType => {
   switch (action.type) {
-    case "SET-INITIALIZED":
-      return { ...state, isInitialized: action.value };
+    case "SET-PROFILE":
+      return { ...state, profile: action.profile };
     default:
-      return { ...state };
+      return state;
   }
 };
 
-// actions
-export const setInitializedAC = (value: boolean) =>
-  ({ type: "SET-INITIALIZED", value } as const);
+// Actions
+export const setProfileAC = (profile: any) =>
+  ({ type: "SET-PROFILE", profile } as const);
 
-// thunks
-export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
-  console.log("loading");
-  try {
-    const res = await authAPI.me();
-    if (res.data.data._id) {
-      dispatch(setInitializedAC(true));
-      console.log("get profile data");
-    }
-  } catch (e) {
-    console.log("profile unauthorized");
-  }
+// Thunks
+export const meTC = () => (dispatch: AppThunkDispatch) => {
+  authAPI
+    .me()
+    .then((res) => {
+      dispatch(setIsLoggedInAC(true));
+      dispatch(setProfileAC(res.data));
+    })
+    .catch((err: AxiosError<{ error: string }>) => {
+      const error = err.response ? err.response.data.error : err.message;
+      console.log("error: ", error);
+    });
 };
 
-// types
-type ActionsType = SetInitializedActionType;
+export const logOutTC = () => (dispatch: AppThunkDispatch) => {
+  authAPI
+    .logOut()
+    .then(() => {
+      dispatch(setIsLoggedInAC(false));
+    })
+    .catch((err: AxiosError<{ error: string }>) => {
+      const error = err.response ? err.response.data.error : err.message;
+      console.log("error: ", error);
+    });
+};
 
-export type SetInitializedActionType = ReturnType<typeof setInitializedAC>;
+type ActionsTypes = ReturnType<typeof setProfileAC>;

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_BACK_URL || "http://localhost:7542/2.0/",
@@ -6,29 +6,39 @@ export const instance = axios.create({
 });
 
 export const authAPI = {
+  login(data: LoginParamsType) {
+    return instance.post<LoginParamsType, AxiosResponse<AuthResponseType>>(
+      "auth/login",
+      data
+    );
+  },
   me() {
-    return instance.post<ResponseType<ProfileType>>(`/auth/me`);
+    return instance.post<AuthResponseType>("auth/me");
+  },
+  logOut() {
+    return instance.delete<AuthResponseType>(`/auth/me`);
   },
 };
 
-// types
-export type ProfileType = {
-  _id: string;
+export type LoginParamsType = {
   email: string;
+  password: string;
   rememberMe: boolean;
-  isAdmin: boolean;
-  name: string;
-  verified: boolean;
-  publicCardPacksCount: number;
-  created: Date;
-  updated: Date;
-  __v: number;
-  token: string;
-  tokenDeathTime: number;
-  avatar?: string;
-  error?: string;
 };
 
-export type ResponseType<D = {}> = {
-  data: D;
+export type AuthResponseType = {
+  _id: string;
+  email: string;
+  name: string;
+  avatar?: string;
+  publicCardPacksCount: number;
+  // количество колод
+
+  created: Date;
+  updated: Date;
+  isAdmin: boolean;
+  verified: boolean; // подтвердил ли почту
+  rememberMe: boolean;
+
+  error?: string;
 };
