@@ -36,7 +36,10 @@
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
-    "extends": []
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
