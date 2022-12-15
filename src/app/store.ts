@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     register: registerReducer
 })
+
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
 // определить автоматически тип всего объекта состояния
