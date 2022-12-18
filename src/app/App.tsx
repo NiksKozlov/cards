@@ -22,6 +22,7 @@ const App = () => {
   const status = useAppSelector<RequestStatusType>(state => state.app.status)
 
   useEffect(() => {
+    console.log(111313)
     dispatch(meTC())
   }, [])
 

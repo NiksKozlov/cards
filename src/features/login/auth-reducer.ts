@@ -1,6 +1,6 @@
 import { authAPI, LoginParamsType } from '../../api/cards-api'
-import { setAppStatusAC } from '../../app/app-reducer'
-import { AppThunkDispatch } from '../../common/hooks/useAppDispatch'
+import { setAppStatusAC, setInitializedAC } from '../../app/app-reducer'
+import { AppThunk, AppThunkDispatch } from '../../common/hooks/useAppDispatch'
 import { handleServerError } from '../../common/utils/error-handler/error-handler'
 
 const initialState = {
@@ -38,17 +38,22 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: AppThunkDispa
   }
 }
 
-export const meTC = () => async (dispatch: AppThunkDispatch) => {
+export const meTC = (): AppThunk => async (dispatch: AppThunkDispatch) => {
   try {
     dispatch(setAppStatusAC('loading'))
     const res = await authAPI.me()
 
     dispatch(setIsLoggedInAC(true))
     dispatch(setAppStatusAC('succeeded'))
+    dispatch(setInitializedAC(true))
+
+    return true
   } catch (e) {
     handleServerError(e, dispatch)
   }
 }
 
 //types
-type ActionsTypes = ReturnType<typeof setIsLoggedInAC>
+export type ActionsTypes = ReturnType<typeof setIsLoggedInAC>
+
+//export type ActionAll
