@@ -11,7 +11,7 @@ type InitialStateType = typeof initialState
 
 export const authReducer = (
   state: InitialStateType = initialState,
-  action: ActionsTypes
+  action: AuthActionsTypes
 ): InitialStateType => {
   switch (action.type) {
     case 'AUTH/SET-IS-LOGGED-IN':
@@ -26,17 +26,19 @@ export const setIsLoggedInAC = (value: boolean) =>
   ({ type: 'AUTH/SET-IS-LOGGED-IN', value } as const)
 
 //thunks
-export const loginTC = (data: LoginParamsType) => async (dispatch: AppThunkDispatch) => {
-  try {
-    dispatch(setAppStatusAC('loading'))
-    const res = await authAPI.login(data)
+export const loginTC =
+  (data: LoginParamsType): AppThunk =>
+  async (dispatch: AppThunkDispatch) => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      const res = await authAPI.login(data)
 
-    dispatch(setIsLoggedInAC(true))
-    dispatch(setAppStatusAC('succeeded'))
-  } catch (e) {
-    handleServerError(e, dispatch)
+      dispatch(setIsLoggedInAC(true))
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      handleServerError(e, dispatch)
+    }
   }
-}
 
 export const meTC = (): AppThunk => async (dispatch: AppThunkDispatch) => {
   try {
@@ -45,15 +47,12 @@ export const meTC = (): AppThunk => async (dispatch: AppThunkDispatch) => {
 
     dispatch(setIsLoggedInAC(true))
     dispatch(setAppStatusAC('succeeded'))
-    dispatch(setInitializedAC(true))
-
-    return true
   } catch (e) {
     handleServerError(e, dispatch)
+  } finally {
+    dispatch(setInitializedAC(true))
   }
 }
 
 //types
-export type ActionsTypes = ReturnType<typeof setIsLoggedInAC>
-
-//export type ActionAll
+export type AuthActionsTypes = ReturnType<typeof setIsLoggedInAC>
