@@ -6,7 +6,8 @@ import FormControl from '@mui/material/FormControl'
 import { useFormik } from 'formik'
 import { Navigate, NavLink } from 'react-router-dom'
 
-import { useAppDispatch, useAppSelector } from '../../app/store'
+import { useAppDispatch } from '../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../common/hooks/useAppSelector'
 
 import { loginTC } from './auth-reducer'
 import s from './Login.module.css'

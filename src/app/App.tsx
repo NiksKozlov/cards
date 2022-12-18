@@ -5,6 +5,8 @@ import { CircularProgress, LinearProgress } from '@mui/material'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
+import { useAppDispatch } from '../common/hooks/useAppDispatch'
+import { useAppSelector } from '../common/hooks/useAppSelector'
 import { ForgotPassword } from '../features/forgot-password/ForgotPassword'
 import { meTC } from '../features/login/auth-reducer'
 import { Login } from '../features/login/Login'
@@ -13,7 +15,6 @@ import { Profile } from '../features/profile/Profile'
 import { Register } from '../features/register/Register'
 
 import { RequestStatusType } from './app-reducer'
-import { useAppDispatch, useAppSelector } from './store'
 
 const App = () => {
   const dispatch = useAppDispatch()

@@ -1,8 +1,7 @@
-import { AxiosError } from 'axios'
-
 import { authAPI, LoginParamsType } from '../../api/cards-api'
-import { setAppErrorAC, setAppStatusAC, setInitializedAC } from '../../app/app-reducer'
-import { AppThunkDispatch } from '../../app/store'
+import { setAppStatusAC } from '../../app/app-reducer'
+import { AppThunkDispatch } from '../../common/hooks/useAppDispatch'
+import { handleServerError } from '../../common/utils/error-handler/error-handler'
 
 const initialState = {
   isLoggedIn: false,
@@ -15,59 +14,41 @@ export const authReducer = (
   action: ActionsTypes
 ): InitialStateType => {
   switch (action.type) {
-    case 'login/SET-IS-LOGGED-IN':
+    case 'AUTH/SET-IS-LOGGED-IN':
       return { ...state, isLoggedIn: action.value }
     default:
       return state
   }
 }
 
+// actions
 export const setIsLoggedInAC = (value: boolean) =>
-  ({ type: 'login/SET-IS-LOGGED-IN', value } as const)
+  ({ type: 'AUTH/SET-IS-LOGGED-IN', value } as const)
 
-export const loginTC = (data: LoginParamsType) => (dispatch: AppThunkDispatch) => {
-  dispatch(setAppStatusAC('loading'))
-  authAPI
-    .login(data)
-    .then(res => {
-      if (!res.data.error) {
-        dispatch(setIsLoggedInAC(true))
-        dispatch(setAppStatusAC('succeeded'))
-      } else {
-        dispatch(setAppErrorAC(res.data.error))
-        dispatch(setAppStatusAC('failed'))
-      }
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-      const error = err.response ? err.response.data.error : err.message
+//thunks
+export const loginTC = (data: LoginParamsType) => async (dispatch: AppThunkDispatch) => {
+  try {
+    dispatch(setAppStatusAC('loading'))
+    const res = await authAPI.login(data)
 
-      console.log('error: ', error)
-      dispatch(setAppStatusAC('failed'))
-    })
+    dispatch(setIsLoggedInAC(true))
+    dispatch(setAppStatusAC('succeeded'))
+  } catch (e) {
+    handleServerError(e, dispatch)
+  }
 }
 
-export const meTC = () => (dispatch: AppThunkDispatch) => {
-  dispatch(setAppStatusAC('loading'))
-  authAPI
-    .me()
-    .then(res => {
-      if (!res.data.error) {
-        dispatch(setIsLoggedInAC(true))
-        dispatch(setAppStatusAC('succeeded'))
-      } else {
-        dispatch(setAppErrorAC(res.data.error))
-        dispatch(setAppStatusAC('failed'))
-      }
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-      const error = err.response ? err.response.data.error : err.message
+export const meTC = () => async (dispatch: AppThunkDispatch) => {
+  try {
+    dispatch(setAppStatusAC('loading'))
+    const res = await authAPI.me()
 
-      console.log('error: ', error)
-      dispatch(setAppStatusAC('failed'))
-    })
-    .finally(() => {
-      dispatch(setInitializedAC(true))
-    })
+    dispatch(setIsLoggedInAC(true))
+    dispatch(setAppStatusAC('succeeded'))
+  } catch (e) {
+    handleServerError(e, dispatch)
+  }
 }
 
+//types
 type ActionsTypes = ReturnType<typeof setIsLoggedInAC>
