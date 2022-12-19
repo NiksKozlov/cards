@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export const Login = () => {
   return (
@@ -6,5 +6,5 @@ export const Login = () => {
       <div>Login</div>
       <div>Hi, Nikita and Pasha!</div>
     </div>
-  )
-}
+  );
+};

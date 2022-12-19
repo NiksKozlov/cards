@@ -1,69 +1,88 @@
-import {AppThunkDispatch} from "../../app/store";
-import {authAPI} from "../../api/cards-api";
+import { authAPI } from "../../api/cards-api";
+import { AppThunkDispatch } from "../../app/store";
 
+export type SetRegistrationDataActionType = {
+  type: "SET-REGISTRATION-DATA";
+  email: string;
+  password: string;
+  isRegistered: boolean;
+};
 
-type SetRegistrationDataActionType = {
-    type: 'SET-REGISTRATION-DATA'
-    email: string
-    password: string
-    isRegistered: boolean
-}
+export type setErrorActionType = {
+  type: "SET-ERROR";
+  error: string;
+};
 
-type setRegisterServerErrorActionType = {
-    type: 'SET-REGISTER-SERVER-ERROR'
-    error: string
-}
+export type setRegisterServerErrorActionType = {
+  type: "SET-SERVER-ERROR";
+  serverError: string | null;
+};
 
-type RegisterActionsType = SetRegistrationDataActionType | setRegisterServerErrorActionType
+type RegisterActionsType = SetRegistrationDataActionType | setErrorActionType | setRegisterServerErrorActionType;
 
-type IninStateType = {
-    email: string
-    password: string
-    error: string
-    isRegistered: boolean
-}
+type InitStateType = {
+  email: string;
+  password: string;
+  error: string;
+  isRegistered: boolean;
+  serverError: string | null;
+};
 
-const initState: IninStateType = {
-    email: '',
-    password: '',
-    error: '',
-    isRegistered: false
-}
+const initState: InitStateType = {
+  email: "",
+  password: "",
+  error: "",
+  isRegistered: false,
+  serverError: null,
+};
 
-export const registerReducer = (state = initState, action: RegisterActionsType): IninStateType => {
-    switch (action.type) {
-        case 'SET-REGISTRATION-DATA':
-            return {...state, email: action.email, password: action.password, isRegistered: action.isRegistered}
-        case 'SET-REGISTER-SERVER-ERROR':
-            return {...state, error: action.error}
-        default:
-            return state
-    }
-}
+export const registerReducer = (state = initState, action: RegisterActionsType): InitStateType => {
+  switch (action.type) {
+    case "SET-REGISTRATION-DATA":
+      return { ...state, email: action.email, password: action.password, isRegistered: action.isRegistered };
+    case "SET-ERROR":
+      return { ...state, error: action.error };
+    case "SET-SERVER-ERROR":
+      return { ...state, serverError: action.serverError };
+    default:
+      return state;
+  }
+};
 
-export const setRegistrationData = (email: string, password: string, isRegistered: boolean): SetRegistrationDataActionType => ({
-    type: 'SET-REGISTRATION-DATA',
-    email,
-    password,
-    isRegistered
-})
-export const setRegisterServerErrorAC = (error: string): setRegisterServerErrorActionType => ({
-    type: 'SET-REGISTER-SERVER-ERROR',
-    error
-})
+export const setRegistrationData = (
+  email: string,
+  password: string,
+  isRegistered: boolean
+): SetRegistrationDataActionType => ({
+  type: "SET-REGISTRATION-DATA",
+  email,
+  password,
+  isRegistered,
+});
+export const setError = (error: string): setErrorActionType => ({
+  type: "SET-ERROR",
+  error,
+});
+export const setRegisterServerError = (serverError: string | null): setRegisterServerErrorActionType => ({
+  type: "SET-SERVER-ERROR",
+  serverError,
+});
 
 export const registration = (email: string, password: string) => async (dispatch: AppThunkDispatch) => {
-    try {
-        const response = await authAPI.register(email, password) // is registor
-        console.log(response)
-        if (response.data.error) {
-            setRegisterServerErrorAC(response.data.error)
-        } else {
-            dispatch(setRegisterServerErrorAC(''))
-            dispatch(setRegistrationData(email, password, true))
-        }
-    } catch (err) {
-        console.log(err)
-    }
-}
+  try {
+    const response = await authAPI.register(email, password);
 
+    if (response.data.error) {
+      dispatch(setError(response.data.error));
+    } else {
+      dispatch(setError(""));
+      dispatch(setRegistrationData(email, password, true));
+    }
+  } catch (err) {
+    if (err instanceof Error) {
+      dispatch(setRegisterServerError(err.message));
+    } else {
+      dispatch(setRegisterServerError(`Unexpected server error ${err}`));
+    }
+  }
+};
