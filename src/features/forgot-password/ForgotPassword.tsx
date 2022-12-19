@@ -29,6 +29,9 @@ export const ForgotPassword = () => {
   }
 
   const formik = useFormik({
+    initialValues: {
+      email: '',
+    },
     validate: values => {
       const errors: FormikErrorsType = {}
 
@@ -39,9 +42,6 @@ export const ForgotPassword = () => {
       }
 
       return errors
-    },
-    initialValues: {
-      email: '',
     },
     onSubmit: values => {
       dispatch(forgotPassword(values.email))

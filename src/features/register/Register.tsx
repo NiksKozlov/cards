@@ -42,6 +42,11 @@ export const Register = () => {
   }
 
   const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
     validate: values => {
       const errors: FormikErrorsType = {}
 
@@ -73,11 +78,6 @@ export const Register = () => {
       }
 
       return errors
-    },
-    initialValues: {
-      email: '',
-      password: '',
-      confirmPassword: '',
     },
     onSubmit: values => {
       dispatch(registration(values.email, values.password))

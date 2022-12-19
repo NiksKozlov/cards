@@ -36,6 +36,9 @@ export const NewPassword = () => {
   }
 
   const formik = useFormik({
+    initialValues: {
+      password: '',
+    },
     validate: values => {
       const errors: FormikErrorsType = {}
 
@@ -48,9 +51,6 @@ export const NewPassword = () => {
       }
 
       return errors
-    },
-    initialValues: {
-      password: '',
     },
     onSubmit: values => {
       dispatch(createNewPassword(values.password, token as string))
