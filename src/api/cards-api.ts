@@ -29,6 +29,9 @@ link</a>
   login(data: LoginParamsType) {
     return instance.post<'', AxiosResponse<AuthResponseType>, LoginParamsType>('auth/login', data)
   },
+  logOut() {
+    return instance.delete<AuthResponseType>(`/auth/me`)
+  },
   me() {
     return instance.post<AuthResponseType>('auth/me')
   },

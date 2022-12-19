@@ -2,7 +2,8 @@ import React, { useCallback, useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
-import { useAppDispatch, useAppSelector } from '../../app/store'
+import { useAppDispatch } from '../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../common/hooks/useAppSelector'
 
 import { EditableName } from './EditableName/EditableName'
 import { changeProfileNameTC, logOutTC, meTC } from './profile-reducer'

@@ -12,11 +12,10 @@ import { useAppSelector } from '../../common/hooks/useAppSelector'
 import { registration, setRegisterServerError } from './register-reducer'
 import s from './Register.module.css'
 
-
 type FormikErrorsType = {
-    email?: string
-    password?: string
-    confirmPassword?: string
+  email?: string
+  password?: string
+  confirmPassword?: string
 }
 
 export const Register = () => {
@@ -42,9 +41,9 @@ export const Register = () => {
     return <Navigate to={'/login'} />
   }
 
-    const formik = useFormik({
-        validate: (values) => {
-            const errors: FormikErrorsType = {}
+  const formik = useFormik({
+    validate: values => {
+      const errors: FormikErrorsType = {}
 
       if (!values.email) {
         errors.email = 'Required'

@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios'
 
 import { authAPI, profileAPI } from '../../api/cards-api'
-import { AppThunkDispatch } from '../../app/store'
+import { AppThunkDispatch } from '../../common/hooks/useAppDispatch'
 import { setIsLoggedInAC } from '../login/auth-reducer'
 
 const profileInitialState = {
