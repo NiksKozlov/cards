@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import './App.css'
 import { CircularProgress, LinearProgress } from '@mui/material'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 
 import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
 import { useAppDispatch } from '../common/hooks/useAppDispatch'
@@ -14,15 +14,13 @@ import { NewPassword } from '../features/new-password/NewPassword'
 import { Profile } from '../features/profile/Profile'
 import { Register } from '../features/register/Register'
 
-import { RequestStatusType } from './app-reducer'
-
 const App = () => {
   const dispatch = useAppDispatch()
-  const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
-  const status = useAppSelector<RequestStatusType>(state => state.app.status)
+  const isInitialized = useAppSelector(state => state.app.isInitialized)
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const status = useAppSelector(state => state.app.status)
 
   useEffect(() => {
-    console.log(111313)
     dispatch(meTC())
   }, [])
 
@@ -34,12 +32,18 @@ const App = () => {
     )
   }
 
+  const PrivateRoutes = () => {
+    return isLoggedIn ? <Outlet /> : <Navigate to={'/login'} />
+  }
+
   return (
     <div className="App">
       {status === 'loading' && <LinearProgress color="secondary" />}
       <ErrorSnackbar />
       <Routes>
-        <Route path={'/'} element={<Profile />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path={'/'} element={<Profile />} />
+        </Route>
         <Route path={'/login'} element={<Login />} />
         <Route path={'/register'} element={<Register />} />
         <Route path={'/reset-forgot-password'} element={<ForgotPassword />} />

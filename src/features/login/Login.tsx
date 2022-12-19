@@ -4,21 +4,17 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Checkbox, FormControlLabel, FormGroup, IconButton, TextField } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
 import { useFormik } from 'formik'
-import { Navigate, NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../common/hooks/useAppSelector'
+import { loginValidationSchema } from '../../common/utils/validationSchema/validationSchema'
 
 import { loginTC } from './auth-reducer'
 import s from './Login.module.css'
 
-type FormikErrorType = {
-  email?: string
-  password?: string
-  rememberMe?: boolean
-}
-
 export const Login = () => {
+  const navigate = useNavigate()
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
 
@@ -34,30 +30,14 @@ export const Login = () => {
       password: '',
       rememberMe: false,
     },
-    validate: values => {
-      const errors: FormikErrorType = {}
-
-      if (!values.email) {
-        errors.email = 'Required'
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address'
-      }
-      if (!values.password) {
-        errors.password = 'Required'
-      } else if (values.password.length <= 4 || values.password.length > 20) {
-        errors.password = 'The password is too short'
-      }
-
-      return errors
-    },
+    validationSchema: loginValidationSchema,
     onSubmit: values => {
       dispatch(loginTC(values))
-      formik.resetForm()
     },
   })
 
   if (isLoggedIn) {
-    return <Navigate to={'/'} />
+    navigate('/')
   }
 
   return (

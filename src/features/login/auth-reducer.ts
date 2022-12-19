@@ -1,6 +1,6 @@
 import { authAPI, LoginParamsType } from '../../api/cards-api'
 import { setAppStatusAC, setInitializedAC } from '../../app/app-reducer'
-import { AppThunk, AppThunkDispatch } from '../../common/hooks/useAppDispatch'
+import { AppThunk } from '../../common/hooks/useAppDispatch'
 import { handleServerError } from '../../common/utils/error-handler/error-handler'
 
 const initialState = {
@@ -28,7 +28,7 @@ export const setIsLoggedInAC = (value: boolean) =>
 //thunks
 export const loginTC =
   (data: LoginParamsType): AppThunk =>
-  async (dispatch: AppThunkDispatch) => {
+  async dispatch => {
     try {
       dispatch(setAppStatusAC('loading'))
       const res = await authAPI.login(data)
@@ -40,7 +40,7 @@ export const loginTC =
     }
   }
 
-export const meTC = (): AppThunk => async (dispatch: AppThunkDispatch) => {
+export const meTC = (): AppThunk => async dispatch => {
   try {
     dispatch(setAppStatusAC('loading'))
     const res = await authAPI.me()
