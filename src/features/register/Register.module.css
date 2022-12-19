@@ -1,17 +1,116 @@
-.registerContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  height: 100vh;
+.mainContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 90vh;
+
+    background-color: #f9f9fa;
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 33px;
+
+    background-color: #ffffff;
+    border-radius: 2px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.registerFormBlock {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  padding: 40px;
-
-  background-color: #d5d2d2;
+.formContainer a {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
+
+.formContainer span {
+    margin-top: 25px;
+
+    font-family: 'Montserrat';
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 24px;
+    color: #000000;
+    text-align: center;
+
+    opacity: 0.5;
+}
+
+.formContainer h1 {
+    margin: 0;
+    margin-top: 30px;
+
+    font-family: 'Montserrat';
+    font-size: 26px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 32px;
+
+    background-color: white;
+}
+
+.submitBtn {
+    height: 36px;
+    margin-top: 30px;
+
+    font-family: 'Montserrat';
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 20px;
+    color: white;
+
+    background-color: #366EFF;
+    border: 0;
+    border-radius: 30px;
+    box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.submitBtn:active {
+    background-color: #1544d9;
+}
+
+.tryLoginBtn {
+    font-family: 'Montserrat';
+    font-size: 16px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 24px;
+    color: #366EFF;
+    text-decoration-line: underline;
+}
+
+.emailInput {
+    border: none;
+    border-bottom: 1.6px solid black;
+}
+
+.textfieldLabel {
+    font-family: 'Montserrat' !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    line-height: 24px !important;
+    color: #000000;
+
+    opacity: 0.5;
+}
+
+.textfieldMain {
+    font-family: 'Montserrat' !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    line-height: 24px !important;
+}
+
+.error {
+    font-family: 'Montserrat';
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 24px;
+    color: red;

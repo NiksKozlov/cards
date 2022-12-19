@@ -13,6 +13,8 @@ import { Login } from '../features/login/Login'
 import { NewPassword } from '../features/new-password/NewPassword'
 import { Profile } from '../features/profile/Profile'
 import { Register } from '../features/register/Register'
+import { CheckEmail } from "../features/check-email/CheckEmail";
+import { Navbar } from "../features/navbar/Navbar";
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -38,6 +40,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <Navbar />
       {status === 'loading' && <LinearProgress color="secondary" />}
       <ErrorSnackbar />
       <Routes>
