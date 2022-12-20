@@ -2,11 +2,12 @@ import React from 'react'
 
 import { FormGroup, TextField } from '@mui/material'
 import { useFormik } from 'formik'
-import { Navigate, NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
-import { BadErrorSnackbar } from '../../common/components/ErrorSnackbar/BadErrorSnackbar'
-import { useAppDispatch } from '../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../common/hooks/useAppSelector'
+import { BadErrorSnackbar } from '../../../common/components/ErrorSnackbar/BadErrorSnackbar'
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
+import { PATH } from '../../../common/routePaths/routePaths.enum'
 
 import { forgotPassword, setForgotPasswordServerError } from './forgotPassword-reducer'
 import s from './ForgotPassword.module.css'
@@ -26,7 +27,7 @@ export const ForgotPassword = () => {
   const navigate = useNavigate()
 
   if (isSent) {
-    navigate('/check-email')
+    navigate(PATH.CHECK_EMAIL)
   }
 
   const formik = useFormik({
@@ -81,7 +82,7 @@ export const ForgotPassword = () => {
           </FormGroup>
         </form>
         <span>Do you remember your password?</span>
-        <NavLink to={'/login'} className={s.tryLoginBtn}>
+        <NavLink to={PATH.LOGIN} className={s.tryLoginBtn}>
           Try loggining in
         </NavLink>
       </div>

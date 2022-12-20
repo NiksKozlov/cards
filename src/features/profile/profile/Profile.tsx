@@ -2,10 +2,11 @@ import React, { useCallback, useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
-import { useAppDispatch } from '../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../common/hooks/useAppSelector'
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
+import { PATH } from '../../../common/routePaths/routePaths.enum'
+import { EditableName } from '../EditableName/EditableName'
 
-import { EditableName } from './EditableName/EditableName'
 import { changeProfileNameTC, logOutTC, meTC } from './profile-reducer'
 import s from './Profile.module.css'
 
@@ -33,7 +34,7 @@ export const Profile = () => {
   }, [])
 
   if (!isLoggedIn) {
-    return <Navigate to={'/login'} />
+    return <Navigate to={PATH.LOGIN} />
   }
 
   // @ts-ignore

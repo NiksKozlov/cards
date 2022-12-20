@@ -1,7 +1,7 @@
-import { authAPI, LoginParamsType } from '../../api/cards-api'
-import { setAppStatusAC, setInitializedAC } from '../../app/app-reducer'
-import { AppThunk } from '../../common/hooks/useAppDispatch'
-import { handleServerError } from '../../common/utils/error-handler/error-handler'
+import { authAPI, LoginParamsType } from '../../../api/auth-api'
+import { setAppStatusAC, setInitializedAC } from '../../../app/app-reducer'
+import { AppThunk } from '../../../common/hooks/useAppDispatch'
+import { handleServerError } from '../../../common/utils/error-handler/error-handler'
 
 const initialState = {
   isLoggedIn: false,

@@ -1,5 +1,5 @@
-import { authAPI } from '../../api/cards-api'
-import { AppThunkDispatch } from '../../common/hooks/useAppDispatch'
+import { authAPI } from '../../../api/auth-api'
+import { AppThunkDispatch } from '../../../common/hooks/useAppDispatch'
 
 export type setForgotPasswordErrorActionType = {
   type: 'SET-ERROR'

@@ -3,11 +3,12 @@ import React, { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { FormGroup, IconButton, TextField } from '@mui/material'
 import { useFormik } from 'formik'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
-import { BadErrorSnackbar } from '../../common/components/ErrorSnackbar/BadErrorSnackbar'
-import { useAppDispatch } from '../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../common/hooks/useAppSelector'
+import { BadErrorSnackbar } from '../../../common/components/ErrorSnackbar/BadErrorSnackbar'
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
+import { PATH } from '../../../common/routePaths/routePaths.enum'
 
 import { createNewPassword, setNewPasswordServerError } from './newPassword-reducer'
 import s from './NewPassword.module.css'
@@ -33,7 +34,7 @@ export const NewPassword = () => {
   const navigate = useNavigate()
 
   if (isCreateNewPassword) {
-    navigate('/login')
+    navigate(PATH.LOGIN)
   }
 
   const formik = useFormik({

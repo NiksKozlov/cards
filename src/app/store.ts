@@ -1,11 +1,11 @@
 import { applyMiddleware, combineReducers, legacy_createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
-import { forgotPasswordReducer } from '../features/forgot-password/forgotPassword-reducer'
-import { AuthActionsTypes, authReducer } from '../features/login/auth-reducer'
-import { newPasswordReducer } from '../features/new-password/newPassword-reducer'
-import { profileReducer } from '../features/profile/profile-reducer'
-import { registerReducer } from '../features/register/register-reducer'
+import { forgotPasswordReducer } from '../features/auth/forgot-password/forgotPassword-reducer'
+import { AuthActionsTypes, authReducer } from '../features/auth/login/auth-reducer'
+import { newPasswordReducer } from '../features/auth/new-password/newPassword-reducer'
+import { registerReducer } from '../features/auth/register/register-reducer'
+import { profileReducer } from '../features/profile/profile/profile-reducer'
 
 import { AppActionsType, appReducer } from './app-reducer'
 

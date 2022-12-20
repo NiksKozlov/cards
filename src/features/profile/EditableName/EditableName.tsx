@@ -10,7 +10,6 @@ type EditableNamePropsType = {
 }
 
 export const EditableName = memo(function (props: EditableNamePropsType) {
-  console.log('EditableName called')
   let [editMode, setEditMode] = useState(false)
   let [name, setName] = useState(props.name)
 

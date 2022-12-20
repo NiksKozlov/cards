@@ -3,11 +3,12 @@ import React, { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { FormGroup, IconButton, TextField } from '@mui/material'
 import { useFormik } from 'formik'
-import { Navigate, NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
-import { BadErrorSnackbar } from '../../common/components/ErrorSnackbar/BadErrorSnackbar'
-import { useAppDispatch } from '../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../common/hooks/useAppSelector'
+import { BadErrorSnackbar } from '../../../common/components/ErrorSnackbar/BadErrorSnackbar'
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
+import { PATH } from '../../../common/routePaths/routePaths.enum'
 
 import { registration, setRegisterServerError } from './register-reducer'
 import s from './Register.module.css'
@@ -27,7 +28,7 @@ export const Register = () => {
   const navigate = useNavigate()
 
   if (isRegistered) {
-    navigate('/login')
+    navigate(PATH.LOGIN)
   }
 
   const [showPassword, setShowPassword] = useState(false)
@@ -161,7 +162,7 @@ export const Register = () => {
           </FormGroup>
         </form>
         <span>Already have an account?</span>
-        <NavLink to={'/login'} className={s.signInBtn}>
+        <NavLink to={PATH.LOGIN} className={s.signInBtn}>
           Sign In
         </NavLink>
       </div>

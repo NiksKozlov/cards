@@ -1,21 +1,15 @@
 import React, { useState } from 'react'
 
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Checkbox, FormControlLabel, FormGroup, IconButton, TextField } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
 import { useFormik } from 'formik'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-import { useAppDispatch } from '../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../common/hooks/useAppSelector'
-import { loginValidationSchema } from '../../common/utils/validationSchema/validationSchema'
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
+import { PATH } from '../../../common/routePaths/routePaths.enum'
+import { loginValidationSchema } from '../../../common/utils/validationSchema/validationSchema'
 
 import { loginTC } from './auth-reducer'
 import s from './Login.module.css'
@@ -44,7 +38,7 @@ export const Login = () => {
   })
 
   if (isLoggedIn) {
-    navigate('/')
+    navigate(PATH.PROFILE)
   }
 
   return (
@@ -97,7 +91,7 @@ export const Login = () => {
                   />
                 }
               />
-              <NavLink to={'/reset-forgot-password'} className={s.forgotPassword}>
+              <NavLink to={PATH.FORGOT_PASSWORD} className={s.forgotPassword}>
                 Forgot Password?
               </NavLink>
               <button className={s.submitBtn} type={'submit'} color={'primary'}>
@@ -107,7 +101,7 @@ export const Login = () => {
           </form>
         </FormControl>
         <span className={s.span}>Already have an account?</span>
-        <NavLink to={'/register'} className={s.signInBtn}>
+        <NavLink to={PATH.REGISTER} className={s.signInBtn}>
           Sign Up
         </NavLink>
       </div>

@@ -3,9 +3,9 @@ import React from 'react'
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 
-import { setForgotPasswordServerErrorActionType } from '../../../features/forgot-password/forgotPassword-reducer'
-import { setNewPasswordServerErrorActionType } from '../../../features/new-password/newPassword-reducer'
-import { setRegisterServerErrorActionType } from '../../../features/register/register-reducer'
+import { setForgotPasswordServerErrorActionType } from '../../../features/auth/forgot-password/forgotPassword-reducer'
+import { setNewPasswordServerErrorActionType } from '../../../features/auth/new-password/newPassword-reducer'
+import { setRegisterServerErrorActionType } from '../../../features/auth/register/register-reducer'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
@@ -23,7 +23,6 @@ type ErrorSnackbarPropsType = {
 }
 
 export function BadErrorSnackbar({ serverError, setServerErrorAction }: ErrorSnackbarPropsType) {
-  console.log(serverError)
   const dispatch = useAppDispatch()
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {

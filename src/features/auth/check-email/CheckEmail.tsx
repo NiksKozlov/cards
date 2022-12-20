@@ -2,13 +2,15 @@ import React from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
+import { PATH } from '../../../common/routePaths/routePaths.enum'
+
 import s from './CheckEmail.module.css'
 
 export const CheckEmail = () => {
   const navigate = useNavigate()
 
   const navigateToLogin = () => {
-    navigate('/login')
+    navigate(PATH.LOGIN)
   }
 
   return (

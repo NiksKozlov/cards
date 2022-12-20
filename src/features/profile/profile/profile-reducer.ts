@@ -1,8 +1,9 @@
 import { AxiosError } from 'axios'
 
-import { authAPI, profileAPI } from '../../api/cards-api'
-import { AppThunkDispatch } from '../../common/hooks/useAppDispatch'
-import { setIsLoggedInAC } from '../login/auth-reducer'
+import { authAPI } from '../../../api/auth-api'
+import { profileAPI } from '../../../api/profile-api'
+import { AppThunkDispatch } from '../../../common/hooks/useAppDispatch'
+import { setIsLoggedInAC } from '../../auth/login/auth-reducer'
 
 const profileInitialState = {
   _id: '',
