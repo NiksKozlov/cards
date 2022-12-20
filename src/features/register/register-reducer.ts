@@ -3,8 +3,6 @@ import { AppThunkDispatch } from '../../common/hooks/useAppDispatch'
 
 export type SetRegistrationDataActionType = {
   type: 'SET-REGISTRATION-DATA'
-  email: string
-  password: string
   isRegistered: boolean
 }
 
@@ -24,16 +22,12 @@ type RegisterActionsType =
   | setRegisterServerErrorActionType
 
 type InitStateType = {
-  email: string
-  password: string
   error: string
   isRegistered: boolean
   serverError: string | null
 }
 
 const initState: InitStateType = {
-  email: '',
-  password: '',
   error: '',
   isRegistered: false,
   serverError: null,
@@ -44,8 +38,6 @@ export const registerReducer = (state = initState, action: RegisterActionsType):
     case 'SET-REGISTRATION-DATA':
       return {
         ...state,
-        email: action.email,
-        password: action.password,
         isRegistered: action.isRegistered,
       }
     case 'SET-ERROR':
@@ -57,14 +49,8 @@ export const registerReducer = (state = initState, action: RegisterActionsType):
   }
 }
 
-export const setRegistrationData = (
-  email: string,
-  password: string,
-  isRegistered: boolean
-): SetRegistrationDataActionType => ({
+export const setRegistrationData = (isRegistered: boolean): SetRegistrationDataActionType => ({
   type: 'SET-REGISTRATION-DATA',
-  email,
-  password,
   isRegistered,
 })
 export const setError = (error: string): setErrorActionType => ({
@@ -81,13 +67,14 @@ export const setRegisterServerError = (
 export const registration =
   (email: string, password: string) => async (dispatch: AppThunkDispatch) => {
     try {
+      dispatch(setRegistrationData(true))
       const response = await authAPI.register(email, password)
 
       if (response.data.error) {
         dispatch(setError(response.data.error))
       } else {
         dispatch(setError(''))
-        dispatch(setRegistrationData(email, password, true))
+        dispatch(setRegistrationData(true))
       }
     } catch (err) {
       if (err instanceof Error) {

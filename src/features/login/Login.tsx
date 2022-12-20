@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
 
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { Checkbox, FormControlLabel, FormGroup, IconButton, TextField } from '@mui/material'
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  IconButton,
+  TextField,
+  Typography,
+} from '@mui/material'
 import FormControl from '@mui/material/FormControl'
 import { useFormik } from 'formik'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -81,7 +88,8 @@ export const Login = () => {
                 <div style={{ color: 'red' }}>{formik.errors.password}</div>
               )}
               <FormControlLabel
-                label={'Remember me'}
+                className={s.formControl}
+                label={<span className={s.formControlLabel}>Remember Me</span>}
                 control={
                   <Checkbox
                     {...formik.getFieldProps('rememberMe')}
@@ -89,8 +97,11 @@ export const Login = () => {
                   />
                 }
               />
+              <NavLink to={'/reset-forgot-password'} className={s.forgotPassword}>
+                Forgot Password?
+              </NavLink>
               <button className={s.submitBtn} type={'submit'} color={'primary'}>
-                Sign Ip
+                Sign In
               </button>
             </FormGroup>
           </form>
