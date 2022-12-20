@@ -48,6 +48,7 @@
   font-weight: 600;
   font-style: normal;
   line-height: 32px;
+  text-align: center;
 
   background-color: white;
 }
@@ -114,4 +115,22 @@
   font-style: normal;
   line-height: 24px;
   color: red;
+}
+
+.forgotPassword {
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  color: black;
+  text-align: right;
+  text-decoration: none;
+}
+
+.formControlLabel {
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  color: black;
 }

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { FormGroup, IconButton, TextField } from '@mui/material'
 import { useFormik } from 'formik'
-import { Navigate, NavLink } from 'react-router-dom'
+import { Navigate, NavLink, useNavigate } from 'react-router-dom'
 
 import { BadErrorSnackbar } from '../../common/components/ErrorSnackbar/BadErrorSnackbar'
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
@@ -24,6 +24,11 @@ export const Register = () => {
   const isRegistered = useAppSelector(st => st.register.isRegistered)
   const error = useAppSelector(st => st.register.error)
   const serverError = useAppSelector(st => st.register.serverError)
+  const navigate = useNavigate()
+
+  if (isRegistered) {
+    navigate('/login')
+  }
 
   const [showPassword, setShowPassword] = useState(false)
   const handleClickShowPassword = () => setShowPassword(show => !show)
@@ -35,10 +40,6 @@ export const Register = () => {
   const handleClickShowConfirmPassword = () => setShowConfirmPassword(show => !show)
   const handleMouseDownConfirmPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-  }
-
-  if (isRegistered) {
-    return <Navigate to={'/login'} />
   }
 
   const formik = useFormik({

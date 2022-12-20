@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { FormGroup, IconButton, TextField } from '@mui/material'
 import { useFormik } from 'formik'
-import { Navigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 
 import { BadErrorSnackbar } from '../../common/components/ErrorSnackbar/BadErrorSnackbar'
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
@@ -30,9 +30,10 @@ export const NewPassword = () => {
   const isCreateNewPassword = useAppSelector(st => st.newPassword.isCreateNewPassword)
   const error = useAppSelector(st => st.newPassword.error)
   const serverError = useAppSelector(st => st.newPassword.serverError)
+  const navigate = useNavigate()
 
   if (isCreateNewPassword) {
-    return <Navigate to={'/login'} />
+    navigate('/login')
   }
 
   const formik = useFormik({

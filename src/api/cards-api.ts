@@ -17,7 +17,7 @@ export const authAPI = {
     return instance.post('auth/register', { email: email, password: password })
   },
   forgotPassword(email: string) {
-    const message = `<div style="background-color: lime; padding: 15px">password recovery link: <a href='http://localhost:3000/new-forgot-password/$token$'>
+    const message = `<div style="background-color: lime; padding: 15px">password recovery link: <a href='${instance.defaults.baseURL}/new-forgot-password/$token$'>
 link</a>
 </div>`
 

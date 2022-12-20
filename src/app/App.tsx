@@ -4,6 +4,7 @@ import './App.css'
 import { CircularProgress, LinearProgress } from '@mui/material'
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 
+import { instance } from '../api/cards-api'
 import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
 import { useAppDispatch } from '../common/hooks/useAppDispatch'
 import { useAppSelector } from '../common/hooks/useAppSelector'
@@ -21,6 +22,8 @@ const App = () => {
   const isInitialized = useAppSelector(state => state.app.isInitialized)
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const status = useAppSelector(state => state.app.status)
+
+  console.log(instance.defaults.baseURL)
 
   useEffect(() => {
     dispatch(meTC())

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FormGroup, TextField } from '@mui/material'
 import { useFormik } from 'formik'
-import { Navigate, NavLink } from 'react-router-dom'
+import { Navigate, NavLink, useNavigate } from 'react-router-dom'
 
 import { BadErrorSnackbar } from '../../common/components/ErrorSnackbar/BadErrorSnackbar'
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
@@ -23,9 +23,10 @@ export const ForgotPassword = () => {
   const isSent = useAppSelector(st => st.forgotPassword.isSent)
   const error = useAppSelector(st => st.forgotPassword.error)
   const serverError = useAppSelector(st => st.forgotPassword.serverError)
+  const navigate = useNavigate()
 
   if (isSent) {
-    return <Navigate to={'/check-email'} />
+    navigate('/check-email')
   }
 
   const formik = useFormik({
