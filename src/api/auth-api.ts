@@ -2,12 +2,15 @@ import { AxiosResponse } from 'axios'
 
 import { instance } from './instance'
 
+const vercelURL = 'https://cards-eight-jade.vercel.app/'
+const localURL = 'http://localhost:3000/'
+
 export const authAPI = {
   register(email: string, password: string) {
     return instance.post('auth/register', { email: email, password: password })
   },
   forgotPassword(email: string) {
-    const message = `<div style="background-color: lime; padding: 15px">password recovery link: <a href='${instance.defaults.baseURL}new-forgot-password/$token$'>
+    const message = `<div style="background-color: lime; padding: 15px">password recovery link: <a href='${vercelURL}new-forgot-password/$token$'>
 link</a>
 </div>`
 
