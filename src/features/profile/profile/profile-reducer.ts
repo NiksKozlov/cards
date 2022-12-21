@@ -1,11 +1,9 @@
-import { AxiosError } from 'axios'
-
 import { authAPI } from '../../../api/auth-api'
 import { profileAPI } from '../../../api/profile-api'
-import { AppThunkDispatch } from '../../../common/hooks/useAppDispatch'
+import { AppThunk } from '../../../common/hooks/useAppDispatch'
 import { setIsLoggedInAC } from '../../auth/login/auth-reducer'
 
-const profileInitialState = {
+export const profileInitialState = {
   _id: '',
   email: '',
   name: '',
@@ -23,16 +21,17 @@ const initialState = {
   profile: profileInitialState,
 }
 
+export type ProfileInitialStateType = typeof profileInitialState
 type InitialStateType = typeof initialState
 
 export const profileReducer = (
   state: InitialStateType = initialState,
-  action: ActionsTypes
+  action: ProfileActionsTypes
 ): InitialStateType => {
   switch (action.type) {
-    case 'SET-PROFILE':
+    case 'PROFILE/SET-PROFILE':
       return { ...state, profile: action.profile }
-    case 'CHANGE-PROFILE-NAME':
+    case 'PROFILE/CHANGE-PROFILE-NAME':
       return { ...state, profile: { ...state.profile, name: action.name } }
     default:
       return state
@@ -40,47 +39,49 @@ export const profileReducer = (
 }
 
 // Actions
-export const setProfileAC = (profile: any) => ({ type: 'SET-PROFILE', profile } as const)
+export const setProfileAC = (profile: ProfileInitialStateType) =>
+  ({ type: 'PROFILE/SET-PROFILE', profile } as const)
 
 export const changeProfileNameAC = (name: string) =>
   ({
-    type: 'CHANGE-PROFILE-NAME',
+    type: 'PROFILE/CHANGE-PROFILE-NAME',
     name,
   } as const)
 
-// Thunks
-export const meTC = () => (dispatch: AppThunkDispatch) => {
-  authAPI
-    .me()
-    .then(res => {
-      dispatch(setIsLoggedInAC(true))
-      dispatch(setProfileAC(res.data))
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-      const error = err.response ? err.response.data.error : err.message
+export const meProfileTC = (): AppThunk => async dispatch => {
+  try {
+    const res = await profileAPI.meProfile()
 
-      console.log('error: ', error)
-    })
+    dispatch(setIsLoggedInAC(true))
+    dispatch(setProfileAC(res.data))
+  } catch (e) {
+    console.log('error: ', e)
+  }
 }
 
-export const logOutTC = () => (dispatch: AppThunkDispatch) => {
-  authAPI
-    .logOut()
-    .then(() => {
-      dispatch(setIsLoggedInAC(false))
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-      const error = err.response ? err.response.data.error : err.message
+export const changeProfileNameTC =
+  (name: string): AppThunk =>
+  async dispatch => {
+    try {
+      await profileAPI.updateProfileName(name)
 
-      console.log('error: ', error)
-    })
-}
+      dispatch(changeProfileNameAC(name))
+    } catch (e) {
+      console.log('error: ', e)
+    }
+  }
 
-export const changeProfileNameTC = (name: string) => (dispatch: AppThunkDispatch) => {
-  profileAPI.updateProfileName(name).then(res => {
-    dispatch(changeProfileNameAC(name))
-  })
+export const logOutTC = (): AppThunk => async dispatch => {
+  try {
+    await authAPI.logOut()
+
+    dispatch(setIsLoggedInAC(false))
+  } catch (e) {
+    console.log('error: ', e)
+  }
 }
 
 // Types
-type ActionsTypes = ReturnType<typeof setProfileAC> | ReturnType<typeof changeProfileNameAC>
+export type ProfileActionsTypes =
+  | ReturnType<typeof setProfileAC>
+  | ReturnType<typeof changeProfileNameAC>

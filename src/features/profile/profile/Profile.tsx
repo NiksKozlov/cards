@@ -7,7 +7,7 @@ import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
 import { EditableName } from '../EditableName/EditableName'
 
-import { changeProfileNameTC, logOutTC, meTC } from './profile-reducer'
+import { changeProfileNameTC, logOutTC, meProfileTC } from './profile-reducer'
 import s from './Profile.module.css'
 
 export const Profile = () => {
@@ -16,7 +16,7 @@ export const Profile = () => {
   const profile = useAppSelector(state => state.profile.profile)
 
   useEffect(() => {
-    const thunk = meTC()
+    const thunk = meProfileTC()
 
     dispatch(thunk)
   }, [])
@@ -37,7 +37,6 @@ export const Profile = () => {
     return <Navigate to={PATH.LOGIN} />
   }
 
-  // @ts-ignore
   return (
     <div className={s.mainContainer}>
       <div className={s.formContainer}>

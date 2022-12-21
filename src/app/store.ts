@@ -5,7 +5,7 @@ import { forgotPasswordReducer } from '../features/auth/forgot-password/forgotPa
 import { AuthActionsTypes, authReducer } from '../features/auth/login/auth-reducer'
 import { newPasswordReducer } from '../features/auth/new-password/newPassword-reducer'
 import { registerReducer } from '../features/auth/register/register-reducer'
-import { profileReducer } from '../features/profile/profile/profile-reducer'
+import { ProfileActionsTypes, profileReducer } from '../features/profile/profile/profile-reducer'
 
 import { AppActionsType, appReducer } from './app-reducer'
 
@@ -23,7 +23,7 @@ export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddle
 // определить автоматически тип всего объекта состояния
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
-export type ActionAll = AppActionsType | AuthActionsTypes
+export type ActionAll = AppActionsType | AuthActionsTypes | ProfileActionsTypes
 // а это, чтобы можно было в консоли браузера обращаться к tests в любой момент
 // @ts-ignore
 window.store = store
