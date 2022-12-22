@@ -15,6 +15,10 @@ import { meTC } from '../features/auth/login/auth-reducer'
 import { Login } from '../features/auth/login/Login'
 import { NewPassword } from '../features/auth/new-password/NewPassword'
 import { Register } from '../features/auth/register/Register'
+import { Card } from '../features/cards/card/Card'
+import { CardsList } from '../features/cards/cardList/CardsList'
+import { Pack } from '../features/packs/pack/Pack'
+import { PacksList } from '../features/packs/packsList/PacksList'
 import { Profile } from '../features/profile/profile/Profile'
 
 const App = () => {
@@ -47,6 +51,10 @@ const App = () => {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path={PATH.PROFILE} element={<Profile />} />
+          <Route path={PATH.PACKSLIST} element={<PacksList />} />
+          <Route path={PATH.PACK} element={<Pack />} />
+          <Route path={PATH.CARDSLIST} element={<CardsList />} />
+          <Route path={PATH.CARD} element={<Card />} />
         </Route>
         <Route path={PATH.LOGIN} element={<Login />} />
         <Route path={PATH.REGISTER} element={<Register />} />
