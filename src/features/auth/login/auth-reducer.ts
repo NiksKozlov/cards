@@ -48,7 +48,7 @@ export const meTC = (): AppThunk => async dispatch => {
     dispatch(setIsLoggedInAC(true))
     dispatch(setAppStatusAC('succeeded'))
   } catch (e) {
-    handleServerError(e, dispatch)
+    dispatch(setAppStatusAC('failed'))
   } finally {
     dispatch(setInitializedAC(true))
   }
