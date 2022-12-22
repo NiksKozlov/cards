@@ -58,7 +58,7 @@ export const setForgotPasswordServerError = (serverError: null | string) =>
 export const forgotPassword = (email: string) => async (dispatch: AppThunkDispatch) => {
   const vercelURL = 'https://cards-eight-jade.vercel.app/'
   const localURL = 'http://localhost:3000/'
-  const message = `<div style='background-color: lime; padding: 15px'>password recovery link: <a href='${vercelURL}new-forgot-password/$token$'>
+  const message = `<div style='background-color: lime; padding: 15px'>password recovery link: <a href='${vercelURL}new-password/$token$'>
 link</a>
 </div>`
   const data: ForgotPasswordParamsType = {
