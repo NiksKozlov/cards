@@ -8,6 +8,7 @@ import { BadErrorSnackbar } from '../../../common/components/ErrorSnackbar/BadEr
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
+import { forgotPasswordValidationSchema } from '../../../common/utils/validationSchema/validationSchema'
 
 import { forgotPassword, setForgotPasswordServerError } from './forgotPassword-reducer'
 import s from './ForgotPassword.module.css'
@@ -34,17 +35,7 @@ export const ForgotPassword = () => {
     initialValues: {
       email: '',
     },
-    validate: values => {
-      const errors: FormikErrorsType = {}
-
-      if (!values.email) {
-        errors.email = 'Required'
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address'
-      }
-
-      return errors
-    },
+    validationSchema: forgotPasswordValidationSchema,
     onSubmit: values => {
       dispatch(forgotPassword(values.email))
     },
