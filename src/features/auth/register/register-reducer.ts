@@ -1,20 +1,9 @@
-import { authAPI } from '../../../api/auth-api'
+import { authAPI, RegisterParamsType } from '../../../api/auth-api'
 import { AppThunkDispatch } from '../../../common/hooks/useAppDispatch'
 
-export type SetRegistrationDataActionType = {
-  type: 'SET-REGISTRATION-DATA'
-  isRegistered: boolean
-}
-
-export type setErrorActionType = {
-  type: 'SET-ERROR'
-  error: string
-}
-
-export type setRegisterServerErrorActionType = {
-  type: 'SET-SERVER-ERROR'
-  serverError: string | null
-}
+export type SetRegistrationDataActionType = ReturnType<typeof setRegistrationData>
+export type setErrorActionType = ReturnType<typeof setError>
+export type setRegisterServerErrorActionType = ReturnType<typeof setRegisterServerError>
 
 type RegisterActionsType =
   | SetRegistrationDataActionType
@@ -35,40 +24,48 @@ const initState: InitStateType = {
 
 export const registerReducer = (state = initState, action: RegisterActionsType): InitStateType => {
   switch (action.type) {
-    case 'SET-REGISTRATION-DATA':
+    case 'REGISTER/SET-REGISTRATION-DATA':
       return {
         ...state,
         isRegistered: action.isRegistered,
       }
-    case 'SET-ERROR':
+    case 'REGISTER/SET-ERROR':
       return { ...state, error: action.error }
-    case 'SET-SERVER-ERROR':
+    case 'REGISTER/SET-SERVER-ERROR':
       return { ...state, serverError: action.serverError }
     default:
       return state
   }
 }
 
-export const setRegistrationData = (isRegistered: boolean): SetRegistrationDataActionType => ({
-  type: 'SET-REGISTRATION-DATA',
-  isRegistered,
-})
-export const setError = (error: string): setErrorActionType => ({
-  type: 'SET-ERROR',
-  error,
-})
-export const setRegisterServerError = (
-  serverError: string | null
-): setRegisterServerErrorActionType => ({
-  type: 'SET-SERVER-ERROR',
-  serverError,
-})
+export const setRegistrationData = (isRegistered: boolean) =>
+  ({
+    type: 'REGISTER/SET-REGISTRATION-DATA',
+    isRegistered,
+  } as const)
+export const setError = (error: string) =>
+  ({
+    type: 'REGISTER/SET-ERROR',
+    error,
+  } as const)
+export const setRegisterServerError = (serverError: string | null) =>
+  ({
+    type: 'REGISTER/SET-SERVER-ERROR',
+    serverError,
+  } as const)
 
 export const registration =
   (email: string, password: string) => async (dispatch: AppThunkDispatch) => {
+    const data: RegisterParamsType = {
+      email,
+      password,
+    }
+
     try {
       dispatch(setRegistrationData(true))
-      const response = await authAPI.register(email, password)
+      const response = await authAPI.register(data)
+
+      console.log(response)
 
       if (response.data.error) {
         dispatch(setError(response.data.error))

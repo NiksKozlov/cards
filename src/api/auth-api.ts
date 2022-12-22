@@ -3,18 +3,24 @@ import { AxiosResponse } from 'axios'
 import { instance } from './instance'
 
 export const authAPI = {
-  register(email: string, password: string) {
-    return instance.post('auth/register', { email: email, password: password })
+  register(data: RegisterParamsType) {
+    return instance.post<'', AxiosResponse<RegisterResponseType>, RegisterParamsType>(
+      'auth/register',
+      data
+    )
   },
-  forgotPassword(email: string) {
-    const message = `<div style="background-color: lime; padding: 15px">password recovery link: <a href='${instance.defaults.baseURL}new-forgot-password/$token$'>
-link</a>
-</div>`
-
-    return instance.post('auth/forgot', { email, message })
+  forgotPassword(data: ForgotPasswordParamsType) {
+    return instance.post<'', AxiosResponse<ForgotPasswordResponseType>, ForgotPasswordParamsType>(
+      'auth/forgot',
+      data
+    )
   },
-  createNewPassword(password: string, someToken: string) {
-    return instance.post('auth/set-new-password', { password, resetPasswordToken: someToken })
+  createNewPassword(data: CreateNewPasswordParamsType) {
+    return instance.post<
+      '',
+      AxiosResponse<CreateNewPasswordResponseType>,
+      CreateNewPasswordParamsType
+    >('auth/set-new-password', data)
   },
   login(data: LoginParamsType) {
     return instance.post<'', AxiosResponse<AuthResponseType>, LoginParamsType>('auth/login', data)
@@ -47,3 +53,39 @@ export type AuthResponseType = {
 
   error?: string
 }
+
+export type RegisterParamsType = {
+  email: string
+  password: string
+}
+
+export type RegisterResponseType = {
+  addedUser: {
+    created: string
+    email: string
+    isAdmin: boolean
+    name: string
+    publicCardPacksCount: number
+    rememberMe: boolean
+    updated: string
+    verified: boolean
+  }
+  error?: string
+}
+
+export type ForgotPasswordParamsType = {
+  email: string
+  message: string
+}
+
+export type ForgotPasswordResponseType = {
+  info: string
+  error?: string
+}
+
+export type CreateNewPasswordParamsType = {
+  password: string
+  resetPasswordToken: string
+}
+
+export type CreateNewPasswordResponseType = ForgotPasswordResponseType

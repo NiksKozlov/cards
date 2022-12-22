@@ -1,20 +1,9 @@
-import { authAPI } from '../../../api/auth-api'
+import { authAPI, CreateNewPasswordParamsType } from '../../../api/auth-api'
 import { AppThunkDispatch } from '../../../common/hooks/useAppDispatch'
 
-export type setNewPasswordErrorActionType = {
-  type: 'SET-ERROR'
-  error: string
-}
-
-export type createNewPasswordSuccessActionType = {
-  type: 'CREATE-PASSWORD-SUCCESS'
-  isCreateNewPassword: boolean
-}
-
-export type setNewPasswordServerErrorActionType = {
-  type: 'SET-SERVER-ERROR'
-  serverError: null | string
-}
+export type setNewPasswordErrorActionType = ReturnType<typeof setNewPasswordError>
+export type createNewPasswordSuccessActionType = ReturnType<typeof createNewPasswordSuccess>
+export type setNewPasswordServerErrorActionType = ReturnType<typeof setNewPasswordServerError>
 
 type NewPasswordActionsType =
   | setNewPasswordErrorActionType
@@ -38,39 +27,43 @@ export const newPasswordReducer = (
   action: NewPasswordActionsType
 ): InitStateType => {
   switch (action.type) {
-    case 'CREATE-PASSWORD-SUCCESS':
+    case 'NEW-PASSWORD/CREATE-PASSWORD-SUCCESS':
       return { ...state, isCreateNewPassword: action.isCreateNewPassword }
-    case 'SET-ERROR':
+    case 'NEW-PASSWORD/SET-ERROR':
       return { ...state, error: action.error }
-    case 'SET-SERVER-ERROR':
+    case 'NEW-PASSWORD/SET-SERVER-ERROR':
       return { ...state, serverError: action.serverError }
     default:
       return state
   }
 }
 
-export const setNewPasswordError = (error: string): setNewPasswordErrorActionType => ({
-  type: 'SET-ERROR',
-  error,
-})
-export const createNewPasswordSuccess = (
-  isCreateNewPassword: boolean
-): createNewPasswordSuccessActionType => ({
-  type: 'CREATE-PASSWORD-SUCCESS',
-  isCreateNewPassword,
-})
-export const setNewPasswordServerError = (
-  serverError: null | string
-): setNewPasswordServerErrorActionType => ({
-  type: 'SET-SERVER-ERROR',
-  serverError,
-})
+export const setNewPasswordError = (error: string) =>
+  ({
+    type: 'NEW-PASSWORD/SET-ERROR',
+    error,
+  } as const)
+export const createNewPasswordSuccess = (isCreateNewPassword: boolean) =>
+  ({
+    type: 'NEW-PASSWORD/CREATE-PASSWORD-SUCCESS',
+    isCreateNewPassword,
+  } as const)
+export const setNewPasswordServerError = (serverError: null | string) =>
+  ({
+    type: 'NEW-PASSWORD/SET-SERVER-ERROR',
+    serverError,
+  } as const)
 
 export const createNewPassword =
   (password: string, someToken: string) => async (dispatch: AppThunkDispatch) => {
+    const data: CreateNewPasswordParamsType = {
+      password,
+      resetPasswordToken: someToken,
+    }
+
     try {
       dispatch(createNewPasswordSuccess(false))
-      const response = await authAPI.createNewPassword(password, someToken)
+      const response = await authAPI.createNewPassword(data)
 
       if (response.data.error) {
         dispatch(setNewPasswordError(response.data.error))

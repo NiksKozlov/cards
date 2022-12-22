@@ -9,6 +9,7 @@ import { BadErrorSnackbar } from '../../../common/components/ErrorSnackbar/BadEr
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
+import { newPasswordValidationSchema } from '../../../common/utils/validationSchema/validationSchema'
 
 import { createNewPassword, setNewPasswordServerError } from './newPassword-reducer'
 import s from './NewPassword.module.css'
@@ -41,19 +42,7 @@ export const NewPassword = () => {
     initialValues: {
       password: '',
     },
-    validate: values => {
-      const errors: FormikErrorsType = {}
-
-      if (!values.password) {
-        errors.password = 'Required'
-      } else if (values.password.length > 20) {
-        errors.password = 'Must be 20 characters or less'
-      } else if (values.password.length < 5) {
-        errors.password = 'Must be at least 5 characters'
-      }
-
-      return errors
-    },
+    validationSchema: newPasswordValidationSchema,
     onSubmit: values => {
       dispatch(createNewPassword(values.password, token as string))
     },
