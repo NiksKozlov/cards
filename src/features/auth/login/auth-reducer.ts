@@ -2,6 +2,7 @@ import { authAPI, LoginParamsType } from '../../../api/auth-api'
 import { setAppStatusAC, setInitializedAC } from '../../../app/app-reducer'
 import { AppThunk } from '../../../common/hooks/useAppDispatch'
 import { handleServerError } from '../../../common/utils/error-handler/error-handler'
+import { setProfileAC } from '../../profile/profile/profile-reducer'
 
 const initialState = {
   isLoggedIn: false,
@@ -46,6 +47,7 @@ export const meTC = (): AppThunk => async dispatch => {
     const res = await authAPI.me()
 
     dispatch(setIsLoggedInAC(true))
+    dispatch(setProfileAC(res.data))
     dispatch(setAppStatusAC('succeeded'))
   } catch (e) {
     dispatch(setAppStatusAC('failed'))
