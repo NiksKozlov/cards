@@ -1,14 +1,13 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../../../common/hooks/useAppSelector'
 import { addNewPackTC } from '../packslist-reducer'
 
-type AddNewPackLocalStateType = typeof addNewPackLocalState
+export type AddNewPackLocalStateType = typeof addNewPackLocalState
 
 const addNewPackLocalState = {
   cardsPack: {
-    name: 'Add New Pack`s Name',
+    name: 'New Pack Added',
     deckCover: 'New Url',
     private: false,
   },
@@ -16,13 +15,12 @@ const addNewPackLocalState = {
 
 export const AddNewPack = () => {
   const dispatch = useAppDispatch()
-  const newPackName = useAppSelector(state => state.packsList.cardsPack.name)
 
-  const addNewPack = useCallback(function (addNewPackLocalState: AddNewPackLocalStateType) {
+  const addNewPack = (addNewPackLocalState: AddNewPackLocalStateType) => {
     const thunk = addNewPackTC(addNewPackLocalState)
 
     dispatch(thunk)
-  }, [])
+  }
 
   return (
     <div>
@@ -33,7 +31,6 @@ export const AddNewPack = () => {
       >
         Add new pack
       </button>
-      <div>{newPackName}</div>
     </div>
   )
 }
