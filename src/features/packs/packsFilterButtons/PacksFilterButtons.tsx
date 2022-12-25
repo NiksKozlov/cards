@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { ButtonGroup, List } from '@mui/material'
+import { ButtonGroup } from '@mui/material'
 import Button from '@mui/material/Button'
 import { useSearchParams } from 'react-router-dom'
 
@@ -11,8 +11,8 @@ import { filterPackListTC } from '../packsList/packs-reducer'
 export const PacksFilterButtons = () => {
   const dispatch = useAppDispatch()
 
-  const profileId = useAppSelector(state => state.profile._id)
   const packsFilter = useAppSelector(state => state.packs.packsFilter)
+  const profileId = useAppSelector(state => state.profile._id)
 
   const [searchParams, setSearchParams] = useSearchParams()
   const userId = searchParams.get('user_id')
@@ -21,7 +21,7 @@ export const PacksFilterButtons = () => {
     setSearchParams({ user_id: profileId })
   }
   const onAllClickHandler = () => {
-    setSearchParams({})
+    setSearchParams()
   }
 
   useEffect(() => {

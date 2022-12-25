@@ -4,7 +4,7 @@ import { AppThunk } from '../../../common/hooks/useAppDispatch'
 import { handleServerError } from '../../../common/utils/error-handler/error-handler'
 
 const initialState = {
-  packsFilter: 'All' as ShowPacksFilterType,
+  packsFilter: '' as ShowPacksFilterType,
   cardPacks: [] as CardPacksType[],
 }
 
