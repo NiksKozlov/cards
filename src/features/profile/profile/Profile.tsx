@@ -16,15 +16,11 @@ export const Profile = () => {
   const profile = useAppSelector(state => state.profile)
 
   const logOut = () => {
-    const thunk = logOutTC()
-
-    dispatch(thunk)
+    dispatch(logOutTC())
   }
 
   const changeProfileName = useCallback(function (name: string) {
-    const thunk = changeProfileNameTC(name)
-
-    dispatch(thunk)
+    dispatch(changeProfileNameTC(name))
   }, [])
 
   if (!isLoggedIn) {

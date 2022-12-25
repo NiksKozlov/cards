@@ -6,8 +6,8 @@ export enum PATH {
   CHECK_EMAIL = '/check-email',
   NEW_PASSWORD = '/new-password',
   NEW_PASSWORD_TOKEN = '/new-password/:token',
-  PACKSLIST = '/packslist',
+  PACKS_LIST = '/packs-list',
   PACK = '/pack',
-  CARDSLIST = '/cardslist',
+  CARDS_LIST = '/cards-list',
   CARD = '/card',
 }

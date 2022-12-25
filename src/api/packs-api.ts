@@ -5,8 +5,8 @@ import { CardPacksType } from '../features/packs/packsList/packs-reducer'
 import { instance } from './instance'
 
 export const packsAPI = {
-  getPacksList(queryParams: PacksParamsType) {
-    return instance.get<'', AxiosResponse<GetPacksResponseType>, PacksParamsType>('cards/pack', {
+  getPacks(queryParams: PacksParamsType) {
+    return instance.get<PacksResponseType>('cards/pack', {
       params: queryParams,
     })
   },
@@ -26,7 +26,7 @@ type PacksParamsType = {
   block?: boolean
 }
 
-type GetPacksResponseType = {
+type PacksResponseType = {
   cardPacks: CardPacksType[]
   cardPacksTotalCount: number // количество колод
   maxCardsCount: number
