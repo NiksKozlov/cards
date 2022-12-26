@@ -18,6 +18,8 @@ import { Register } from '../features/auth/register/Register'
 import { CardsList } from '../features/cards/cardList/CardsList'
 import { PacksFilterButtons } from '../features/packs/packsFilterButtons/PacksFilterButtons'
 import { PacksList } from '../features/packs/packsList/PacksList'
+import { PacksPagination } from '../features/packs/pagination/PacksPagination'
+import SearchField from '../features/packs/searchField/SearchField'
 import { Profile } from '../features/profile/profile/Profile'
 
 const App = () => {
@@ -60,6 +62,8 @@ const App = () => {
         <Route path={PATH.NEW_PASSWORD_TOKEN} element={<NewPassword />} />
         {/*-------------------------test----------------------*/}
         <Route path={'/packs-filter'} element={<PacksFilterButtons />} />
+        <Route path={'/pagination'} element={<PacksPagination />} />
+        <Route path={'/search'} element={<SearchField />} />
         {/*-------------------------test----------------------*/}
         <Route
           path={'/404'}

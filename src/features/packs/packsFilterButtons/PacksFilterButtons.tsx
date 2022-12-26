@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom'
 
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import { filterPackListTC } from '../packsList/packs-reducer'
+import { getPacksTC } from '../packsList/packs-reducer'
 
 export const PacksFilterButtons = () => {
   const dispatch = useAppDispatch()
@@ -26,9 +26,9 @@ export const PacksFilterButtons = () => {
 
   useEffect(() => {
     if (userId) {
-      dispatch(filterPackListTC(userId))
+      dispatch(getPacksTC('My', userId))
     } else {
-      dispatch(filterPackListTC())
+      dispatch(getPacksTC('All'))
     }
   }, [userId])
 
