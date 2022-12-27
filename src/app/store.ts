@@ -5,6 +5,7 @@ import { forgotPasswordReducer } from '../features/auth/forgot-password/forgotPa
 import { AuthActionsTypes, authReducer } from '../features/auth/login/auth-reducer'
 import { newPasswordReducer } from '../features/auth/new-password/newPassword-reducer'
 import { registerReducer } from '../features/auth/register/register-reducer'
+import { CardsActionsTypes, cardsReducer } from '../features/cards/cardList/cards-reducer'
 import { PacksActionsTypes, packsReducer } from '../features/packs/packsList/packs-reducer'
 import { ProfileActionsTypes, profileReducer } from '../features/profile/profile/profile-reducer'
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   forgotPassword: forgotPasswordReducer,
   newPassword: newPasswordReducer,
   packs: packsReducer,
+  cards: cardsReducer,
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))
@@ -25,7 +27,12 @@ export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddle
 // определить автоматически тип всего объекта состояния
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
-export type ActionAll = AppActionsType | AuthActionsTypes | ProfileActionsTypes | PacksActionsTypes
+export type ActionAll =
+  | AppActionsType
+  | AuthActionsTypes
+  | ProfileActionsTypes
+  | PacksActionsTypes
+  | CardsActionsTypes
 // а это, чтобы можно было в консоли браузера обращаться к tests в любой момент
 // @ts-ignore
 window.store = store

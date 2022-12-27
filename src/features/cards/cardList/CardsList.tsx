@@ -1,5 +1,62 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
+import { StyledHeadTableCell, StyledHeadTableRow } from '../../../common/styles/tableStyleWrapper'
+import { Card } from '../card/Card'
+
+import { getCardsTC } from './cards-reducer'
+import s from './CardsList.module.css'
 
 export const CardsList = () => {
-  return <div>I am CardsList</div>
+  const dispatch = useAppDispatch()
+  const cards = useAppSelector(st => st.cards.cards)
+  const packId = useAppSelector(st => st.cards.packId)
+
+  console.log(packId)
+
+  // useEffect(() => {
+  //   dispatch(getCardsTC(packId))
+  // }, [])
+
+  const getCardsHandler = () => {
+    dispatch(getCardsTC(packId))
+  }
+
+  return (
+    <div className={s.mainContainer}>
+      <button onClick={getCardsHandler}>get cards</button>
+      <div></div>
+      <TableContainer component={Paper} className={s.tableContainer}>
+        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+          <TableHead>
+            <StyledHeadTableRow>
+              <StyledHeadTableCell>Question</StyledHeadTableCell>
+              <StyledHeadTableCell align="right">Answer</StyledHeadTableCell>
+              <StyledHeadTableCell align="right">Last Updated</StyledHeadTableCell>
+              <StyledHeadTableCell align="right">Grade</StyledHeadTableCell>
+              <StyledHeadTableCell align="right"></StyledHeadTableCell>
+            </StyledHeadTableRow>
+          </TableHead>
+          <TableBody>
+            {cards.map(c => (
+              <Card
+                key={c._id}
+                question={c.question}
+                answer={c.answer}
+                updated={c.updated}
+                grade={c.grade}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+  )
 }

@@ -50,6 +50,7 @@ export const setPageQtyAC = (pageQty: number) => ({ type: 'PACKS/SET-PAGE-QTY', 
 export const getPacksTC =
   (filter?: FilterType, profileId?: string, page?: number, packName?: string): AppThunk =>
   async dispatch => {
+    debugger
     try {
       dispatch(setAppStatusAC('loading'))
       const params: ParamsType = {}
@@ -89,6 +90,7 @@ export type CardPacksType = {
   cardsCount: number
   created: Date
   updated: Date
+  user_name: string
 }
 
 export type PacksActionsTypes =
