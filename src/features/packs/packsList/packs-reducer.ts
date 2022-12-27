@@ -74,6 +74,14 @@ export const getPacksTC =
     }
   }
 
+export const addNewPackTC = (): AppThunk => async dispatch => {
+  try {
+    dispatch(setAppStatusAC('loading'))
+  } catch (e) {
+    handleServerError(e, dispatch)
+  }
+}
+
 type ParamsType = {
   filter?: FilterType | undefined
   user_id?: string | undefined
