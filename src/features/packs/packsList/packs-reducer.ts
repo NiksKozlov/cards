@@ -48,7 +48,13 @@ export const setPageQtyAC = (pageQty: number) => ({ type: 'PACKS/SET-PAGE-QTY', 
 
 //thunks
 export const getPacksTC =
-  (filter?: FilterType, profileId?: string, page?: number, packName?: string): AppThunk =>
+  (
+    filter?: FilterType,
+    profileId?: string,
+    page?: number,
+    packName?: string,
+    pageCount?: number
+  ): AppThunk =>
   async dispatch => {
     debugger
     try {
@@ -58,16 +64,16 @@ export const getPacksTC =
       if (profileId) params.user_id = profileId
       if (page) params.page = page
       if (packName) params.packName = packName
+      if (pageCount) params.pageCount = pageCount
 
       const res = await packsAPI.getPacks(params)
 
-      dispatch(setPacksFilterAC(profileId ? 'My' : 'All'))
+      if (filter) dispatch(setPacksFilterAC(filter))
+      if (page) dispatch(setPageAC(res.data.page))
+      if (pageCount) dispatch(setPageCountAC(res.data.pageCount))
+      if (pageCount) dispatch(setPageQtyAC(Math.ceil(res.data.cardPacksTotalCount / pageCount)))
+
       dispatch(setPacksListAC(res.data.cardPacks))
-
-      dispatch(setPageAC(res.data.page))
-      dispatch(setPageCountAC(res.data.pageCount))
-      dispatch(setPageQtyAC(Math.ceil(res.data.pageCount / 5)))
-
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)
@@ -78,6 +84,7 @@ type ParamsType = {
   filter?: FilterType | undefined
   user_id?: string | undefined
   page?: number | undefined
+  pageCount?: number | undefined
   packName?: string | undefined
 }
 
