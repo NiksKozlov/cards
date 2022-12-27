@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -13,7 +13,6 @@ import { Pack } from '../pack/Pack'
 
 import { getPacksTC } from './packs-reducer'
 import s from './PacksList.module.css'
-
 import { AddNewPack } from './packsListCrud/AddNewPack'
 import { DeletePack } from './packsListCrud/DeletePack'
 import { EditPack } from './packsListCrud/EditPack'
@@ -22,20 +21,12 @@ import { LearnPack } from './packsListCrud/LearnPack'
 export const PacksList = () => {
   const dispatch = useAppDispatch()
   const packs = useAppSelector(st => st.packs.cardPacks)
-  const isLoggedIn = useAppSelector(st => st.auth.isLoggedIn)
 
   console.log(packs)
 
   const getCardsHandler = () => {
     dispatch(getPacksTC())
   }
-
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     debugger
-  //     dispatch(getPacksTC())
-  //   }
-  // }, [])
 
   return (
     <div className={s.mainContainer}>

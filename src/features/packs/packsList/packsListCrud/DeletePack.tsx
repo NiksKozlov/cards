@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
-import { deletePackTC } from '../packslist-reducer'
+import { deletePackTC } from '../packs-reducer'
+
+import { useAppDispatch } from 'common/hooks/useAppDispatch'
 
 const _id = '63a60674e5ca1f0234b04cfb'
 

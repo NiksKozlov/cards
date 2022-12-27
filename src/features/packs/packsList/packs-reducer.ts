@@ -3,13 +3,29 @@ import { setAppStatusAC } from '../../../app/app-reducer'
 import { AppThunk } from '../../../common/hooks/useAppDispatch'
 import { handleServerError } from '../../../common/utils/error-handler/error-handler'
 
+import { AddNewPackLocalStateType } from './packsListCrud/AddNewPack'
+import { EditPackLocalStateType } from './packsListCrud/EditPack'
+
+export type CardPacksType = {
+  _id: string
+  user_id: string
+  name: string
+  cardsCount: number
+  created: Date
+  updated: Date
+  user_name: string
+  deckCover: string
+  private: boolean
+}
+
 const initialState = {
   packsFilter: '' as FilterType,
   cardPacks: [] as CardPacksType[],
   cardPacksTotalCount: null as null | number,
   maxCardsCount: null as null | number,
   minCardsCount: null as null | number,
-  page: undefined as undefined | number,
+  // page: undefined as undefined | number,
+  page: 1,
   pageCount: 5,
   pageQty: null as null | number,
 }
@@ -31,6 +47,35 @@ export const packsReducer = (
       return { ...state, pageCount: action.pageCount }
     case 'PACKS/SET-PAGE-QTY':
       return { ...state, pageQty: action.pageQty }
+    case 'PACKS/ADD-NEW-PACK':
+      console.log('ADD-NEW-PACK')
+      // console.log(action.packData.name)
+
+      return { ...state, cardPacks: state.cardPacks.map(el => ({ ...el })) }
+
+    // name: action.packData.name,
+    // deckCover: action.packData.name,
+    // private: action.packData.private,
+
+    // name: action.packData.name,
+    // deckCover: action.packData.name,
+    // private: action.packData.private,
+
+    case 'PACKS/EDIT-PACK':
+      console.log('EDIT-PACK')
+
+      return { ...state, cardPacks: state.cardPacks.map(el => ({ ...el })) }
+
+    // return {
+    //   ...state,
+    //   _id: action.packData._id,
+    //   name: action.packData.name,
+    // }
+    // case 'PACKS/DELETE-PACK':
+    //   console.log('Pack Deleted')
+    //   console.log(state)
+    //
+    //   return state
     default:
       return state
   }
@@ -46,6 +91,15 @@ export const setPageCountAC = (pageCount: number) =>
   ({ type: 'PACKS/SET-PAGE-COUNT', pageCount } as const)
 export const setPageQtyAC = (pageQty: number) => ({ type: 'PACKS/SET-PAGE-QTY', pageQty } as const)
 
+export const addNewPackAC = (packData: InitialStateType) =>
+  ({ type: 'PACKS/ADD-NEW-PACK', packData } as const)
+
+export const editPackAC = (packData: InitialStateType) =>
+  ({ type: 'PACKS/EDIT-PACK', packData } as const)
+
+// export const deletePackAC = (packData: InitialStateType) =>
+//   ({ type: 'PACKS/DELETE-PACK', packData } as const)
+
 //thunks
 export const getPacksTC =
   (
@@ -56,7 +110,6 @@ export const getPacksTC =
     pageCount?: number
   ): AppThunk =>
   async dispatch => {
-    debugger
     try {
       dispatch(setAppStatusAC('loading'))
       const params: ParamsType = {}
@@ -80,6 +133,42 @@ export const getPacksTC =
     }
   }
 
+// export const addNewPackTC =
+//   (packData: AddNewPackLocalStateType): AppThunk =>
+//   async dispatch => {
+//     try {
+//       const res = await packsAPI.addNewPack(packData)
+//
+//       dispatch(addNewPackAC(res.data.newCardsPack))
+//     } catch (e) {
+//       console.log('error: ', e)
+//     }
+//   }
+//
+// export const editPackTC =
+//   (packData: EditPackLocalStateType): AppThunk =>
+//   async dispatch => {
+//     try {
+//       const res = await packsAPI.editPack(packData)
+//
+//       dispatch(editPackAC(res.data.updatedCardsPack))
+//     } catch (e) {
+//       console.log('error: ', e)
+//     }
+//   }
+
+export const deletePackTC =
+  (id: string): AppThunk =>
+  async dispatch => {
+    try {
+      await packsAPI.deletePack(id)
+
+      dispatch(getPacksTC())
+    } catch (e) {
+      console.log('error: ', e)
+    }
+  }
+
 type ParamsType = {
   filter?: FilterType | undefined
   user_id?: string | undefined
@@ -90,19 +179,11 @@ type ParamsType = {
 
 type FilterType = 'My' | 'All'
 
-export type CardPacksType = {
-  _id: string
-  user_id: string
-  name: string
-  cardsCount: number
-  created: Date
-  updated: Date
-  user_name: string
-}
-
 export type PacksActionsTypes =
   | ReturnType<typeof setPacksFilterAC>
   | ReturnType<typeof setPacksListAC>
   | ReturnType<typeof setPageAC>
   | ReturnType<typeof setPageCountAC>
   | ReturnType<typeof setPageQtyAC>
+  | ReturnType<typeof addNewPackAC>
+  | ReturnType<typeof editPackAC>

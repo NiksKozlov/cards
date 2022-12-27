@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { addNewPackTC } from '../packslist-reducer'
+import { addNewPackTC } from '../packs-reducer'
 
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
 
