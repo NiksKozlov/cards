@@ -23,7 +23,6 @@ export const packsAPI = {
     )
   },
   deletePack(id: string) {
-    // return instance.delete<'', AxiosResponse<deletedPackResponseType>, deletePackDataType>(
     return instance.delete<deletedPackResponseType>(`cards/pack/?id=${id}`)
   },
 }
@@ -97,7 +96,3 @@ export type PacksParamsType = {
 
   block?: boolean
 }
-
-// type deletePackDataType = {
-//   _id: string
-// }

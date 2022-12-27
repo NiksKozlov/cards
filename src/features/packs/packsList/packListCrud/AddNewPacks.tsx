@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { addNewPackTC } from '../packs-reducer'
+import s from '../PacksList.module.css'
 
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
 
@@ -14,7 +15,7 @@ const addNewPackLocalState = {
   },
 }
 
-export const AddNewPack = () => {
+export const AddNewPacks = () => {
   const dispatch = useAppDispatch()
 
   const addNewPack = (addNewPackLocalState: AddNewPackLocalStateType) => {
@@ -24,14 +25,13 @@ export const AddNewPack = () => {
   }
 
   return (
-    <div>
-      <button
-        onClick={() => {
-          addNewPack(addNewPackLocalState)
-        }}
-      >
-        Add new pack
-      </button>
-    </div>
+    <button
+      className={s.addPackBtn}
+      onClick={() => {
+        addNewPack(addNewPackLocalState)
+      }}
+    >
+      Add new pack
+    </button>
   )
 }

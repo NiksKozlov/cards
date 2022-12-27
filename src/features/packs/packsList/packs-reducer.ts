@@ -1,10 +1,11 @@
-import { packsAPI } from '../../../api/packs-api'
-import { setAppStatusAC } from '../../../app/app-reducer'
-import { AppThunk } from '../../../common/hooks/useAppDispatch'
-import { handleServerError } from '../../../common/utils/error-handler/error-handler'
+import { EditPackLocalStateType } from '../pack/packCrud/EditPack'
 
-import { AddNewPackLocalStateType } from './packsListCrud/AddNewPack'
-import { EditPackLocalStateType } from './packsListCrud/EditPack'
+import { AddNewPackLocalStateType } from './packListCrud/AddNewPacks'
+
+import { packsAPI } from 'api/packs-api'
+import { setAppStatusAC } from 'app/app-reducer'
+import { AppThunk } from 'common/hooks/useAppDispatch'
+import { handleServerError } from 'common/utils/error-handler/error-handler'
 
 export type CardPacksType = {
   _id: string
@@ -24,7 +25,6 @@ const initialState = {
   cardPacksTotalCount: null as null | number,
   maxCardsCount: null as null | number,
   minCardsCount: null as null | number,
-  // page: undefined as undefined | number,
   page: 1,
   pageCount: 5,
   pageQty: null as null | number,
@@ -47,35 +47,6 @@ export const packsReducer = (
       return { ...state, pageCount: action.pageCount }
     case 'PACKS/SET-PAGE-QTY':
       return { ...state, pageQty: action.pageQty }
-    case 'PACKS/ADD-NEW-PACK':
-      console.log('ADD-NEW-PACK')
-      // console.log(action.packData.name)
-
-      return { ...state, cardPacks: state.cardPacks.map(el => ({ ...el })) }
-
-    // name: action.packData.name,
-    // deckCover: action.packData.name,
-    // private: action.packData.private,
-
-    // name: action.packData.name,
-    // deckCover: action.packData.name,
-    // private: action.packData.private,
-
-    case 'PACKS/EDIT-PACK':
-      console.log('EDIT-PACK')
-
-      return { ...state, cardPacks: state.cardPacks.map(el => ({ ...el })) }
-
-    // return {
-    //   ...state,
-    //   _id: action.packData._id,
-    //   name: action.packData.name,
-    // }
-    // case 'PACKS/DELETE-PACK':
-    //   console.log('Pack Deleted')
-    //   console.log(state)
-    //
-    //   return state
     default:
       return state
   }
@@ -90,15 +61,6 @@ export const setPageAC = (page: number) => ({ type: 'PACKS/SET-PAGE', page } as 
 export const setPageCountAC = (pageCount: number) =>
   ({ type: 'PACKS/SET-PAGE-COUNT', pageCount } as const)
 export const setPageQtyAC = (pageQty: number) => ({ type: 'PACKS/SET-PAGE-QTY', pageQty } as const)
-
-export const addNewPackAC = (packData: InitialStateType) =>
-  ({ type: 'PACKS/ADD-NEW-PACK', packData } as const)
-
-export const editPackAC = (packData: InitialStateType) =>
-  ({ type: 'PACKS/EDIT-PACK', packData } as const)
-
-// export const deletePackAC = (packData: InitialStateType) =>
-//   ({ type: 'PACKS/DELETE-PACK', packData } as const)
 
 //thunks
 export const getPacksTC =
@@ -133,37 +95,43 @@ export const getPacksTC =
     }
   }
 
-// export const addNewPackTC =
-//   (packData: AddNewPackLocalStateType): AppThunk =>
-//   async dispatch => {
-//     try {
-//       const res = await packsAPI.addNewPack(packData)
-//
-//       dispatch(addNewPackAC(res.data.newCardsPack))
-//     } catch (e) {
-//       console.log('error: ', e)
-//     }
-//   }
-//
-// export const editPackTC =
-//   (packData: EditPackLocalStateType): AppThunk =>
-//   async dispatch => {
-//     try {
-//       const res = await packsAPI.editPack(packData)
-//
-//       dispatch(editPackAC(res.data.updatedCardsPack))
-//     } catch (e) {
-//       console.log('error: ', e)
-//     }
-//   }
+export const addNewPackTC =
+  (packData: AddNewPackLocalStateType): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      await packsAPI.addNewPack(packData)
+
+      dispatch(getPacksTC())
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      console.log('error: ', e)
+    }
+  }
+
+export const editPackTC =
+  (packData: EditPackLocalStateType): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      await packsAPI.editPack(packData)
+
+      dispatch(getPacksTC())
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      console.log('error: ', e)
+    }
+  }
 
 export const deletePackTC =
   (id: string): AppThunk =>
   async dispatch => {
     try {
+      dispatch(setAppStatusAC('loading'))
       await packsAPI.deletePack(id)
 
       dispatch(getPacksTC())
+      dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       console.log('error: ', e)
     }
@@ -185,5 +153,3 @@ export type PacksActionsTypes =
   | ReturnType<typeof setPageAC>
   | ReturnType<typeof setPageCountAC>
   | ReturnType<typeof setPageQtyAC>
-  | ReturnType<typeof addNewPackAC>
-  | ReturnType<typeof editPackAC>
