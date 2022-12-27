@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
 import { addNewPackTC } from '../packslist-reducer'
+
+import { useAppDispatch } from 'common/hooks/useAppDispatch'
 
 export type AddNewPackLocalStateType = typeof addNewPackLocalState
 

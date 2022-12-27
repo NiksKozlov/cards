@@ -1,9 +1,10 @@
-import { packsAPI } from '../../../api/packs-api'
-import { AppThunk } from '../../../common/hooks/useAppDispatch'
-
 import { AddNewPackLocalStateType } from './packsListCrud/AddNewPack'
 import { EditPackLocalStateType } from './packsListCrud/EditPack'
 
+import { packsAPI } from 'api/packs-api'
+import { AppThunk } from 'common/hooks/useAppDispatch'
+
+// !!!! ИСПРАВИТЬ!!!! Должно быть то, что лежит в стейте на сервере (пример 2_31_38 и 2_54_20)
 const initialState = {
   _id: '',
   name: '',
@@ -13,6 +14,7 @@ const initialState = {
 
 type InitialStateType = typeof initialState
 
+// пример 2_31_40
 export const packsListReducer = (
   state: InitialStateType = initialState,
   action: PacksListActionsTypes
@@ -46,7 +48,7 @@ export const packsListReducer = (
   }
 }
 
-// Actions
+// Actions (пример 2_31_55)
 export const addNewPackAC = (packData: InitialStateType) =>
   ({ type: 'PACKSLIST/ADD-NEW-PACK', packData } as const)
 
@@ -56,7 +58,7 @@ export const editPackAC = (packData: InitialStateType) =>
 export const deletePackAC = (packData: InitialStateType) =>
   ({ type: 'PACKSLIST/DELETE-PACK', packData } as const)
 
-// Thunks
+// Thunks (пример 2_32_46)
 export const addNewPackTC =
   (packData: AddNewPackLocalStateType): AppThunk =>
   async dispatch => {

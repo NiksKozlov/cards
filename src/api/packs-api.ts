@@ -16,9 +16,8 @@ export const packsAPI = {
     )
   },
   deletePack(id: string) {
-    return instance.delete<'', AxiosResponse<deletedPackResponseType>, deletePackDataType>(
-      `cards/pack/?id=${id}`
-    )
+    // return instance.delete<'', AxiosResponse<deletedPackResponseType>, deletePackDataType>(
+    return instance.delete<deletedPackResponseType>(`cards/pack/?id=${id}`)
   },
 }
 
@@ -70,6 +69,6 @@ type editPackDataType = {
   }
 }
 
-type deletePackDataType = {
-  _id: string
-}
+// type deletePackDataType = {
+//   _id: string
+// }
