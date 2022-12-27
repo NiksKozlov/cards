@@ -1,8 +1,15 @@
 import { AxiosResponse } from 'axios'
 
+import { CardPacksType } from '../features/packs/packsList/packs-reducer'
+
 import { instance } from './instance'
 
 export const packsAPI = {
+  getPacks(params: PacksParamsType) {
+    return instance.get<PacksResponseType>('cards/pack', {
+      params,
+    })
+  },
   addNewPack(packData: addNewPackDataType) {
     return instance.post<'', AxiosResponse<addNewPackResponseType>, addNewPackDataType>(
       'cards/pack',
@@ -53,6 +60,15 @@ type deletedPackResponseType = {
   deletedCardsPack: ResponseType
 }
 
+type PacksResponseType = {
+  cardPacks: CardPacksType[]
+  cardPacksTotalCount: number
+  maxCardsCount: number
+  minCardsCount: number
+  page: number
+  pageCount: number
+}
+
 //DataTypes
 type addNewPackDataType = {
   cardsPack: {
@@ -67,6 +83,19 @@ type editPackDataType = {
     _id: string
     name: string
   }
+}
+
+export type PacksParamsType = {
+  packName?: string
+  min?: number
+  max?: number
+  sortPacks?: string
+  page?: number
+  pageCount?: number
+
+  user_id?: string
+
+  block?: boolean
 }
 
 // type deletePackDataType = {

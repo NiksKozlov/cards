@@ -33,6 +33,7 @@ export const authAPI = {
   },
 }
 
+//types
 export type LoginParamsType = {
   email: string
   password: string

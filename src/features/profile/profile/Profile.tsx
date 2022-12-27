@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
@@ -7,30 +7,20 @@ import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
 import { EditableName } from '../EditableName/EditableName'
 
-import { changeProfileNameTC, logOutTC, meProfileTC } from './profile-reducer'
+import { changeProfileNameTC, logOutTC } from './profile-reducer'
 import s from './Profile.module.css'
 
 export const Profile = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-  const profile = useAppSelector(state => state.profile.profile)
-
-  useEffect(() => {
-    const thunk = meProfileTC()
-
-    dispatch(thunk)
-  }, [])
+  const profile = useAppSelector(state => state.profile)
 
   const logOut = () => {
-    const thunk = logOutTC()
-
-    dispatch(thunk)
+    dispatch(logOutTC())
   }
 
   const changeProfileName = useCallback(function (name: string) {
-    const thunk = changeProfileNameTC(name)
-
-    dispatch(thunk)
+    dispatch(changeProfileNameTC(name))
   }, [])
 
   if (!isLoggedIn) {

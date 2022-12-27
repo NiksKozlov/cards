@@ -15,10 +15,11 @@ import { meTC } from '../features/auth/login/auth-reducer'
 import { Login } from '../features/auth/login/Login'
 import { NewPassword } from '../features/auth/new-password/NewPassword'
 import { Register } from '../features/auth/register/Register'
-import { Card } from '../features/cards/card/Card'
 import { CardsList } from '../features/cards/cardList/CardsList'
-import { Pack } from '../features/packs/pack/Pack'
+import { PacksFilterButtons } from '../features/packs/packsFilterButtons/PacksFilterButtons'
 import { PacksList } from '../features/packs/packsList/PacksList'
+import { PacksPagination } from '../features/packs/pagination/PacksPagination'
+import SearchField from '../features/packs/searchField/SearchField'
 import { Profile } from '../features/profile/profile/Profile'
 
 const App = () => {
@@ -51,16 +52,19 @@ const App = () => {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path={PATH.PROFILE} element={<Profile />} />
-          <Route path={PATH.PACKSLIST} element={<PacksList />} />
-          <Route path={PATH.PACK} element={<Pack />} />
-          <Route path={PATH.CARDSLIST} element={<CardsList />} />
-          <Route path={PATH.CARD} element={<Card />} />
+          <Route path={PATH.PACKS_LIST} element={<PacksList />} />
+          <Route path={PATH.CARDS_LIST} element={<CardsList />} />
         </Route>
         <Route path={PATH.LOGIN} element={<Login />} />
         <Route path={PATH.REGISTER} element={<Register />} />
         <Route path={PATH.FORGOT_PASSWORD} element={<ForgotPassword />} />
         <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
         <Route path={PATH.NEW_PASSWORD_TOKEN} element={<NewPassword />} />
+        {/*-------------------------test----------------------*/}
+        <Route path={'/packs-filter'} element={<PacksFilterButtons />} />
+        <Route path={'/pagination'} element={<PacksPagination />} />
+        <Route path={'/search'} element={<SearchField />} />
+        {/*-------------------------test----------------------*/}
         <Route
           path={'/404'}
           element={<h1 style={{ textAlign: 'center' }}>404: PAGE NOT FOUND</h1>}
