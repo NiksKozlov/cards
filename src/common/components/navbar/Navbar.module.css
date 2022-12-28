@@ -29,6 +29,20 @@
   box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
+.navBtnPacks {
+  composes: navBtn;
+
+  background-color: #649b3c;
+  box-shadow: none;
+}
+
+.navBtnProfile {
+  composes: navBtn;
+
+  background-color: #c44d4d;
+  box-shadow: none;
+}
+
 .navBtn:active {
   background-color: #1544d9;
 }

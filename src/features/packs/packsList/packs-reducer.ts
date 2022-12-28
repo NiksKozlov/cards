@@ -105,7 +105,7 @@ export const addNewPackTC =
       dispatch(getPacksTC())
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
-      console.log('error: ', e)
+      handleServerError(e, dispatch)
     }
   }
 
@@ -119,7 +119,7 @@ export const editPackTC =
       dispatch(getPacksTC())
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
-      console.log('error: ', e)
+      handleServerError(e, dispatch)
     }
   }
 
@@ -133,7 +133,7 @@ export const deletePackTC =
       dispatch(getPacksTC())
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
-      console.log('error: ', e)
+      handleServerError(e, dispatch)
     }
   }
 
