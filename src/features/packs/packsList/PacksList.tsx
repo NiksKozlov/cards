@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead'
 
 import { Pack } from '../pack/Pack'
 import { PacksFilterButtons } from '../packsFilterButtons/PacksFilterButtons'
+import { PacksPagination } from '../pagination/PacksPagination'
 import { ResetButton } from '../resetButton/ResetButton'
 import SearchField from '../searchField/SearchField'
 
@@ -23,9 +24,9 @@ export const PacksList = () => {
   const dispatch = useAppDispatch()
   const packs = useAppSelector(st => st.packs.cardPacks)
 
-  useEffect(() => {
-    dispatch(getPacksTC())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getPacksTC())
+  // }, [])
 
   return (
     <div className={s.mainContainer}>
@@ -64,6 +65,9 @@ export const PacksList = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <div>
+        <PacksPagination />
+      </div>
     </div>
   )
 }

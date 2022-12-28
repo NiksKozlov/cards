@@ -12,6 +12,12 @@
     line-height: 11px;
 }
 
-.buttons {
+.textFieldMain {
+    padding: 9px 7px !important;
 
+    font-family: 'Montserrat' !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    line-height: 24px !important;
 }

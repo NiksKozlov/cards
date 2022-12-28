@@ -20,7 +20,7 @@ export type CardPacksType = {
 }
 
 const initialState = {
-  packsFilter: '' as FilterType,
+  packsFilter: 'All' as FilterType,
   cardPacks: [] as CardPacksType[],
   cardPacksTotalCount: null as null | number,
   maxCardsCount: null as null | number,
@@ -99,11 +99,11 @@ export const addNewPackTC =
   (packData: AddNewPackLocalStateType): AppThunk =>
   async dispatch => {
     try {
-      dispatch(setAppStatusAC('loading'))
+      // dispatch(setAppStatusAC('loading'))
       await packsAPI.addNewPack(packData)
 
       dispatch(getPacksTC())
-      dispatch(setAppStatusAC('succeeded'))
+      // dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       console.log('error: ', e)
     }
@@ -113,11 +113,11 @@ export const editPackTC =
   (packData: EditPackLocalStateType): AppThunk =>
   async dispatch => {
     try {
-      dispatch(setAppStatusAC('loading'))
+      // dispatch(setAppStatusAC('loading'))
       await packsAPI.editPack(packData)
 
       dispatch(getPacksTC())
-      dispatch(setAppStatusAC('succeeded'))
+      // dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       console.log('error: ', e)
     }
@@ -127,11 +127,11 @@ export const deletePackTC =
   (id: string): AppThunk =>
   async dispatch => {
     try {
-      dispatch(setAppStatusAC('loading'))
+      // dispatch(setAppStatusAC('loading'))
       await packsAPI.deletePack(id)
 
       dispatch(getPacksTC())
-      dispatch(setAppStatusAC('succeeded'))
+      // dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       console.log('error: ', e)
     }

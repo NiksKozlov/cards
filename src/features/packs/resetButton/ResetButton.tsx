@@ -7,8 +7,11 @@ import s from './ResetButton.module.css'
 
 export const ResetButton = () => {
   return (
-    <Button className={s.button}>
-      <FilterAltOffOutlinedIcon fontSize={'medium'} />
-    </Button>
+    <div className={s.container}>
+      <h3>Clear</h3>
+      <Button className={s.button}>
+        <FilterAltOffOutlinedIcon fontSize={'medium'} />
+      </Button>
+    </div>
   )
 }

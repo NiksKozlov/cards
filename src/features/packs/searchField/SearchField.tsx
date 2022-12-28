@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import useDebounce from '../../../common/hooks/useDebounce'
+import { StyledTextField } from '../../../common/styles/filterComponentStyle'
 import { getPacksTC } from '../packsList/packs-reducer'
 
 import s from './SearchField.module.css'
@@ -34,8 +35,7 @@ const SearchField = () => {
     <div className={s.searchContainer}>
       <h3>Search</h3>
       <TextField
-        fullWidth
-        label="search"
+        inputProps={{ className: s.textFieldMain }}
         value={value}
         onChange={handleChange}
         className={s.buttons}

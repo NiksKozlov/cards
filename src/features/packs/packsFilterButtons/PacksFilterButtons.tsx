@@ -12,7 +12,6 @@ import s from './PacksFilterButtons.module.css'
 
 export const PacksFilterButtons = () => {
   const dispatch = useAppDispatch()
-
   const packsFilter = useAppSelector(state => state.packs.packsFilter)
   const profileId = useAppSelector(state => state.profile._id)
 
@@ -22,15 +21,15 @@ export const PacksFilterButtons = () => {
   const onMyClickHandler = () => {
     setSearchParams({ user_id: profileId })
   }
+
   const onAllClickHandler = () => {
     setSearchParams()
+    dispatch(getPacksTC('All'))
   }
 
   useEffect(() => {
     if (userId) {
       dispatch(getPacksTC('My', userId))
-    } else {
-      dispatch(getPacksTC('All'))
     }
   }, [userId])
 
@@ -38,20 +37,18 @@ export const PacksFilterButtons = () => {
     <div className={s.container}>
       <h3>Show packs cards</h3>
       <ButtonGroup>
-        <Button
+        <button
           onClick={onMyClickHandler}
-          variant={packsFilter === 'My' ? 'contained' : 'outlined'}
-          size={'large'}
+          className={packsFilter === 'My' ? s.filterChosenBtn : s.filterDefaultBtn}
         >
           My
-        </Button>
-        <Button
+        </button>
+        <button
           onClick={onAllClickHandler}
-          variant={packsFilter === 'All' ? 'contained' : 'outlined'}
-          size={'large'}
+          className={packsFilter === 'All' ? s.filterChosenBtn : s.filterDefaultBtn}
         >
           All
-        </Button>
+        </button>
       </ButtonGroup>
     </div>
   )
