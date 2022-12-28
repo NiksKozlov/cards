@@ -10,8 +10,10 @@ const initialState = {
   maxCardsCount: null as null | number,
   minCardsCount: null as null | number,
   page: undefined as undefined | number,
-  pageCount: 5,
+  pageCount: null as null | number,
   pageQty: null as null | number,
+  min: undefined as undefined | number,
+  max: undefined as undefined | number,
 }
 
 type InitialStateType = typeof initialState
@@ -31,6 +33,8 @@ export const packsReducer = (
       return { ...state, pageCount: action.pageCount }
     case 'PACKS/SET-PAGE-QTY':
       return { ...state, pageQty: action.pageQty }
+    case 'PACKS/SET-MIN-MAX':
+      return { ...state, min: action.min, max: action.max }
     default:
       return state
   }
@@ -45,6 +49,8 @@ export const setPageAC = (page: number) => ({ type: 'PACKS/SET-PAGE', page } as 
 export const setPageCountAC = (pageCount: number) =>
   ({ type: 'PACKS/SET-PAGE-COUNT', pageCount } as const)
 export const setPageQtyAC = (pageQty: number) => ({ type: 'PACKS/SET-PAGE-QTY', pageQty } as const)
+export const setMinMaxAC = (min: number | undefined, max: number | undefined) =>
+  ({ type: 'PACKS/SET-MIN-MAX', min, max } as const)
 
 //thunks
 export const getPacksTC =
@@ -53,10 +59,11 @@ export const getPacksTC =
     profileId?: string,
     page?: number,
     packName?: string,
-    pageCount?: number
+    pageCount?: number,
+    min?: number,
+    max?: number
   ): AppThunk =>
   async dispatch => {
-    debugger
     try {
       dispatch(setAppStatusAC('loading'))
       const params: ParamsType = {}
@@ -65,6 +72,10 @@ export const getPacksTC =
       if (page) params.page = page
       if (packName) params.packName = packName
       if (pageCount) params.pageCount = pageCount
+      if (min && max) {
+        params.min = min
+        params.max = max
+      }
 
       const res = await packsAPI.getPacks(params)
 
@@ -73,6 +84,11 @@ export const getPacksTC =
       if (pageCount) dispatch(setPageCountAC(res.data.pageCount))
       if (pageCount) dispatch(setPageQtyAC(Math.ceil(res.data.cardPacksTotalCount / pageCount)))
 
+      if (min && max) {
+        dispatch(setMinMaxAC(min, max))
+      } else {
+        dispatch(setMinMaxAC(res.data.minCardsCount, res.data.maxCardsCount))
+      }
       dispatch(setPacksListAC(res.data.cardPacks))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
@@ -86,6 +102,8 @@ type ParamsType = {
   page?: number | undefined
   pageCount?: number | undefined
   packName?: string | undefined
+  min?: number | undefined
+  max?: number | undefined
 }
 
 type FilterType = 'My' | 'All'
@@ -106,3 +124,4 @@ export type PacksActionsTypes =
   | ReturnType<typeof setPageAC>
   | ReturnType<typeof setPageCountAC>
   | ReturnType<typeof setPageQtyAC>
+  | ReturnType<typeof setMinMaxAC>

@@ -28,7 +28,7 @@ const SearchField = () => {
     if (value) setSearchParams({ packName: value })
   }, [value])
 
-  return <TextField fullWidth label="search" value={value} onChange={handleChange} />
+  return <TextField fullWidth value={value} onChange={handleChange} />
 }
 
 export default SearchField
