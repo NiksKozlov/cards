@@ -8,6 +8,8 @@ import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { getPacksTC } from '../packsList/packs-reducer'
 
+import s from './PacksFilterButtons.module.css'
+
 export const PacksFilterButtons = () => {
   const dispatch = useAppDispatch()
 
@@ -33,7 +35,8 @@ export const PacksFilterButtons = () => {
   }, [userId])
 
   return (
-    <div>
+    <div className={s.container}>
+      <h3>Show packs cards</h3>
       <ButtonGroup>
         <Button
           onClick={onMyClickHandler}

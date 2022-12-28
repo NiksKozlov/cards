@@ -7,6 +7,8 @@ import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import useDebounce from '../../../common/hooks/useDebounce'
 import { getPacksTC } from '../packsList/packs-reducer'
 
+import s from './SearchField.module.css'
+
 const SearchField = () => {
   const dispatch = useAppDispatch()
 
@@ -28,7 +30,18 @@ const SearchField = () => {
     if (value) setSearchParams({ packName: value })
   }, [value])
 
-  return <TextField fullWidth label="search" value={value} onChange={handleChange} />
+  return (
+    <div className={s.searchContainer}>
+      <h3>Search</h3>
+      <TextField
+        fullWidth
+        label="search"
+        value={value}
+        onChange={handleChange}
+        className={s.buttons}
+      />
+    </div>
+  )
 }
 
 export default SearchField

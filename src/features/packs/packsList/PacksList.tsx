@@ -7,6 +7,9 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 
 import { Pack } from '../pack/Pack'
+import { PacksFilterButtons } from '../packsFilterButtons/PacksFilterButtons'
+import { ResetButton } from '../resetButton/ResetButton'
+import SearchField from '../searchField/SearchField'
 
 import { AddNewPacks } from './packListCrud/AddNewPacks'
 import { getPacksTC } from './packs-reducer'
@@ -29,6 +32,11 @@ export const PacksList = () => {
       <div className={s.addPack}>
         <h1 className={s.title}>Packs list</h1>
         <AddNewPacks />
+      </div>
+      <div className={s.filtersContainer}>
+        <SearchField />
+        <PacksFilterButtons />
+        <ResetButton />
       </div>
       <div></div>
       <TableContainer component={Paper} className={s.tableContainer}>
