@@ -1,5 +1,4 @@
 import { cardsAPI, CardsParamsType, CardType } from '../../../api/cards-api'
-import { packsAPI } from '../../../api/packs-api'
 import { setAppStatusAC } from '../../../app/app-reducer'
 import { AppThunk } from '../../../common/hooks/useAppDispatch'
 import { handleServerError } from '../../../common/utils/error-handler/error-handler'

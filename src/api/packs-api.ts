@@ -1,5 +1,3 @@
-import { AxiosResponse } from 'axios'
-
 import { CardPacksType } from '../features/packs/packsList/packs-reducer'
 
 import { instance } from './instance'
@@ -10,45 +8,21 @@ export const packsAPI = {
       params,
     })
   },
-  addNewPack(params: AddNewPackDataType) {
-    return instance.post<'', AxiosResponse<AddNewPackResponseType>, AddNewPackDataType>(
+  addNewPack(packData: addNewPackDataType) {
+    return instance.post<'', AxiosResponse<addNewPackResponseType>, addNewPackDataType>(
       'cards/pack',
-      params
+      packData
     )
   },
-  editPack(params: EditPackDataType) {
-    return instance.put<'', AxiosResponse<EditPackResponseType>, EditPackDataType>(
+  editPack(packData: editPackDataType) {
+    return instance.put<'', AxiosResponse<editPackResponseType>, editPackDataType>(
       'cards/pack',
-      params
+      packData
     )
   },
   deletePack(id: string) {
-    return instance.delete<'', AxiosResponse<DeletedPackResponseType>, DeletePackDataType>(
-      `cards/pack/?id=${id}`
-    )
+    return instance.delete<deletedPackResponseType>(`cards/pack/?id=${id}`)
   },
-}
-
-export type PacksParamsType = {
-  packName?: string
-  min?: number
-  max?: number
-  sortPacks?: string
-  page?: number
-  pageCount?: number
-
-  user_id?: string
-
-  block?: boolean
-}
-
-type PacksResponseType = {
-  cardPacks: CardPacksType[]
-  cardPacksTotalCount: number
-  maxCardsCount: number
-  minCardsCount: number
-  page: number
-  pageCount: number
 }
 
 //ResponseTypes
@@ -71,20 +45,29 @@ type ResponseType = {
   __v: number
 }
 
-type AddNewPackResponseType = {
+type addNewPackResponseType = {
   newCardsPack: ResponseType
 }
 
-type EditPackResponseType = {
+type editPackResponseType = {
   updatedCardsPack: ResponseType
 }
 
-type DeletedPackResponseType = {
+type deletedPackResponseType = {
   deletedCardsPack: ResponseType
 }
 
+type PacksResponseType = {
+  cardPacks: CardPacksType[]
+  cardPacksTotalCount: number
+  maxCardsCount: number
+  minCardsCount: number
+  page: number
+  pageCount: number
+}
+
 //DataTypes
-type AddNewPackDataType = {
+type addNewPackDataType = {
   cardsPack: {
     name: string
     deckCover: string
@@ -92,13 +75,22 @@ type AddNewPackDataType = {
   }
 }
 
-type EditPackDataType = {
+type editPackDataType = {
   cardsPack: {
     _id: string
     name: string
   }
 }
 
-type DeletePackDataType = {
-  _id: string
+export type PacksParamsType = {
+  packName?: string
+  min?: number
+  max?: number
+  sortPacks?: string
+  page?: number
+  pageCount?: number
+
+  user_id?: string
+
+  block?: boolean
 }

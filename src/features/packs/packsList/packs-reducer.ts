@@ -1,7 +1,23 @@
-import { packsAPI } from '../../../api/packs-api'
-import { setAppStatusAC } from '../../../app/app-reducer'
-import { AppThunk } from '../../../common/hooks/useAppDispatch'
-import { handleServerError } from '../../../common/utils/error-handler/error-handler'
+import { EditPackLocalStateType } from '../pack/packCrud/EditPack'
+
+import { AddNewPackLocalStateType } from './packListCrud/AddNewPacks'
+
+import { packsAPI } from 'api/packs-api'
+import { setAppStatusAC } from 'app/app-reducer'
+import { AppThunk } from 'common/hooks/useAppDispatch'
+import { handleServerError } from 'common/utils/error-handler/error-handler'
+
+export type CardPacksType = {
+  _id: string
+  user_id: string
+  name: string
+  cardsCount: number
+  created: Date
+  updated: Date
+  user_name: string
+  deckCover: string
+  private: boolean
+}
 
 const initialState = {
   packsFilter: '' as FilterType,
@@ -80,13 +96,47 @@ export const getPacksTC =
     }
   }
 
-export const addNewPackTC = (): AppThunk => async dispatch => {
-  try {
-    dispatch(setAppStatusAC('loading'))
-  } catch (e) {
-    handleServerError(e, dispatch)
+export const addNewPackTC =
+  (packData: AddNewPackLocalStateType): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      await packsAPI.addNewPack(packData)
+
+      dispatch(getPacksTC())
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      console.log('error: ', e)
+    }
   }
-}
+
+export const editPackTC =
+  (packData: EditPackLocalStateType): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      await packsAPI.editPack(packData)
+
+      dispatch(getPacksTC())
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      console.log('error: ', e)
+    }
+  }
+
+export const deletePackTC =
+  (id: string): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      await packsAPI.deletePack(id)
+
+      dispatch(getPacksTC())
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      console.log('error: ', e)
+    }
+  }
 
 type ParamsType = {
   filter?: FilterType | undefined
@@ -97,16 +147,6 @@ type ParamsType = {
 }
 
 type FilterType = 'My' | 'All'
-
-export type CardPacksType = {
-  _id: string
-  user_id: string
-  name: string
-  cardsCount: number
-  created: Date
-  updated: Date
-  user_name: string
-}
 
 export type PacksActionsTypes =
   | ReturnType<typeof setPacksFilterAC>

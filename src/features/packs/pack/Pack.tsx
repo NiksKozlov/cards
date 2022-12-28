@@ -1,14 +1,17 @@
 import React from 'react'
 
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
-import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
-import { Icon, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
-import { StyledBodyTableCell, StyledBodyTableRow } from '../../../common/styles/tableStyleWrapper'
-import { getCardsTC, setPackIdAC } from '../../cards/cardList/cards-reducer'
+import { setPackIdAC } from '../../cards/cardList/cards-reducer'
+
+import { DeletePack } from './packCrud/DeletePack'
+import { EditPack } from './packCrud/EditPack'
+
+import { useAppDispatch } from 'common/hooks/useAppDispatch'
+import { useAppSelector } from 'common/hooks/useAppSelector'
+import { StyledBodyTableCell, StyledBodyTableRow } from 'common/styles/tableStyleWrapper'
 
 type PackPropsType = {
   id: string
@@ -21,6 +24,7 @@ type PackPropsType = {
 export const Pack = ({ name, cardsCount, updated, created, id }: PackPropsType) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const profile = useAppSelector(state => state.profile)
 
   const date = updated.toString()
   const day = date.substr(8, 2)
@@ -39,19 +43,19 @@ export const Pack = ({ name, cardsCount, updated, created, id }: PackPropsType) 
       <StyledBodyTableCell component="th" scope="row" onClick={onNameClickHandler}>
         {name}
       </StyledBodyTableCell>
-      <StyledBodyTableCell align="right">{cardsCount}</StyledBodyTableCell>
-      <StyledBodyTableCell align="right">{updatedDate}</StyledBodyTableCell>
-      <StyledBodyTableCell align="right">{created}</StyledBodyTableCell>
-      <StyledBodyTableCell align="right">
-        <IconButton disabled={cardsCount ? false : true} sx={{ color: 'black' }}>
+      <StyledBodyTableCell align="left">{cardsCount}</StyledBodyTableCell>
+      <StyledBodyTableCell align="left">{updatedDate}</StyledBodyTableCell>
+      <StyledBodyTableCell align="left">{created}</StyledBodyTableCell>
+      <StyledBodyTableCell align="left">
+        <IconButton disabled={!cardsCount} sx={{ color: 'black' }}>
           <SchoolOutlinedIcon />
         </IconButton>
-        <IconButton>
-          <ModeOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <DeleteOutlinedIcon />
-        </IconButton>
+        {profile.name == created && (
+          <>
+            <EditPack id={id} />
+            <DeletePack id={id} />
+          </>
+        )}
       </StyledBodyTableCell>
     </StyledBodyTableRow>
   )
