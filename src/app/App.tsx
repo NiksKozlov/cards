@@ -16,6 +16,7 @@ import { Login } from '../features/auth/login/Login'
 import { NewPassword } from '../features/auth/new-password/NewPassword'
 import { Register } from '../features/auth/register/Register'
 import { CardsList } from '../features/cards/cardList/CardsList'
+import { FilterSlider } from '../features/packs/filterSlider/filterSlider'
 import { PacksFilterButtons } from '../features/packs/packsFilterButtons/PacksFilterButtons'
 import { PacksList } from '../features/packs/packsList/PacksList'
 import { PacksPagination } from '../features/packs/pagination/PacksPagination'
@@ -64,6 +65,7 @@ const App = () => {
         <Route path={'/packs-filter'} element={<PacksFilterButtons />} />
         <Route path={'/pagination'} element={<PacksPagination />} />
         <Route path={'/search'} element={<SearchField />} />
+        <Route path={'/slider'} element={<FilterSlider />} />
         {/*-------------------------test----------------------*/}
         <Route
           path={'/404'}

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect } from 'react'
 
-import { Container, Pagination, Stack } from '@mui/material'
+import { Container, MenuItem, Pagination, Select, SelectChangeEvent, Stack } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
@@ -16,31 +16,51 @@ export const PacksPagination = () => {
 
   const [searchParams, setSearchParams] = useSearchParams()
   const pageQuery = searchParams.get('page')
+  const pageCountQuery = searchParams.get('pageCount')
+  const urlAllParams = Object.fromEntries(searchParams)
 
   const paginationHandler = (_: ChangeEvent<unknown>, num: number) => {
-    setSearchParams({ page: String(num) })
+    setSearchParams({ ...urlAllParams, page: String(num) })
     /*dispatch(paginationTC(num))*/
   }
 
-  useEffect(() => {
-    if (pageQuery) dispatch(getPacksTC(undefined, undefined, +pageQuery))
-    else setSearchParams({ page: '1' })
-  }, [pageQuery])
+  const handleSelect = (e: SelectChangeEvent) => {
+    setSearchParams({ ...urlAllParams, pageCount: e.target.value })
+  }
 
-  console.log('page: ' + page, 'pageQuery: ' + pageQuery, 'pageQty: ' + pageQty)
+  useEffect(() => {
+    if (pageQuery && pageCountQuery)
+      dispatch(getPacksTC(undefined, undefined, +pageQuery, undefined, +pageCountQuery))
+    else setSearchParams({ page: '1', pageCount: '5' })
+  }, [pageQuery, pageCountQuery])
+
+  console.log('page: ' + page, 'pageQuery: ' + pageQuery, 'pageCount: ' + elementsOnPage)
 
   return (
     <Container sx={{ marginTop: 5 }} maxWidth={'md'}>
       <Stack spacing={2}>
         {!!pageQty && (
-          <Pagination
-            color="primary"
-            shape="rounded"
-            count={pageQty}
-            page={page}
-            onChange={paginationHandler}
-            sx={{ marginY: 3, marginX: 'auto' }}
-          />
+          <>
+            <Pagination
+              color="primary"
+              shape="rounded"
+              count={pageQty}
+              page={page}
+              onChange={paginationHandler}
+              sx={{ marginY: 3, marginX: 'auto' }}
+            />
+            Show
+            <Select
+              value={String(elementsOnPage)}
+              onChange={handleSelect}
+              sx={{ width: '65px', height: '40px' }}
+            >
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={8}>8</MenuItem>
+              <MenuItem value={10}>10</MenuItem>
+            </Select>
+            Packs per Page
+          </>
         )}
       </Stack>
     </Container>
