@@ -72,9 +72,8 @@ export const getPacksTC =
     pageCount?: number
   ): AppThunk =>
   async dispatch => {
-    debugger
     try {
-      dispatch(setAppStatusAC('loading'))
+      // dispatch(setAppStatusAC('loading'))
       const params: ParamsType = {}
 
       if (profileId) params.user_id = profileId
@@ -90,7 +89,7 @@ export const getPacksTC =
       if (pageCount) dispatch(setPageQtyAC(Math.ceil(res.data.cardPacksTotalCount / pageCount)))
 
       dispatch(setPacksListAC(res.data.cardPacks))
-      dispatch(setAppStatusAC('succeeded'))
+      // dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)
     }

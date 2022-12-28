@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -20,9 +20,9 @@ export const PacksList = () => {
   const dispatch = useAppDispatch()
   const packs = useAppSelector(st => st.packs.cardPacks)
 
-  const getCardsHandler = () => {
+  useEffect(() => {
     dispatch(getPacksTC())
-  }
+  }, [])
 
   return (
     <div className={s.mainContainer}>
@@ -30,7 +30,6 @@ export const PacksList = () => {
         <h1 className={s.title}>Packs list</h1>
         <AddNewPacks />
       </div>
-      <button onClick={getCardsHandler}>get packs</button>
       <div></div>
       <TableContainer component={Paper} className={s.tableContainer}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">

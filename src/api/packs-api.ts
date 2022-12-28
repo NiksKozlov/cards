@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios'
+
 import { CardPacksType } from '../features/packs/packsList/packs-reducer'
 
 import { instance } from './instance'
