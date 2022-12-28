@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios'
+
 import { instance } from './instance'
 
 export const cardsAPI = {
@@ -6,8 +8,24 @@ export const cardsAPI = {
       params,
     })
   },
+  addNewCard(cardData: addNewCardDataType) {
+    return instance.post<'', AxiosResponse<addNewCardResponseType>, addNewCardDataType>(
+      'cards/card',
+      cardData
+    )
+  },
+  editCard(cardData: editCardDataType) {
+    return instance.put<'', AxiosResponse<editCardResponseType>, editCardDataType>(
+      'cards/card',
+      cardData
+    )
+  },
+  deleteCard(_id: string) {
+    return instance.delete<deletedCardResponseType>(`cards/card/?id=${_id}`)
+  },
 }
 
+//ResponseTypes
 export type CardsResponseType = {
   cards: CardType[]
   cardsTotalCount: number
@@ -28,6 +46,34 @@ export type CardType = {
   created: Date
   updated: Date
   _id: string
+}
+
+type addNewCardResponseType = {
+  newCard: CardType
+}
+
+type editCardResponseType = {
+  updatedCard: CardType
+}
+
+type deletedCardResponseType = {
+  deletedCard: CardType
+}
+
+//DataTypes
+type addNewCardDataType = {
+  card: {
+    cardsPack_id: string
+    question: string
+    answer: string
+  }
+}
+
+type editCardDataType = {
+  card: {
+    _id: string
+    question: string
+  }
 }
 
 export type CardsParamsType = {

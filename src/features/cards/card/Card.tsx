@@ -1,19 +1,19 @@
 import React from 'react'
 
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
-import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
+import { DeleteCard } from './cardCrud/DeleteCard'
+import { EditCard } from './cardCrud/EditCard'
 
-import { StyledBodyTableCell, StyledBodyTableRow } from '../../../common/styles/tableStyleWrapper'
+import { StyledBodyTableCell, StyledBodyTableRow } from 'common/styles/tableStyleWrapper'
 
 type CardPropsType = {
   question: string
   answer: string
   updated: Date
   grade: number
+  _id: string
 }
 
-export const Card = ({ question, answer, updated, grade }: CardPropsType) => {
+export const Card = ({ question, answer, updated, grade, _id }: CardPropsType) => {
   const date = updated.toString()
   const day = date.substr(8, 2)
   const month = date.substr(5, 2)
@@ -29,8 +29,8 @@ export const Card = ({ question, answer, updated, grade }: CardPropsType) => {
       <StyledBodyTableCell align="right">{updatedDate}</StyledBodyTableCell>
       <StyledBodyTableCell align="right">{grade}</StyledBodyTableCell>
       <StyledBodyTableCell align="right">
-        <ModeOutlinedIcon sx={{ paddingLeft: '10px' }} />
-        <DeleteOutlinedIcon sx={{ paddingLeft: '10px' }} />
+        <EditCard _id={_id} />
+        <DeleteCard _id={_id} />
       </StyledBodyTableCell>
     </StyledBodyTableRow>
   )
