@@ -43,10 +43,10 @@ export const CardsList = () => {
           <TableHead>
             <StyledHeadTableRow>
               <StyledHeadTableCell>Question</StyledHeadTableCell>
-              <StyledHeadTableCell align="right">Answer</StyledHeadTableCell>
-              <StyledHeadTableCell align="right">Last Updated</StyledHeadTableCell>
-              <StyledHeadTableCell align="right">Grade</StyledHeadTableCell>
-              <StyledHeadTableCell align="right"></StyledHeadTableCell>
+              <StyledHeadTableCell align="center">Answer</StyledHeadTableCell>
+              <StyledHeadTableCell align="center">Last Updated</StyledHeadTableCell>
+              <StyledHeadTableCell align="center">Grade</StyledHeadTableCell>
+              <StyledHeadTableCell align="center">Actions</StyledHeadTableCell>
             </StyledHeadTableRow>
           </TableHead>
           <TableBody>
