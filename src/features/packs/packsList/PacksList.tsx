@@ -5,7 +5,7 @@ import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 import { DomainPackType } from '../../../api/packs-api'
 import { userID } from '../../profile/user-selector'
@@ -106,6 +106,7 @@ export const PacksList = () => {
             {cardPacks?.map(p => (
               <Pack
                 id={p._id}
+                userId={p.user_id}
                 key={p._id}
                 name={p.name}
                 cardsCount={p.cardsCount}
