@@ -1,33 +1,35 @@
 import { AxiosResponse } from 'axios'
 
-import { CardPacksType } from '../features/packs/packsList/packs-reducer'
-
 import { instance } from './instance'
 
 export const packsAPI = {
-  getPacks(params: PacksParamsType) {
-    return instance.get<PacksResponseType>('cards/pack', {
-      params,
-    })
+  getPacks(params?: PacksParamsType) {
+    return instance.get<PacksType>('/cards/pack', { params })
   },
   addNewPack(packData: addNewPackDataType) {
     return instance.post<'', AxiosResponse<addNewPackResponseType>, addNewPackDataType>(
-      'cards/pack',
+      '/cards/pack',
       packData
     )
   },
   editPack(packData: editPackDataType) {
     return instance.put<'', AxiosResponse<editPackResponseType>, editPackDataType>(
-      'cards/pack',
+      '/cards/pack',
       packData
     )
   },
   deletePack(id: string) {
-    return instance.delete<deletedPackResponseType>(`cards/pack/?id=${id}`)
+    return instance.delete<deletedPackResponseType>(`/cards/pack/?id=${id}`)
   },
 }
 
 //ResponseTypes
+
+export type DomainPackType = Pick<
+  ResponseType,
+  '_id' | 'user_id' | 'user_name' | 'name' | 'cardsCount' | 'updated'
+>
+
 type ResponseType = {
   _id: string
   user_id: string
@@ -41,8 +43,8 @@ type ResponseType = {
   cardsCount: number
   type: string
   rating: number
-  created: string
-  updated: string
+  created: Date
+  updated: Date
   more_id: string
   __v: number
 }
@@ -59,13 +61,15 @@ type deletedPackResponseType = {
   deletedCardsPack: ResponseType
 }
 
-type PacksResponseType = {
-  cardPacks: CardPacksType[]
+export type PacksType = {
+  cardPacks: DomainPackType[]
   cardPacksTotalCount: number
   maxCardsCount: number
   minCardsCount: number
   page: number
   pageCount: number
+  sortPacks: string
+  user_id: string
 }
 
 //DataTypes
