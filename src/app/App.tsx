@@ -22,6 +22,8 @@ import { PacksPagination } from '../features/packs/pagination/PacksPagination'
 import SearchField from '../features/packs/searchField/SearchField'
 import { Profile } from '../features/profile/profile/Profile'
 
+import { Learn } from 'features/learn/Learn'
+
 const App = () => {
   const dispatch = useAppDispatch()
   const isInitialized = useAppSelector(state => state.app.isInitialized)
@@ -54,6 +56,7 @@ const App = () => {
           <Route path={PATH.PROFILE} element={<Profile />} />
           <Route path={PATH.PACKS_LIST} element={<PacksList />} />
           <Route path={PATH.CARDS_LIST} element={<CardsList />} />
+          <Route path={PATH.LEARN} element={<Learn />} />
         </Route>
         <Route path={PATH.LOGIN} element={<Login />} />
         <Route path={PATH.REGISTER} element={<Register />} />

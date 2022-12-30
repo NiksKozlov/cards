@@ -2,17 +2,19 @@ import React from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
+import { PATH } from '../../routePaths/routePaths.enum'
+
 import s from './Navbar.module.css'
 
 export const Navbar = () => {
   const navigate = useNavigate()
 
   const profileBtnHandler = () => {
-    navigate('/')
+    navigate(PATH.PROFILE)
   }
 
   const packsBtnHandler = () => {
-    navigate('/packs-list')
+    navigate(PATH.PACKS_LIST)
   }
 
   return (

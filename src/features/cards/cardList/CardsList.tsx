@@ -20,8 +20,6 @@ export const CardsList = () => {
   const cards = useAppSelector(st => st.cards.cards)
   const packId = useAppSelector(st => st.cards.packId)
 
-  console.log(packId)
-
   // useEffect(() => {
   //   dispatch(getCardsTC(packId))
   // }, [])
