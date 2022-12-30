@@ -1,12 +1,9 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Slider, TextField } from '@mui/material'
+import { Slider } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import useDebounce from '../../../common/hooks/useDebounce'
-import { getPacksTC, setMinMaxAC } from '../packsList/packs-reducer'
 import { maxCardsCount, minCardsCount } from '../packsList/packs-selector'
 
 export const FilterSlider = () => {
@@ -45,21 +42,17 @@ export const FilterSlider = () => {
 
   return (
     <div>
-      {!!max && min !== undefined && (
-        <>
-          <TextField value={min} onChange={handleMin} sx={{ width: '70px', height: '30px' }} />
-          <Slider
-            /*getAriaLabel={() => 'Temperature range'}*/
-            value={[min, max]}
-            min={min}
-            max={max}
-            onChange={handleSlider}
-            valueLabelDisplay="auto"
-            sx={{ width: 200, marginX: '20px' }}
-          />
-          <TextField value={max} onChange={handleMax} sx={{ width: '70px', height: '30px' }} />
-        </>
-      )}
+      <div>{value[0]}</div>
+      <Slider
+        min={minValue}
+        max={maxValue}
+        value={value}
+        onChange={handleChange}
+        onChangeCommitted={onChangeCommittedHandler}
+        valueLabelDisplay="auto"
+        sx={{ width: '155px' }}
+      />
+      <div>{value[1]}</div>
     </div>
   )
 }

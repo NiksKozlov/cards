@@ -16,18 +16,14 @@ import { Login } from '../features/auth/login/Login'
 import { NewPassword } from '../features/auth/new-password/NewPassword'
 import { Register } from '../features/auth/register/Register'
 import { CardsList } from '../features/cards/cardList/CardsList'
-import { FilterSlider } from '../features/packs/filterSlider/filterSlider'
-import { PacksFilterButtons } from '../features/packs/packsFilterButtons/PacksFilterButtons'
 import { PacksList } from '../features/packs/packsList/PacksList'
-import { PacksPagination } from '../features/packs/pagination/PacksPagination'
-import SearchField from '../features/packs/searchField/SearchField'
 import { Profile } from '../features/profile/profile/Profile'
 
 const App = () => {
   const dispatch = useAppDispatch()
   const isInitialized = useAppSelector(state => state.app.isInitialized)
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-  const status = useAppSelector(state => state.app.status)
+  //const status = useAppSelector(state => state.app.status)
 
   useEffect(() => {
     dispatch(meTC())
@@ -61,12 +57,6 @@ const App = () => {
         <Route path={PATH.FORGOT_PASSWORD} element={<ForgotPassword />} />
         <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
         <Route path={PATH.NEW_PASSWORD_TOKEN} element={<NewPassword />} />
-        {/*-------------------------test----------------------*/}
-        <Route path={'/packs-filter'} element={<PacksFilterButtons />} />
-        <Route path={'/pagination'} element={<PacksPagination />} />
-        <Route path={'/search'} element={<SearchField />} />
-        <Route path={'/slider'} element={<FilterSlider />} />
-        {/*-------------------------test----------------------*/}
         <Route
           path={'/404'}
           element={<h1 style={{ textAlign: 'center' }}>404: PAGE NOT FOUND</h1>}

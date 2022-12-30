@@ -20,6 +20,7 @@ const SearchField = () => {
   useEffect(() => {
     if (debouncedValue) {
       searchParams.set('packName', debouncedValue)
+      setSearchParams(searchParams)
     }
     if (searchParams.get('packName')) {
       setValue(String(searchParams.get('packName')))
@@ -34,6 +35,7 @@ const SearchField = () => {
         value={value}
         onChange={handleChange}
         className={s.buttons}
+        placeholder="Provide your text"
       />
     </div>
   )

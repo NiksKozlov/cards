@@ -1,7 +1,5 @@
 import { AxiosResponse } from 'axios'
 
-import { CardPacksType } from '../features/packs/packsList/packs-reducer'
-
 import { instance } from './instance'
 
 export const packsAPI = {
@@ -45,8 +43,8 @@ type ResponseType = {
   cardsCount: number
   type: string
   rating: number
-  created: string
-  updated: string
+  created: Date
+  updated: Date
   more_id: string
   __v: number
 }
@@ -61,15 +59,6 @@ type editPackResponseType = {
 
 type deletedPackResponseType = {
   deletedCardsPack: ResponseType
-}
-
-type PacksResponseType = {
-  cardPacks: CardPacksType[]
-  cardPacksTotalCount: number
-  maxCardsCount: number
-  minCardsCount: number
-  page: number
-  pageCount: number
 }
 
 export type PacksType = {

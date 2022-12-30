@@ -60,17 +60,8 @@ export const getPacksTC =
   async dispatch => {
     try {
       dispatch(setAppStatusAC('loading'))
-      const params = {
-        packName: searchParams?.packName,
-        user_id: searchParams?.user_id,
-        page: searchParams?.page,
-        pageCount: searchParams?.pageCount,
-        sortPacks: searchParams?.sortPacks,
-        min: searchParams?.min,
-        max: searchParams?.max,
-      }
 
-      const res = await packsAPI.getPacks(params)
+      const res = await packsAPI.getPacks(searchParams)
 
       dispatch(setPacksListAC(res.data))
       dispatch(setAppStatusAC('succeeded'))
@@ -120,20 +111,6 @@ export const deletePackTC =
       handleServerError(e, dispatch)
     }
   }
-
-export type CardPacksType = {
-  _id: string
-  user_id: string
-  name: string
-  cardsCount: number
-  created: Date
-  updated: Date
-  user_name: string
-  deckCover: string
-  private: boolean
-}
-
-type FilterType = 'My' | 'All'
 
 export type PacksActionsTypes =
   | ReturnType<typeof setPacksListAC>

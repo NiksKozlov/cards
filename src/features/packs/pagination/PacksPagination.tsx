@@ -1,11 +1,7 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Container, MenuItem, Pagination, Select, SelectChangeEvent, Stack } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
-
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import { getPacksTC } from '../packsList/packs-reducer'
 
 type PropsType = {
   page: number
@@ -20,11 +16,9 @@ export const PacksPagination: React.FC<PropsType> = ({ page, packsCount, totalPa
   const [searchParams, setSearchParams] = useSearchParams()
 
   const handleChangePage = (event: unknown, page: number) => {
-    const newPage = page + 1
-
-    searchParams.set('page', String(newPage))
+    searchParams.set('page', String(page))
     setSearchParams(searchParams)
-    setCurrentPage(newPage)
+    setCurrentPage(page)
   }
 
   const handleChangePacksPerPage = (event: SelectChangeEvent) => {
@@ -58,8 +52,8 @@ export const PacksPagination: React.FC<PropsType> = ({ page, packsCount, totalPa
         <Pagination
           color="primary"
           shape="rounded"
-          count={totalPacksCount || 0}
-          page={page}
+          count={totalPacksCount}
+          page={currentPage}
           onChange={handleChangePage}
           sx={{ marginY: 3, marginX: 'auto' }}
         />
@@ -69,7 +63,7 @@ export const PacksPagination: React.FC<PropsType> = ({ page, packsCount, totalPa
           onChange={handleChangePacksPerPage}
           sx={{ width: '65px', height: '40px' }}
         >
-          <MenuItem value={4}>5</MenuItem>
+          <MenuItem value={4}>4</MenuItem>
           <MenuItem value={5}>5</MenuItem>
           <MenuItem value={8}>8</MenuItem>
           <MenuItem value={10}>10</MenuItem>

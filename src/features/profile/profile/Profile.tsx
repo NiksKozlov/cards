@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
+import { BackToPacksList } from '../../packs/backToPacksList/BackToPacksList'
 import { EditableName } from '../EditableName/EditableName'
 
 import { changeProfileNameTC, logOutTC } from './profile-reducer'
@@ -29,6 +30,7 @@ export const Profile = () => {
 
   return (
     <div className={s.mainContainer}>
+      <BackToPacksList />
       <div className={s.formContainer}>
         <h1>Personal information</h1>
         <div>
