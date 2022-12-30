@@ -15,13 +15,14 @@ import { StyledBodyTableCell, StyledBodyTableRow } from 'common/styles/tableStyl
 
 type PackPropsType = {
   id: string
+  userId: string
   name: string
   cardsCount: number
   updated: Date
   created: string
 }
 
-export const Pack = ({ name, cardsCount, updated, created, id }: PackPropsType) => {
+export const Pack = ({ name, cardsCount, updated, created, id, userId }: PackPropsType) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const profile = useAppSelector(state => state.profile)
@@ -50,7 +51,7 @@ export const Pack = ({ name, cardsCount, updated, created, id }: PackPropsType) 
         <IconButton disabled={!cardsCount} sx={{ color: 'black' }}>
           <SchoolOutlinedIcon />
         </IconButton>
-        {profile.name == created && (
+        {profile._id == userId && (
           <>
             <EditPack id={id} />
             <DeletePack id={id} />

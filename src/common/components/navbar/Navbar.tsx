@@ -18,14 +18,8 @@ export const Navbar = () => {
   return (
     <div className={s.navbarContainer}>
       <div>image</div>
-      {/*<button className={s.navBtn} type={'submit'} color={'primary'}>*/}
-      {/*  Sign in*/}
-      {/*</button>*/}
-      <button className={s.navBtnPacks} type={'submit'} onClick={packsBtnHandler}>
-        Packs list
-      </button>
-      <button className={s.navBtnProfile} type={'submit'} onClick={profileBtnHandler}>
-        Profile
+      <button className={s.navBtn} type={'submit'} color={'primary'}>
+        Sign in
       </button>
     </div>
   )
