@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 
 import { Slider, TextField } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
@@ -7,51 +7,41 @@ import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import useDebounce from '../../../common/hooks/useDebounce'
 import { getPacksTC, setMinMaxAC } from '../packsList/packs-reducer'
+import { maxCardsCount, minCardsCount } from '../packsList/packs-selector'
 
 export const FilterSlider = () => {
-  const dispatch = useAppDispatch()
-
-  const min = useAppSelector(state => state.packs.min)
-  const max = useAppSelector(state => state.packs.max)
+  const minValue = useAppSelector(minCardsCount)
+  const maxValue = useAppSelector(maxCardsCount)
+  const [value, setValue] = useState<number[]>([minValue, maxValue])
 
   const [searchParams, setSearchParams] = useSearchParams()
-  const urlAllParams = Object.fromEntries(searchParams)
 
-  const minParam = searchParams.get('min')
-  const maxParam = searchParams.get('max')
-
-  /*const debouncedMin = useDebounce<number | undefined>(min, 700)
-      const debouncedMax = useDebounce<number | undefined>(max, 700)*/
-  const debouncedMin = useDebounce<string | null>(minParam, 700)
-  const debouncedMax = useDebounce<string | null>(maxParam, 700)
-
-  const handleMin = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    dispatch(setMinMaxAC(+event.target.value, undefined))
-    setSearchParams({ ...urlAllParams, min: event.target.value })
+  const handleChange = (event: Event, newValue: number | number[]) => {
+    setValue(newValue as number[])
   }
 
-  const handleMax = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    dispatch(setMinMaxAC(undefined, +event.target.value))
-    setSearchParams({ ...urlAllParams, max: event.target.value })
-  }
+  const onChangeCommittedHandler = (
+    event: React.SyntheticEvent | Event,
+    newValue: number | number[]
+  ) => {
+    const value = newValue as number[]
 
-  const handleSlider = (e: Event, newValue: number | number[]) => {
-    if (Array.isArray(newValue)) {
-      dispatch(setMinMaxAC(newValue[0], newValue[1]))
-      setSearchParams({ ...urlAllParams, min: String(newValue[0]), max: String(newValue[1]) })
-    }
+    searchParams.set('min', String(value[0]))
+    searchParams.set('max', String(value[1]))
+    searchParams.set('page', String(1))
+    setSearchParams(searchParams)
   }
 
   useEffect(() => {
-    /*setSearchParams({ ...urlAllParams, min: String(min), max: String(max) })*/
-    if (minParam && maxParam) {
-      dispatch(
-        getPacksTC(undefined, undefined, undefined, undefined, undefined, +minParam, +maxParam)
-      )
+    if (searchParams.get('min') || searchParams.get('max')) {
+      const minSearch = Number(searchParams.get('min'))
+      const maxSearch = Number(searchParams.get('max'))
+
+      setValue([minSearch, maxSearch])
     } else {
-      dispatch(getPacksTC())
+      setValue([minValue, maxValue])
     }
-  }, [debouncedMin, debouncedMax])
+  }, [searchParams, minValue, maxValue])
 
   return (
     <div>

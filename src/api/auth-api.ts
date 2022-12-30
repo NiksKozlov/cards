@@ -5,13 +5,13 @@ import { instance } from './instance'
 export const authAPI = {
   register(data: RegisterParamsType) {
     return instance.post<'', AxiosResponse<RegisterResponseType>, RegisterParamsType>(
-      'auth/register',
+      '/auth/register',
       data
     )
   },
   forgotPassword(data: ForgotPasswordParamsType) {
     return instance.post<'', AxiosResponse<ForgotPasswordResponseType>, ForgotPasswordParamsType>(
-      'auth/forgot',
+      '/auth/forgot',
       data
     )
   },
@@ -20,16 +20,16 @@ export const authAPI = {
       '',
       AxiosResponse<CreateNewPasswordResponseType>,
       CreateNewPasswordParamsType
-    >('auth/set-new-password', data)
+    >('/auth/set-new-password', data)
   },
   login(data: LoginParamsType) {
-    return instance.post<'', AxiosResponse<AuthResponseType>, LoginParamsType>('auth/login', data)
+    return instance.post<'', AxiosResponse<AuthResponseType>, LoginParamsType>('/auth/login', data)
   },
   logOut() {
     return instance.delete<AuthResponseType>(`/auth/me`)
   },
   me() {
-    return instance.post<AuthResponseType>('auth/me')
+    return instance.post<AuthResponseType>('/auth/me')
   },
 }
 
