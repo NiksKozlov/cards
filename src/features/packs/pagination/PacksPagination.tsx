@@ -3,6 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { Container, MenuItem, Pagination, Select, SelectChangeEvent, Stack } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
+import { StyledPagination } from '../../../common/styles/paginationStyle'
+
+import s from './PacksPagination.module.css'
+
 type PropsType = {
   page: number
   packsCount: number
@@ -47,29 +51,28 @@ export const PacksPagination: React.FC<PropsType> = ({ page, packsCount, totalPa
   }, [searchParams, packsPerPage, page])
 
   return (
-    <Container sx={{ marginTop: 5 }} maxWidth={'md'}>
-      <Stack spacing={2}>
-        <Pagination
+    <Container sx={{ marginTop: 3 }}>
+      <div className={s.pagContainer}>
+        <StyledPagination
           color="primary"
           shape="rounded"
           count={totalPacksCount}
           page={currentPage}
           onChange={handleChangePage}
-          sx={{ marginY: 3, marginX: 'auto' }}
         />
-        Show
+        <div>Show</div>
         <Select
           value={String(packsPerPage)}
           onChange={handleChangePacksPerPage}
-          sx={{ width: '65px', height: '40px' }}
+          sx={{ width: '65px', height: '35px', marginLeft: '10px', marginRight: '10px' }}
         >
           <MenuItem value={4}>4</MenuItem>
           <MenuItem value={5}>5</MenuItem>
           <MenuItem value={8}>8</MenuItem>
           <MenuItem value={10}>10</MenuItem>
         </Select>
-        Packs per Page
-      </Stack>
+        <div>Packs per Page</div>
+      </div>
     </Container>
   )
 }

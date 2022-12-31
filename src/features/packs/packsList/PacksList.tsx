@@ -82,10 +82,8 @@ export const PacksList = () => {
         <SearchField />
         <PacksFilterButtons />
         {/*<ResetButton />*/}
-        <ResetFiltersBtn />
-      </div>
-      <div>
         <FilterSlider />
+        <ResetFiltersBtn />
       </div>
       <TableContainer component={Paper} className={s.tableContainer}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">

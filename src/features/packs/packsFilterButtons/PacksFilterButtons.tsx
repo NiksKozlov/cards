@@ -32,7 +32,7 @@ export const PacksFilterButtons = () => {
   return (
     <div className={s.container}>
       <h3>Show packs cards</h3>
-      <ButtonGroup>
+      <div>
         <button
           onClick={onMyClickHandler}
           className={belonging === 'my' ? s.filterChosenBtn : s.filterDefaultBtn}
@@ -45,7 +45,7 @@ export const PacksFilterButtons = () => {
         >
           All
         </button>
-      </ButtonGroup>
+      </div>
     </div>
   )
 }

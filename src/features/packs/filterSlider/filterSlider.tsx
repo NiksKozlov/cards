@@ -6,6 +6,8 @@ import { useSearchParams } from 'react-router-dom'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { maxCardsCount, minCardsCount } from '../packsList/packs-selector'
 
+import s from './filterSlider.module.css'
+
 export const FilterSlider = () => {
   const minValue = useAppSelector(minCardsCount)
   const maxValue = useAppSelector(maxCardsCount)
@@ -41,18 +43,25 @@ export const FilterSlider = () => {
   }, [searchParams, minValue, maxValue])
 
   return (
-    <div>
-      <div>{value[0]}</div>
-      <Slider
-        min={minValue}
-        max={maxValue}
-        value={value}
-        onChange={handleChange}
-        onChangeCommitted={onChangeCommittedHandler}
-        valueLabelDisplay="auto"
-        sx={{ width: '155px' }}
-      />
-      <div>{value[1]}</div>
+    <div className={s.sliderContainer}>
+      <h3>Number of cards</h3>
+      <div className={s.slider}>
+        <div className={s.number}>
+          <span>{value[0]}</span>
+        </div>
+        <Slider
+          min={minValue}
+          max={maxValue}
+          value={value}
+          onChange={handleChange}
+          onChangeCommitted={onChangeCommittedHandler}
+          valueLabelDisplay="auto"
+          sx={{ width: '180px', marginLeft: '20px', marginRight: '20px' }}
+        />
+        <div className={s.number}>
+          <span>{value[1]}</span>
+        </div>
+      </div>
     </div>
   )
 }

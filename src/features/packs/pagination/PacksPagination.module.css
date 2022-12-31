@@ -1,0 +1,13 @@
+.pagContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagContainer div{
+    font-family: 'Montserrat';
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 15px;
+}
