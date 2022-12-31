@@ -1,0 +1,35 @@
+.modalContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title {
+    font-family: 'Montserrat';
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 11px;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 30px;
+}
+
+.textContainer span{
+    margin-top: 5px;
+
+    font-family: 'Montserrat';
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    color: black;
+}
