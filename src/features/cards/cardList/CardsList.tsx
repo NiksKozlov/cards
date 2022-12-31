@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -11,6 +11,7 @@ import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { StyledHeadTableCell, StyledHeadTableRow } from '../../../common/styles/tableStyleWrapper'
 import { Card } from '../card/Card'
 
+import { AddNewCard } from './cardListCrud/AddNewCard'
 import { getCardsTC } from './cards-reducer'
 import s from './CardsList.module.css'
 
@@ -31,6 +32,10 @@ export const CardsList = () => {
 
   return (
     <div className={s.mainContainer}>
+      <div className={s.addCard}>
+        <h1 className={s.title}>Cards list</h1>
+        <AddNewCard />
+      </div>
       <button onClick={getCardsHandler}>get cards</button>
       <div></div>
       <TableContainer component={Paper} className={s.tableContainer}>
@@ -38,10 +43,10 @@ export const CardsList = () => {
           <TableHead>
             <StyledHeadTableRow>
               <StyledHeadTableCell>Question</StyledHeadTableCell>
-              <StyledHeadTableCell align="right">Answer</StyledHeadTableCell>
-              <StyledHeadTableCell align="right">Last Updated</StyledHeadTableCell>
-              <StyledHeadTableCell align="right">Grade</StyledHeadTableCell>
-              <StyledHeadTableCell align="right"></StyledHeadTableCell>
+              <StyledHeadTableCell align="center">Answer</StyledHeadTableCell>
+              <StyledHeadTableCell align="center">Last Updated</StyledHeadTableCell>
+              <StyledHeadTableCell align="center">Grade</StyledHeadTableCell>
+              <StyledHeadTableCell align="center">Actions</StyledHeadTableCell>
             </StyledHeadTableRow>
           </TableHead>
           <TableBody>
@@ -52,6 +57,7 @@ export const CardsList = () => {
                 answer={c.answer}
                 updated={c.updated}
                 grade={c.grade}
+                _id={c._id}
               />
             ))}
           </TableBody>

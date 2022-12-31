@@ -1,7 +1,11 @@
-import { cardsAPI, CardsParamsType, CardType } from '../../../api/cards-api'
-import { setAppStatusAC } from '../../../app/app-reducer'
-import { AppThunk } from '../../../common/hooks/useAppDispatch'
-import { handleServerError } from '../../../common/utils/error-handler/error-handler'
+import { EditCardLocalStateType } from '../card/cardCrud/EditCard'
+
+import { AddNewCardLocalStateType } from './cardListCrud/AddNewCard'
+
+import { cardsAPI, CardsParamsType, CardType } from 'api/cards-api'
+import { setAppStatusAC } from 'app/app-reducer'
+import { AppThunk } from 'common/hooks/useAppDispatch'
+import { handleServerError } from 'common/utils/error-handler/error-handler'
 
 const initialState = {
   packId: '',
@@ -50,6 +54,48 @@ export const getCardsTC =
       const res = await cardsAPI.getCards(params)
 
       dispatch(setCardsDataAC(res.data.cards))
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      handleServerError(e, dispatch)
+    }
+  }
+
+export const addNewCardTC =
+  (cardData: AddNewCardLocalStateType): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      const res = await cardsAPI.addNewCard(cardData)
+
+      dispatch(getCardsTC(res.data.newCard.cardsPack_id))
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      handleServerError(e, dispatch)
+    }
+  }
+
+export const editCardTC =
+  (cardData: EditCardLocalStateType): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      const res = await cardsAPI.editCard(cardData)
+
+      dispatch(getCardsTC(res.data.updatedCard.cardsPack_id))
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      handleServerError(e, dispatch)
+    }
+  }
+
+export const deleteCardTC =
+  (_id: string): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      const res = await cardsAPI.deleteCard(_id)
+
+      dispatch(getCardsTC(res.data.deletedCard.cardsPack_id))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)
