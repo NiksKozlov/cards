@@ -43,7 +43,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} />
       {status === 'loading' && <LinearProgress color="secondary" />}
       <ErrorSnackbar />
       <Routes>
