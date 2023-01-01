@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { Container, MenuItem, Pagination, Select, SelectChangeEvent, Stack } from '@mui/material'
+import { Container, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
 import { StyledPagination } from '../../../common/styles/paginationStyle'
@@ -56,7 +56,8 @@ export const PacksPagination: React.FC<PropsType> = ({ page, packsCount, totalPa
         <StyledPagination
           color="primary"
           shape="rounded"
-          count={totalPacksCount}
+          /*count={totalPacksCount}*/
+          count={Math.ceil(totalPacksCount / packsCount)}
           page={currentPage}
           onChange={handleChangePage}
         />
