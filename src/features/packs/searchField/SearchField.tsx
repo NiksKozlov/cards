@@ -22,8 +22,12 @@ const SearchField = () => {
       searchParams.set('packName', debouncedValue)
       setSearchParams(searchParams)
     }
-    if (searchParams.get('packName')) {
+    /*if (searchParams.get('packName')) {
       setValue(String(searchParams.get('packName')))
+    }*/
+    if (value.length === 0) {
+      searchParams.delete('packName')
+      setSearchParams(searchParams)
     }
   }, [searchParams, debouncedValue])
 

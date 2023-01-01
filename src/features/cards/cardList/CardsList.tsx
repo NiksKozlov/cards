@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -6,6 +6,7 @@ import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 
+import { BackToPacksList } from '../../../common/components/backToPacksList/BackToPacksList'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { StyledHeadTableCell, StyledHeadTableRow } from '../../../common/styles/tableStyleWrapper'
@@ -20,11 +21,9 @@ export const CardsList = () => {
   const cards = useAppSelector(st => st.cards.cards)
   const packId = useAppSelector(st => st.cards.packId)
 
-  console.log(packId)
-
-  // useEffect(() => {
-  //   dispatch(getCardsTC(packId))
-  // }, [])
+  useEffect(() => {
+    dispatch(getCardsTC(packId))
+  }, [])
 
   const getCardsHandler = () => {
     dispatch(getCardsTC(packId))
@@ -32,12 +31,11 @@ export const CardsList = () => {
 
   return (
     <div className={s.mainContainer}>
+      <BackToPacksList />
       <div className={s.addCard}>
         <h1 className={s.title}>Cards list</h1>
         <AddNewCard />
       </div>
-      <button onClick={getCardsHandler}>get cards</button>
-      <div></div>
       <TableContainer component={Paper} className={s.tableContainer}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>

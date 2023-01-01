@@ -4,7 +4,7 @@ import { Slider } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import { maxCardsCount, minCardsCount } from '../packsList/packs-selector'
+import { maxCardsCount, minCardsCount } from '../../../common/selectors/packs-selector'
 
 import s from './filterSlider.module.css'
 

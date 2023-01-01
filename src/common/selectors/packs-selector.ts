@@ -1,4 +1,4 @@
-import { AppRootStateType } from '../../../app/store'
+import { AppRootStateType } from '../../app/store'
 
 export const packsSelector = (state: AppRootStateType) => state.packs.cardPacks
 
@@ -13,3 +13,5 @@ export const minCardsCount = (state: AppRootStateType) => state.packs.minCardsCo
 export const maxCardsCount = (state: AppRootStateType) => state.packs.maxCardsCount
 
 export const sortPacks = (state: AppRootStateType) => state.packs.sortPacks
+
+export const showMyAll = (state: AppRootStateType) => state.packs.filter

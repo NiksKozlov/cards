@@ -2,10 +2,10 @@ import React, { useCallback } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
+import { BackToPacksList } from '../../../common/components/backToPacksList/BackToPacksList'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
-import { BackToPacksList } from '../../packs/backToPacksList/BackToPacksList'
 import { EditableName } from '../EditableName/EditableName'
 
 import { changeProfileNameTC, logOutTC } from './profile-reducer'

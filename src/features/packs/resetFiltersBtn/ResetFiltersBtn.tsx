@@ -10,7 +10,7 @@ export const ResetFiltersBtn = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const handleRequestReset = (e: React.MouseEvent<unknown>) => {
-    setSearchParams(searchParams)
+    setSearchParams()
   }
 
   return (

@@ -1,32 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { ButtonGroup } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import { userID } from '../../profile/user-selector'
+import { showMyAll } from '../../../common/selectors/packs-selector'
+import { userID } from '../../../common/selectors/user-selector'
 
 import s from './PacksFilterButtons.module.css'
 
 export const PacksFilterButtons = () => {
-  const dispatch = useAppDispatch()
-
-  const [belonging, setBelonging] = useState('all')
   const userId = useAppSelector(userID)
+  const filter = useAppSelector(showMyAll)
 
   const [searchParams, setSearchParams] = useSearchParams()
 
   const onMyClickHandler = () => {
-    searchParams.set('belonging', 'my')
+    searchParams.set('user_id', userId)
     setSearchParams(searchParams)
-    setBelonging('my')
   }
 
   const onAllClickHandler = () => {
-    searchParams.set('belonging', 'all')
+    searchParams.delete('user_id')
     setSearchParams(searchParams)
-    setBelonging('all')
   }
 
   return (
@@ -35,13 +30,13 @@ export const PacksFilterButtons = () => {
       <div>
         <button
           onClick={onMyClickHandler}
-          className={belonging === 'my' ? s.filterChosenBtn : s.filterDefaultBtn}
+          className={filter === 'my' ? s.filterChosenBtn : s.filterDefaultBtn}
         >
           My
         </button>
         <button
           onClick={onAllClickHandler}
-          className={belonging === 'all' ? s.filterChosenBtn : s.filterDefaultBtn}
+          className={filter === 'all' ? s.filterChosenBtn : s.filterDefaultBtn}
         >
           All
         </button>

@@ -8,7 +8,13 @@ import TableHead from '@mui/material/TableHead'
 import { useSearchParams } from 'react-router-dom'
 
 import { DomainPackType } from '../../../api/packs-api'
-import { userID } from '../../profile/user-selector'
+import {
+  cardPacksTotalCount,
+  packsCount,
+  packsPage,
+  packsSelector,
+} from '../../../common/selectors/packs-selector'
+import { userID } from '../../../common/selectors/user-selector'
 import { FilterSlider } from '../filterSlider/filterSlider'
 import { Pack } from '../pack/Pack'
 import { PacksFilterButtons } from '../packsFilterButtons/PacksFilterButtons'
@@ -18,7 +24,6 @@ import SearchField from '../searchField/SearchField'
 
 import { AddNewPacks } from './packListCrud/AddNewPacks'
 import { changeSortPacksAC, getPacksTC } from './packs-reducer'
-import { cardPacksTotalCount, packsCount, packsPage, packsSelector } from './packs-selector'
 import s from './PacksList.module.css'
 
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
@@ -55,18 +60,28 @@ export const PacksList = () => {
     handleRequestSort(event, property)
   }
 
-  const URLParams = useMemo(
-    () => ({
-      packName: searchParams.get('packName') || undefined,
-      page: Number(searchParams.get('page')) || undefined,
-      pageCount: Number(searchParams.get('pageCount')) || undefined,
-      min: Number(searchParams.get('min')) || undefined,
-      max: Number(searchParams.get('max')) || undefined,
-      sortPacks: searchParams.get('sortPacks') || undefined,
-      user_id: searchParams.get('belonging') === 'my' ? userId : undefined,
-    }),
-    [searchParams]
-  )
+  /*  const URLParams = useMemo(
+          () => ({
+            packName: searchParams.get('packName') || undefined,
+            page: Number(searchParams.get('page')) || undefined,
+            pageCount: Number(searchParams.get('pageCount')) || undefined,
+            min: Number(searchParams.get('min')) || undefined,
+            max: Number(searchParams.get('max')) || undefined,
+            sortPacks: searchParams.get('sortPacks') || undefined,
+            user_id: searchParams.get('belonging') === 'my' ? userId : undefined,
+          }),
+          [searchParams]
+        )*/
+
+  const URLParams = useMemo(() => {
+    const paramsSearch: any = {}
+
+    searchParams.forEach((key, value) => {
+      paramsSearch[value] = key
+    })
+
+    return paramsSearch
+  }, [searchParams])
 
   useEffect(() => {
     dispatch(getPacksTC(URLParams))
@@ -126,6 +141,15 @@ export const PacksList = () => {
   )
 }
 
+/*  useEffect(() => {
+        let orderParam = searchParams.get('sortPacks')
+
+        if (orderParam) {
+          setOrderBy(orderParam.substring(1) as keyof DomainPackType)
+          setOrder(Number(orderParam.at(0)) ? 'ascending' : 'descending')
+        }
+      }, [searchParams, order, orderBy])*/
+
 /*const URLParams = useMemo(() => {
       const paramsSearch: any = {}
   
@@ -160,76 +184,3 @@ export const PacksList = () => {
             
                 dispatch(editPackTC({ cardsPack: { _id, name } }))
               }*/
-
-/*return (
-        <div>
-          <PacksHeader />
-          <Paper sx={{ width: '100%', overflow: 'hidden', mt: '60px' }}>
-            <TableContainer sx={{ maxHeight: 840 }}>
-              <Table stickyHeader aria-label="sticky table">
-                <EnhancedTableHead
-                  columnsHead={columns}
-                  onRequestSort={handleRequestSort}
-                  order={order}
-                  orderBy={orderBy.toString()}
-                  rowCount={packsCards?.length}
-                />
-    
-                <TableBody>
-                  {cardPacks?.map((row, index) => {
-                    const labelId = `enhanced-table-checkbox-${index}`
-    
-                    return (
-                      <TableRow hover tabIndex={-1} key={row._id}>
-                        <StyledTableCell
-                          id={labelId}
-                          scope="row"
-                          onClick={() => handleClick(row._id)}
-                          sx={{ cursor: 'pointer', wordWrap: 'break-word' }}
-                        >
-                          {row.name}
-                        </StyledTableCell>
-                        <StyledTableCell align="left">{row.cardsCount}</StyledTableCell>
-                        {/!*!/ new Date(updated).toLocaleDateString()*!/}
-                        <StyledTableCell align="left">
-                          {new Date(row.updated).toLocaleDateString()}
-                        </StyledTableCell>
-                        <StyledTableCell align="left">{row.user_name}</StyledTableCell>
-                        <StyledTableCell align="left">
-                          {row.user_id === userIdLogin ? (
-                            <div>
-                              <IconButton disabled={row.cardsCount === 0} href={`#${PATH.LEARN}`}>
-                                <SchoolOutlinedIcon fontSize={'small'} />
-                              </IconButton>
-                              <EditPackIcon id_pack={row._id} packName={row.name} />
-                              <DeleteModalIcon
-                                titleName={'Delete Pack'}
-                                id_pack={row._id}
-                                name={row.name}
-                              />
-                            </div>
-                          ) : (
-                            <div>
-                              <IconButton disabled={row.cardsCount === 0}>
-                                <SchoolOutlinedIcon fontSize={'small'} />
-                              </IconButton>
-                            </div>
-                          )}
-                        </StyledTableCell>
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Paper>
-          <div>
-            <PacksPagination
-              page={pageState}
-              packsCount={packsCountState}
-              totalPacksCount={cardPacksTotal}
-            />
-          </div>
-        </div>
-      )
-    }*/

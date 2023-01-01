@@ -19,6 +19,7 @@ export const packsReducer = (
     case 'PACKS/SET-PACKS-LIST':
       return {
         ...action.packs,
+        filter: action.filter,
         cardPacks: action.packs.cardPacks.map(
           ({ _id, name, user_name, updated, cardsCount, user_id }) => ({
             _id,
@@ -44,8 +45,8 @@ export const packsReducer = (
 }
 
 // actions
-export const setPacksListAC = (packs: InitialStateType) =>
-  ({ type: 'PACKS/SET-PACKS-LIST', packs } as const)
+export const setPacksListAC = (packs: InitialStateType, filter: 'my' | 'all') =>
+  ({ type: 'PACKS/SET-PACKS-LIST', packs, filter } as const)
 export const changePageAC = (page: number) => ({ type: 'PACKS/CHANGE-PAGE', page } as const)
 export const changePageCountAC = (pageCount: number) =>
   ({ type: 'PACKS/CHANGE-PAGE-COUNT', pageCount } as const)
@@ -63,7 +64,10 @@ export const getPacksTC =
 
       const res = await packsAPI.getPacks(searchParams)
 
-      dispatch(setPacksListAC(res.data))
+      searchParams?.user_id
+        ? dispatch(setPacksListAC(res.data, 'my'))
+        : dispatch(setPacksListAC(res.data, 'all'))
+
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)

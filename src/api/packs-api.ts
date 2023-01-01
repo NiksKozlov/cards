@@ -70,6 +70,7 @@ export type PacksType = {
   pageCount: number
   sortPacks: string
   user_id: string
+  filter?: 'my' | 'all'
 }
 
 //DataTypes
