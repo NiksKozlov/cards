@@ -4,9 +4,15 @@ import { ChangeEvent, FC, ReactNode, useState } from 'react'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Checkbox, Divider, FormControlLabel, IconButton, TextField } from '@mui/material'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Modal from '@mui/material/Modal'
 
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import {
+  AddNewPackLocalStateType,
+  addNewPackTC,
+  EditPackLocalStateType,
+  editPackTC,
+} from '../../packs/packsList/packs-reducer'
 import { UniButton } from '../uniButton/UniButton'
 import st from '../uniButton/UniButton.module.css'
 import { UniInput } from '../uniInput/UniImput'
@@ -26,10 +32,16 @@ const style = {
 }
 
 type PropsType = {
+  children: ReactNode
   title: string
+  open: boolean
+  setOpen: (open: boolean) => void
+  id?: string
+  comp?: string
 }
 
-export const BasicPackModal: FC<PropsType> = ({ title }) => {
+export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: PropsType) => {
+  const dispatch = useAppDispatch()
   const [value, setValue] = useState<string>('')
   const [checked, setChecked] = useState<boolean>(false)
 
@@ -37,16 +49,42 @@ export const BasicPackModal: FC<PropsType> = ({ title }) => {
     setValue(e.currentTarget.value)
   }
 
+  const addNewPack = () => {
+    const addNewPackLocalState: AddNewPackLocalStateType = {
+      cardsPack: {
+        name: value,
+        deckCover: 'New Url',
+        private: checked,
+      },
+    }
+
+    dispatch(addNewPackTC(addNewPackLocalState))
+    setOpen(false)
+  }
+
+  const editPackName = () => {
+    const editPack: EditPackLocalStateType = {
+      cardsPack: {
+        _id: id as string,
+        name: value,
+      },
+    }
+
+    dispatch(editPackTC(editPack))
+    setOpen(false)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   const onChangeCheckboxHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setChecked(e.currentTarget.checked)
   }
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      {children}
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <div className={s.titleContainer}>
@@ -65,7 +103,11 @@ export const BasicPackModal: FC<PropsType> = ({ title }) => {
           </div>
           <div className={st.buttons}>
             <UniButton className={'cancelBtn'} title={'Cancel'} onClick={handleClose} />
-            <UniButton className={'saveBtn'} title={'Save'} />
+            <UniButton
+              className={'saveBtn'}
+              title={'Save'}
+              onClick={comp === 'add' ? addNewPack : editPackName}
+            />
           </div>
         </Box>
       </Modal>

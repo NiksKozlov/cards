@@ -1,13 +1,15 @@
 import * as React from 'react'
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, ReactNode, useState } from 'react'
 
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Divider, IconButton, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import Modal from '@mui/material/Modal'
 
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
+import { addNewCardTC, editCardTC } from '../../cards/cardList/cards-reducer'
 import { UniButton } from '../uniButton/UniButton'
 import st from '../uniButton/UniButton.module.css'
 import { UniInput } from '../uniInput/UniImput'
@@ -27,16 +29,20 @@ const style = {
 }
 
 type PropsType = {
+  children: ReactNode
   title: string
+  open: boolean
+  setOpen: (open: boolean) => void
+  comp: string
+  _id?: string
 }
 
-export const BasicCardModal: FC<PropsType> = ({ title }) => {
+export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: PropsType) => {
+  const dispatch = useAppDispatch()
+  const getCardsPack_id = useAppSelector(st => st.cards.packId)
   const [questionValue, setQuestionValue] = useState<string>('')
   const [answerValue, setAnswerValue] = useState<string>('')
   const [selectValue, setSelectValue] = React.useState('Text')
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelectValue(event.target.value)
@@ -50,9 +56,38 @@ export const BasicCardModal: FC<PropsType> = ({ title }) => {
     setAnswerValue(e.currentTarget.value)
   }
 
+  const addNewCard = () => {
+    const addNewCardLocalState = {
+      card: {
+        cardsPack_id: getCardsPack_id,
+        question: questionValue,
+        answer: answerValue,
+      },
+    }
+
+    dispatch(addNewCardTC(addNewCardLocalState))
+    setOpen(false)
+  }
+
+  const editCardName = () => {
+    const editCardLocalState = {
+      card: {
+        _id: _id as string,
+        question: questionValue,
+      },
+    }
+
+    dispatch(editCardTC(editCardLocalState))
+    setOpen(false)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      {children}
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <div className={s.titleContainer}>
@@ -86,7 +121,11 @@ export const BasicCardModal: FC<PropsType> = ({ title }) => {
           </FormControl>
           <div className={st.buttons}>
             <UniButton className={'cancelBtn'} title={'Cancel'} onClick={handleClose} />
-            <UniButton className={'saveBtn'} title={'Save'} />
+            <UniButton
+              className={'saveBtn'}
+              title={'Save'}
+              onClick={comp === 'edit' ? editCardName : addNewCard}
+            />
           </div>
         </Box>
       </Modal>

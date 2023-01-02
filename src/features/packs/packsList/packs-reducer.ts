@@ -1,11 +1,22 @@
-import { EditPackLocalStateType } from '../pack/packCrud/EditPack'
-
-import { AddNewPackLocalStateType } from './packListCrud/AddNewPacks'
-
 import { packsAPI, PacksParamsType, PacksType } from 'api/packs-api'
 import { setAppStatusAC } from 'app/app-reducer'
 import { AppThunk } from 'common/hooks/useAppDispatch'
 import { handleServerError } from 'common/utils/error-handler/error-handler'
+
+export type EditPackLocalStateType = {
+  cardsPack: {
+    _id: string
+    name: string
+  }
+}
+
+export type AddNewPackLocalStateType = {
+  cardsPack: {
+    name: string
+    deckCover: string
+    private: boolean
+  }
+}
 
 const initialState: PacksType = {} as PacksType
 

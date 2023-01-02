@@ -15,6 +15,7 @@ import {
   packsSelector,
 } from '../../../common/selectors/packs-selector'
 import { userID } from '../../../common/selectors/user-selector'
+import { AddNewPackModal } from '../../modals/basicPackModal/addNewPackModal/AddNewPackModal'
 import { FilterSlider } from '../filterSlider/filterSlider'
 import { Pack } from '../pack/Pack'
 import { PacksFilterButtons } from '../packsFilterButtons/PacksFilterButtons'
@@ -22,7 +23,6 @@ import { PacksPagination } from '../pagination/PacksPagination'
 import { ResetFiltersBtn } from '../resetFiltersBtn/ResetFiltersBtn'
 import SearchField from '../searchField/SearchField'
 
-import { AddNewPacks } from './packListCrud/AddNewPacks'
 import { changeSortPacksAC, getPacksTC } from './packs-reducer'
 import s from './PacksList.module.css'
 
@@ -91,7 +91,7 @@ export const PacksList = () => {
     <div className={s.mainContainer}>
       <div className={s.addPack}>
         <h1 className={s.title}>Packs list</h1>
-        <AddNewPacks />
+        <AddNewPackModal />
       </div>
       <div className={s.filtersContainer}>
         <SearchField />

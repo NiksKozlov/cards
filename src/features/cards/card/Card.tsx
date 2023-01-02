@@ -2,8 +2,10 @@ import React from 'react'
 
 import { Rating } from '@mui/material'
 
-import { DeleteCard } from './cardCrud/DeleteCard'
-import { EditCard } from './cardCrud/EditCard'
+import { EditCardModal } from '../../modals/basicCardModal/editCardModal/EditCardModal'
+import { DeleteCardModal } from '../../modals/basicDeleteModal/deleteCardModal/DeleteCardModal'
+
+import s from './Card.module.css'
 
 import { StyledBodyTableCell, StyledBodyTableRow } from 'common/styles/tableStyleWrapper'
 
@@ -33,8 +35,10 @@ export const Card = ({ question, answer, updated, grade, _id }: CardPropsType) =
         <Rating name="rating" defaultValue={grade} precision={0.1} readOnly />
       </StyledBodyTableCell>
       <StyledBodyTableCell align="center">
-        <EditCard _id={_id} />
-        <DeleteCard _id={_id} />
+        <div className={s.actions}>
+          <EditCardModal _id={_id} />
+          <DeleteCardModal id={_id} />
+        </div>
       </StyledBodyTableCell>
     </StyledBodyTableRow>
   )

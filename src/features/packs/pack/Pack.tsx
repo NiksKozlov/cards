@@ -5,9 +5,10 @@ import { IconButton } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import { setPackIdAC } from '../../cards/cardList/cards-reducer'
+import { DeletePackModal } from '../../modals/basicDeleteModal/deletePackModal/DeletePackModal'
+import { EditPackModal } from '../../modals/basicPackModal/editPackModal/EditPackModal'
 
-import { DeletePack } from './packCrud/DeletePack'
-import { EditPack } from './packCrud/EditPack'
+import s from './Pack.module.css'
 
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
 import { useAppSelector } from 'common/hooks/useAppSelector'
@@ -48,15 +49,17 @@ export const Pack = ({ name, cardsCount, updated, created, id, userId }: PackPro
       <StyledBodyTableCell align="left">{updatedDate}</StyledBodyTableCell>
       <StyledBodyTableCell align="left">{created}</StyledBodyTableCell>
       <StyledBodyTableCell align="left">
-        <IconButton disabled={!cardsCount} sx={{ color: 'black' }}>
-          <SchoolOutlinedIcon />
-        </IconButton>
-        {profile._id == userId && (
-          <>
-            <EditPack id={id} />
-            <DeletePack id={id} />
-          </>
-        )}
+        <div className={s.iconButtons}>
+          <IconButton disabled={!cardsCount} sx={{ color: 'black' }}>
+            <SchoolOutlinedIcon />
+          </IconButton>
+          {profile._id == userId && (
+            <>
+              <EditPackModal id={id} />
+              <DeletePackModal id={id} name={name} />
+            </>
+          )}
+        </div>
       </StyledBodyTableCell>
     </StyledBodyTableRow>
   )

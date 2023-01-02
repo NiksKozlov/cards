@@ -7,6 +7,9 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Modal from '@mui/material/Modal'
 
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { deleteCardTC } from '../../cards/cardList/cards-reducer'
+import { deletePackTC } from '../../packs/packsList/packs-reducer'
 import { UniButton } from '../uniButton/UniButton'
 import st from '../uniButton/UniButton.module.css'
 
@@ -25,17 +28,40 @@ const style = {
 }
 
 type PropsType = {
+  children: ReactNode
   title: string
+  comp: string
+  id: string
+  name?: string
+  open: boolean
+  setOpen: (open: boolean) => void
 }
 
-export const BasicDeleteModal: FC<PropsType> = ({ title }) => {
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true)
+export const BasicDeleteModal: FC<PropsType> = ({
+  children,
+  title,
+  comp,
+  id,
+  name,
+  open,
+  setOpen,
+}) => {
+  const dispatch = useAppDispatch()
   const handleClose = () => setOpen(false)
+
+  const deletePack = () => {
+    dispatch(deletePackTC(id))
+    setOpen(false)
+  }
+
+  const deleteCard = () => {
+    dispatch(deleteCardTC(id))
+    setOpen(false)
+  }
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      {children}
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <div className={s.titleContainer}>
@@ -46,12 +72,16 @@ export const BasicDeleteModal: FC<PropsType> = ({ title }) => {
           </div>
           <Divider />
           <div className={s.textContainer}>
-            <span>Do you really want to remove PackName?</span>
+            <span>Do you really want to remove {name}?</span>
             <span>All cards will be deleted.</span>
           </div>
           <div className={st.buttons}>
             <UniButton className={'cancelBtn'} title={'Cancel'} onClick={handleClose} />
-            <UniButton className={'deleteBtn'} title={'Delete'} />
+            <UniButton
+              className={'deleteBtn'}
+              title={'Delete'}
+              onClick={comp === 'delPack' ? deletePack : deleteCard}
+            />
           </div>
         </Box>
       </Modal>

@@ -10,9 +10,9 @@ import { BackToPacksList } from '../../../common/components/backToPacksList/Back
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { StyledHeadTableCell, StyledHeadTableRow } from '../../../common/styles/tableStyleWrapper'
+import { AddNewCardModal } from '../../modals/basicCardModal/addNewCardModal/AddNewCardModal'
 import { Card } from '../card/Card'
 
-import { AddNewCard } from './cardListCrud/AddNewCard'
 import { getCardsTC } from './cards-reducer'
 import s from './CardsList.module.css'
 
@@ -34,7 +34,7 @@ export const CardsList = () => {
       <BackToPacksList />
       <div className={s.addCard}>
         <h1 className={s.title}>Cards list</h1>
-        <AddNewCard />
+        <AddNewCardModal />
       </div>
       <TableContainer component={Paper} className={s.tableContainer}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
