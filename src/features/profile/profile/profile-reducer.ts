@@ -1,6 +1,7 @@
 import { authAPI, AuthResponseType } from '../../../api/auth-api'
 import { profileAPI } from '../../../api/profile-api'
 import { AppThunk } from '../../../common/hooks/useAppDispatch'
+import { handleServerError } from '../../../common/utils/error-handler/error-handler'
 import { setIsLoggedInAC } from '../../auth/login/auth-reducer'
 
 const initialState = {} as InitialStateType
@@ -52,7 +53,7 @@ export const changeProfileNameTC =
 
       dispatch(changeProfileNameAC(name))
     } catch (e) {
-      console.log('error: ', e)
+      handleServerError(e, dispatch)
     }
   }
 
@@ -62,7 +63,7 @@ export const logOutTC = (): AppThunk => async dispatch => {
 
     dispatch(setIsLoggedInAC(false))
   } catch (e) {
-    console.log('error: ', e)
+    handleServerError(e, dispatch)
   }
 }
 
