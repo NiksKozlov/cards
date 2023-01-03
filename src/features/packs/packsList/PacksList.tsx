@@ -14,7 +14,6 @@ import {
   packsPage,
   packsSelector,
 } from '../../../common/selectors/packs-selector'
-import { userID } from '../../../common/selectors/user-selector'
 import { AddNewPackModal } from '../../modals/basicPackModal/addNewPackModal/AddNewPackModal'
 import { FilterSlider } from '../filterSlider/filterSlider'
 import { Pack } from '../pack/Pack'
@@ -37,7 +36,6 @@ export const PacksList = () => {
   const pageState = useAppSelector(packsPage)
   const packsCountState = useAppSelector(packsCount)
   const cardPacksTotal = useAppSelector(cardPacksTotalCount)
-  const userId = useAppSelector(userID)
 
   const [order, setOrder] = useState('ascending')
   const [orderBy, setOrderBy] = useState('updated')
@@ -59,19 +57,6 @@ export const PacksList = () => {
   const createSortHandler = (property: any) => (event: React.MouseEvent<unknown>) => {
     handleRequestSort(event, property)
   }
-
-  /*  const URLParams = useMemo(
-          () => ({
-            packName: searchParams.get('packName') || undefined,
-            page: Number(searchParams.get('page')) || undefined,
-            pageCount: Number(searchParams.get('pageCount')) || undefined,
-            min: Number(searchParams.get('min')) || undefined,
-            max: Number(searchParams.get('max')) || undefined,
-            sortPacks: searchParams.get('sortPacks') || undefined,
-            user_id: searchParams.get('belonging') === 'my' ? userId : undefined,
-          }),
-          [searchParams]
-        )*/
 
   const URLParams = useMemo(() => {
     const paramsSearch: any = {}
@@ -96,7 +81,6 @@ export const PacksList = () => {
       <div className={s.filtersContainer}>
         <SearchField />
         <PacksFilterButtons />
-        {/*<ResetButton />*/}
         <FilterSlider />
         <ResetFiltersBtn />
       </div>
@@ -140,47 +124,3 @@ export const PacksList = () => {
     </div>
   )
 }
-
-/*  useEffect(() => {
-        let orderParam = searchParams.get('sortPacks')
-
-        if (orderParam) {
-          setOrderBy(orderParam.substring(1) as keyof DomainPackType)
-          setOrder(Number(orderParam.at(0)) ? 'ascending' : 'descending')
-        }
-      }, [searchParams, order, orderBy])*/
-
-/*const URLParams = useMemo(() => {
-      const paramsSearch: any = {}
-  
-      searchParams.forEach((key, value) => {
-        paramsSearch[value] = key
-      })
-  
-      return paramsSearch
-    }, [searchParams])
-  
-    useEffect(() => {
-      let orderParam = searchParams.get('sortPacks')
-  
-      if (orderParam) {
-        setOrderBy(orderParam.substring(1) as keyof DomainPackType)
-        setOrder(Number(orderParam.at(0)) ? 'ascending' : 'descending')
-      }
-    }, [searchParams, order, orderBy])*/
-
-/*const packElement = cardPacks
-            
-              const handleClick = (packId: string) => {
-                navigate(`/packs/${packId}`)
-              }
-            
-              const deletePack = (id: string) => {
-                dispatch(deletePackTC(id))
-              }
-            
-              const updatePack = (_id: string, name: string) => {
-                let newName = 'NEW NAME'
-            
-                dispatch(editPackTC({ cardsPack: { _id, name } }))
-              }*/

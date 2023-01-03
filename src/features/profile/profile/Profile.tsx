@@ -1,7 +1,11 @@
 import React, { useCallback } from 'react'
 
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
+import LogoutIcon from '@mui/icons-material/Logout'
+import { IconButton } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 
+import defaultAva from '../../../assets/images/defaultAva.png'
 import { BackToPacksList } from '../../../common/components/backToPacksList/BackToPacksList'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
@@ -33,22 +37,25 @@ export const Profile = () => {
       <BackToPacksList />
       <div className={s.formContainer}>
         <h1>Personal information</h1>
-        <div>
-          <img
-            style={{ height: '100px' }}
-            src="https://dl.memuplay.com/new_market/img/com.vicman.newprofilepic.icon.2022-06-07-21-33-07.png"
-            alt="profile photo"
-          />
-        </div>
-        <div className={s.nameEmailTitle}>Name:</div>
+        <img
+          className={s.ava}
+          src={profile.avatar ? profile.avatar : defaultAva}
+          alt="profile photo"
+        />
+        <AddAPhotoIcon
+          sx={{ position: 'absolute', top: '360px', left: '728px', color: 'grey' }}
+          fontSize={'large'}
+        />
         <div className={s.name}>
           <EditableName name={profile.name} onChange={changeProfileName} />
         </div>
         <br />
-        <div className={s.nameEmailTitle}>Email:</div>
         <div className={s.email}>{profile.email}</div>
         <button className={s.submitBtn} onClick={logOut}>
-          LogOut
+          <IconButton size={'small'}>
+            <LogoutIcon fontSize={'small'} />
+            Log Out
+          </IconButton>
         </button>
       </div>
     </div>

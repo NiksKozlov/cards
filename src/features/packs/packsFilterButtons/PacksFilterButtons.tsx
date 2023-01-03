@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { showMyAll } from '../../../common/selectors/packs-selector'
-import { userID } from '../../../common/selectors/user-selector'
+import { userID } from '../../../common/selectors/profile-selector'
 
 import s from './PacksFilterButtons.module.css'
 

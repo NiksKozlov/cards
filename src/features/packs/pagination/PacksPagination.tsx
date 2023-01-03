@@ -65,12 +65,13 @@ export const PacksPagination: React.FC<PropsType> = ({ page, packsCount, totalPa
         <Select
           value={String(packsPerPage)}
           onChange={handleChangePacksPerPage}
-          sx={{ width: '65px', height: '35px', marginLeft: '10px', marginRight: '10px' }}
+          sx={{ width: '70px', height: '35px', marginLeft: '10px', marginRight: '10px' }}
         >
           <MenuItem value={4}>4</MenuItem>
           <MenuItem value={5}>5</MenuItem>
-          <MenuItem value={8}>8</MenuItem>
           <MenuItem value={10}>10</MenuItem>
+          <MenuItem value={15}>15</MenuItem>
+          <MenuItem value={100}>100</MenuItem>
         </Select>
         <div>Packs per Page</div>
       </div>

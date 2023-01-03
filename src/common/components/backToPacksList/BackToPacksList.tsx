@@ -11,7 +11,9 @@ export const BackToPacksList = () => {
   return (
     <div className={s.back}>
       <KeyboardBackspaceIcon sx={{ marginRight: '5px', fontSize: '20px' }} />
-      <NavLink to={PATH.PACKS_LIST}>Back to Packs List</NavLink>
+      <NavLink style={{ textDecoration: 'none', color: 'black' }} to={PATH.PACKS_LIST}>
+        Back to Packs List
+      </NavLink>
     </div>
   )
 }
