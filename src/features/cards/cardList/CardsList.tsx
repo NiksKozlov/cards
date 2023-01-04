@@ -25,10 +25,6 @@ export const CardsList = () => {
     dispatch(getCardsTC(packId))
   }, [])
 
-  const getCardsHandler = () => {
-    dispatch(getCardsTC(packId))
-  }
-
   return (
     <div className={s.mainContainer}>
       <BackToPacksList />
