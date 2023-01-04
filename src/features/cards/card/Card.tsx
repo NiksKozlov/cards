@@ -13,7 +13,7 @@ import { StyledBodyTableCell, StyledBodyTableRow } from 'common/styles/tableStyl
 type CardPropsType = {
   question: string
   answer: string
-  updated: Date
+  updated: Date | string
   grade: number
   _id: string
 }

@@ -43,8 +43,8 @@ export type CardType = {
   grade: number
   shots: number
   user_id: string
-  created: Date
-  updated: Date
+  created: Date | string
+  updated: Date | string
   _id: string
 }
 

@@ -1,96 +1,70 @@
-import React, { useEffect, useState } from 'react'
-
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
 
 import { CardType } from '../../api/cards-api'
-import { AppRootStateType } from '../../app/store'
-import { useAppDispatch } from '../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../common/hooks/useAppSelector'
-import { getCardsTC } from '../cards/cardList/cards-reducer'
 
-const grades = ['не знал', 'забыл', 'долго думал', 'перепутал', 'знал']
-
-const getCard = (cards: CardType[]) => {
-  const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0)
-  const rand = Math.random() * sum
-  const res = cards.reduce(
-    (acc: { sum: number; id: number }, card, i) => {
-      const newSum = acc.sum + (6 - card.grade) * (6 - card.grade)
-
-      return { sum: newSum, id: newSum < rand ? i : acc.id }
-    },
-    { sum: 0, id: -1 }
-  )
-
-  console.log('test: ', sum, rand, res)
-
-  return cards[res.id + 1]
-}
+// const grades = ['не знал', 'забыл', 'долго думал', 'перепутал', 'знал']
+//
+// const getCard = (cards: CardType[]) => {
+//   const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0)
+//   const rand = Math.random() * sum
+//   const res = cards.reduce(
+//     (acc: { sum: number; id: number }, card, i) => {
+//       const newSum = acc.sum + (6 - card.grade) * (6 - card.grade)
+//
+//       return { sum: newSum, id: newSum < rand ? i : acc.id }
+//     },
+//     { sum: 0, id: -1 }
+//   )
+//
+//   console.log('test: ', sum, rand, res)
+//
+//   return cards[res.id + 1]
+// }
 
 export const Learn = () => {
-  const [isChecked, setIsChecked] = useState<boolean>(false)
-  const [first, setFirst] = useState<boolean>(true)
-  const { cards } = useSelector((store: AppRootStateType) => store.cards)
-  const packId = useAppSelector(st => st.cards.packId)
+  const cards = useAppSelector(st => st.cards.cards)
 
-  const [card, setCard] = useState({
-    _id: 'fake',
+  const [start, setStart] = useState<boolean>(false)
+  const [showAnswer, setShowAnswer] = useState<boolean>(false)
+  const [card, setCard] = useState<CardType>({
+    answer: '',
+    question: '',
     cardsPack_id: '',
-
-    answer: 'answer fake',
-    question: 'question fake',
     grade: 0,
     shots: 0,
+    user_id: '',
+    created: '',
+    updated: '',
+    _id: '',
   })
 
-  const dispatch = useAppDispatch()
+  console.log(card)
+  console.log(cards.length)
 
-  useEffect(() => {
-    console.log('LearnContainer useEffect')
+  const getCardHandler = () => {
+    setCard(cards[0])
+    setStart(true)
+  }
 
-    if (first) {
-      dispatch(getCardsTC(packId))
-      setFirst(false)
-    }
-
-    console.log('cards', cards)
-    if (cards.length > 0) setCard(getCard(cards))
-
-    return () => {
-      console.log('LearnContainer useEffect off')
-    }
-  }, [dispatch, packId, cards, first])
-
-  const onNext = () => {
-    setIsChecked(false)
-
-    if (cards.length > 0) {
-      // dispatch
-      setCard(getCard(cards))
-    }
+  const showAnswerHandler = () => {
+    setShowAnswer(true)
   }
 
   return (
     <div>
-      LearnPage
-      <div>{card.question}</div>
-      <div>
-        <button onClick={() => setIsChecked(true)}>check</button>
-      </div>
-      {isChecked && (
-        <>
-          <div>{card.answer}</div>
-
-          {grades.map((g, i) => (
-            <button key={'grade-' + i} onClick={() => {}}>
-              {g}
-            </button>
-          ))}
-
-          <div>
-            <button onClick={onNext}>next</button>
-          </div>
-        </>
+      {start ? (
+        <div>
+          <div>Hello, i am learn</div>
+          <div>{card.question}</div>
+          {showAnswer && <div>{card.answer}</div>}
+          <button onClick={showAnswerHandler}>Show answer</button>
+        </div>
+      ) : (
+        <div>
+          <div>Learn</div>
+          <button onClick={getCardHandler}>Get card</button>
+        </div>
       )}
     </div>
   )
