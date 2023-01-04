@@ -15,6 +15,8 @@ export type EditCardLocalStateType = {
   card: {
     _id: string
     question: string
+    grade: number
+    shots: number
   }
 }
 

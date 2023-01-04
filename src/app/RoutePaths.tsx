@@ -9,6 +9,7 @@ import { Login } from '../features/auth/login/Login'
 import { NewPassword } from '../features/auth/new-password/NewPassword'
 import { Register } from '../features/auth/register/Register'
 import { CardsList } from '../features/cards/cardList/CardsList'
+import { Learn } from '../features/learn/Learn'
 import { PacksList } from '../features/packs/packsList/PacksList'
 import { Profile } from '../features/profile/profile/Profile'
 
@@ -27,6 +28,7 @@ export const RoutePaths: FC<PropsType> = memo(({ isLoggedIn }) => {
         <Route path={PATH.PROFILE} element={<Profile />} />
         <Route path={PATH.PACKS_LIST} element={<PacksList />} />
         <Route path={PATH.CARDS_LIST} element={<CardsList />} />
+        <Route path={PATH.LEARN} element={<Learn />} />
       </Route>
       <Route path={PATH.LOGIN} element={<Login />} />
       <Route path={PATH.REGISTER} element={<Register />} />

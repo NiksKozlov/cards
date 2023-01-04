@@ -38,11 +38,13 @@ export const Pack = ({ name, cardsCount, updated, created, id, userId }: PackPro
   const onNameClickHandler = async () => {
     await dispatch(setPackIdAC(id))
 
-      navigate(PATH.CARDS_LIST)
+    navigate(PATH.CARDS_LIST)
   }
 
-    const runLearn = () => {
-        navigate(PATH.LEARN)
+  const runLearn = async () => {
+    await dispatch(setPackIdAC(id))
+
+    navigate(PATH.LEARN)
   }
 
   return (
@@ -55,7 +57,7 @@ export const Pack = ({ name, cardsCount, updated, created, id, userId }: PackPro
       <StyledBodyTableCell align="left">{created}</StyledBodyTableCell>
       <StyledBodyTableCell align="left">
         <div className={s.iconButtons}>
-          <IconButton disabled={!cardsCount} sx={{ color: 'black' }}>
+          <IconButton disabled={!cardsCount} sx={{ color: 'black' }} onClick={runLearn}>
             <SchoolOutlinedIcon />
           </IconButton>
           {profile._id == userId && (

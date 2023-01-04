@@ -72,7 +72,9 @@ type addNewCardDataType = {
 type editCardDataType = {
   card: {
     _id: string
+    grade: number
     question: string
+    shots: number
   }
 }
 

@@ -109,7 +109,6 @@ export const PacksList = () => {
                 cardsCount={p.cardsCount}
                 updated={p.updated}
                 created={p.user_name}
-                user_id={p.user_id}
               />
             ))}
           </TableBody>

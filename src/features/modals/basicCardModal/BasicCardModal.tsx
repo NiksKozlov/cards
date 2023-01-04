@@ -74,6 +74,8 @@ export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: Pr
       card: {
         _id: _id as string,
         question: questionValue,
+        grade: 0,
+        shots: 0,
       },
     }
 
