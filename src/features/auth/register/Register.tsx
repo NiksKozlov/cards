@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { FormGroup, IconButton, TextField } from '@mui/material'
@@ -54,7 +54,20 @@ export const Register = () => {
     onSubmit: values => {
       dispatch(registration(values.email, values.password))
     },
+    validateOnChange: false,
+    // validateOnBlur: false,
   })
+
+  const handleInput = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    formik.handleChange(e)
+    formik.setErrors({})
+  }
+
+  const disabled =
+    formik.values.password.length === 0 ||
+    formik.values.confirmPassword.length === 0 ||
+    formik.values.email.length === 0 ||
+    !(formik.isValid && formik.dirty)
 
   return (
     <div className={s.mainContainer}>
@@ -70,7 +83,7 @@ export const Register = () => {
               label="Email"
               margin="normal"
               name="email"
-              onChange={formik.handleChange}
+              onChange={handleInput}
               value={formik.values.email}
               error={!!formik.errors.email}
             />
@@ -83,7 +96,7 @@ export const Register = () => {
               label="Password"
               margin="normal"
               name="password"
-              onChange={formik.handleChange}
+              onChange={handleInput}
               value={formik.values.password}
               error={!!formik.errors.password}
               InputProps={{
@@ -108,7 +121,7 @@ export const Register = () => {
               label="Confirm Password"
               margin="normal"
               name="confirmPassword"
-              onChange={formik.handleChange}
+              onChange={handleInput}
               value={formik.values.confirmPassword}
               error={!!formik.errors.confirmPassword}
               InputProps={{
@@ -126,7 +139,12 @@ export const Register = () => {
               <div className={s.error}>{formik.errors.confirmPassword}</div>
             ) : null}
             {error ? <div className={s.error}>{error}</div> : null}
-            <button className={s.submitBtn} type={'submit'} color={'primary'}>
+            <button
+              className={disabled ? s.disabledBtn : s.submitBtn}
+              type={'submit'}
+              color={'primary'}
+              disabled={disabled}
+            >
               Sign Up
             </button>
           </FormGroup>

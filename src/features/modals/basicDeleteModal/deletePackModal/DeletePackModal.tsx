@@ -24,7 +24,7 @@ export const DeletePackModal = ({ id, name }: PropsType) => {
       setOpen={setOpen}
     >
       <IconButton onClick={handleOpen}>
-        <DeleteOutlinedIcon />
+        <DeleteOutlinedIcon sx={{ color: 'black' }} />
       </IconButton>
     </BasicDeleteModal>
   )

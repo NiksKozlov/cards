@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 
 import { FormGroup, TextField } from '@mui/material'
 import { useFormik } from 'formik'
@@ -39,7 +39,15 @@ export const ForgotPassword = () => {
     onSubmit: values => {
       dispatch(forgotPassword(values.email))
     },
+    validateOnChange: false,
   })
+
+  const handleInput = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    formik.handleChange(e)
+    formik.setErrors({})
+  }
+
+  const disabled = formik.values.email.length === 0 || !(formik.isValid && formik.dirty)
 
   return (
     <div className={s.mainContainer}>
@@ -58,7 +66,7 @@ export const ForgotPassword = () => {
               label="Email"
               margin="normal"
               name="email"
-              onChange={formik.handleChange}
+              onChange={handleInput}
               value={formik.values.email}
               error={!!formik.errors.email}
             />
@@ -67,7 +75,12 @@ export const ForgotPassword = () => {
             <span className={s.instruction}>
               Enter your email address and we will send you further instructions?
             </span>
-            <button className={s.submitBtn} type={'submit'} color={'primary'}>
+            <button
+              className={disabled ? s.disabledBtn : s.submitBtn}
+              type={'submit'}
+              color={'primary'}
+              disabled={disabled}
+            >
               Send Instructions
             </button>
           </FormGroup>
