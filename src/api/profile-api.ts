@@ -9,8 +9,16 @@ export const profileAPI = {
       name,
     })
   },
+  updateProfileAvatar(avatar: string) {
+    return instance.put<'', AxiosResponse<AuthResponseType>, updateProfileAvatarType>('/auth/me', {
+      avatar,
+    })
+  },
 }
 
 type updateProfileNameType = {
   name: string
+}
+type updateProfileAvatarType = {
+  avatar: string
 }

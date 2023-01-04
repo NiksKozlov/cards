@@ -1,24 +1,25 @@
 import React, { useCallback } from 'react'
 
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { IconButton } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 
-import defaultAva from '../../../assets/images/defaultAva.png'
 import { BackToPacksList } from '../../../common/components/backToPacksList/BackToPacksList'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
+import { userIsLoggedIn } from '../../../common/selectors/auth-selector'
+import { userProfile } from '../../../common/selectors/profile-selector'
 import { EditableName } from '../EditableName/EditableName'
 
+import { InputTypeFileAva } from './inputTypeFileAva/InputTypeFileAva'
 import { changeProfileNameTC, logOutTC } from './profile-reducer'
 import s from './Profile.module.css'
 
 export const Profile = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-  const profile = useAppSelector(state => state.profile)
+  const isLoggedIn = useAppSelector(userIsLoggedIn)
+  const profile = useAppSelector(userProfile)
 
   const logOut = () => {
     dispatch(logOutTC())
@@ -37,15 +38,7 @@ export const Profile = () => {
       <BackToPacksList />
       <div className={s.formContainer}>
         <h1>Personal information</h1>
-        <img
-          className={s.ava}
-          src={profile.avatar ? profile.avatar : defaultAva}
-          alt="profile photo"
-        />
-        <AddAPhotoIcon
-          sx={{ position: 'absolute', top: '360px', left: '728px', color: 'grey' }}
-          fontSize={'large'}
-        />
+        <InputTypeFileAva />
         <div className={s.name}>
           <EditableName name={profile.name} onChange={changeProfileName} />
         </div>

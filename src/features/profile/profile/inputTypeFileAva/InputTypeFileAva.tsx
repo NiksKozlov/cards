@@ -1,17 +1,23 @@
 import React, { ChangeEvent, useState } from 'react'
 
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
 import { IconButton } from '@mui/material'
 
-import { setAppErrorAC } from '../../../app/app-reducer'
-import defaultAva from '../../../assets/images/defaultAva.png'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
-import { convertFileToBase64 } from '../../utils/convertFileToBase64/convertFileToBase64'
+import { setAppErrorAC } from '../../../../app/app-reducer'
+import defaultAva from '../../../../assets/images/defaultAva.jpg'
+import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
+import { useAppSelector } from '../../../../common/hooks/useAppSelector'
+import { userAva } from '../../../../common/selectors/profile-selector'
+import { convertFileToBase64 } from '../../../../common/utils/convertFileToBase64/convertFileToBase64'
+import { changeProfileAvatarTC } from '../profile-reducer'
 
-export const InputTypeFile = () => {
+import s from './InputTypeFileAva.module.css'
+
+export const InputTypeFileAva = () => {
   const dispatch = useAppDispatch()
 
-  const [ava, setAva] = useState(defaultAva)
+  const avatar = useAppSelector(userAva)
+
   const [isAvaBroken, setIsAvaBroken] = useState(false)
 
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,9 +26,7 @@ export const InputTypeFile = () => {
 
       if (file.size < 4000000) {
         convertFileToBase64(file, (file64: string) => {
-          // dispatch(updateProfileTC({ avatar: file64 }))
-          // setAva(file64)
-          // setAva('111')
+          dispatch(changeProfileAvatarTC(file64))
         })
       } else {
         setAppErrorAC('File size too large 0_0')
@@ -38,15 +42,15 @@ export const InputTypeFile = () => {
   return (
     <div>
       <img
-        src={isAvaBroken ? defaultAva : ava}
-        style={{ width: '100px' }}
+        className={s.ava}
+        src={isAvaBroken ? defaultAva : avatar}
         onError={errorHandler}
         alt="ava"
       />
       <label>
         <input type="file" onChange={uploadHandler} style={{ display: 'none' }} />
         <IconButton component="span">
-          <CloudUploadIcon />
+          <AddAPhotoIcon sx={{ color: 'grey' }} fontSize={'large'} />
         </IconButton>
       </label>
     </div>

@@ -1,5 +1,6 @@
 import { authAPI, AuthResponseType } from '../../../api/auth-api'
 import { profileAPI } from '../../../api/profile-api'
+import { setAppStatusAC } from '../../../app/app-reducer'
 import { AppThunk } from '../../../common/hooks/useAppDispatch'
 import { handleServerError } from '../../../common/utils/error-handler/error-handler'
 import { setIsLoggedInAC } from '../../auth/login/auth-reducer'
@@ -30,6 +31,8 @@ export const profileReducer = (
       return action.profile
     case 'PROFILE/CHANGE-PROFILE-NAME':
       return { ...state, name: action.name }
+    case 'PROFILE/CHANGE-PROFILE-AVATAR':
+      return { ...state, avatar: action.avatar }
     default:
       return state
   }
@@ -44,14 +47,34 @@ export const changeProfileNameAC = (name: string) =>
     type: 'PROFILE/CHANGE-PROFILE-NAME',
     name,
   } as const)
+export const changeProfileAvatarAC = (avatar: string) =>
+  ({
+    type: 'PROFILE/CHANGE-PROFILE-AVATAR',
+    avatar,
+  } as const)
 
 export const changeProfileNameTC =
   (name: string): AppThunk =>
   async dispatch => {
     try {
+      dispatch(setAppStatusAC('loading'))
       await profileAPI.updateProfileName(name)
 
       dispatch(changeProfileNameAC(name))
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      handleServerError(e, dispatch)
+    }
+  }
+export const changeProfileAvatarTC =
+  (avatar: string): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      await profileAPI.updateProfileAvatar(avatar)
+
+      dispatch(changeProfileAvatarAC(avatar))
+      dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)
     }
@@ -71,3 +94,4 @@ export const logOutTC = (): AppThunk => async dispatch => {
 export type ProfileActionsTypes =
   | ReturnType<typeof setProfileAC>
   | ReturnType<typeof changeProfileNameAC>
+  | ReturnType<typeof changeProfileAvatarAC>
