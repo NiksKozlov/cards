@@ -1,6 +1,9 @@
 import React from 'react'
 
 import { Rating } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+
+import { PATH } from '../../../common/routePaths/routePaths.enum'
 
 import { EditCardModal } from '../../modals/basicCardModal/editCardModal/EditCardModal'
 import { DeleteCardModal } from '../../modals/basicDeleteModal/deleteCardModal/DeleteCardModal'
@@ -12,7 +15,7 @@ import { StyledBodyTableCell, StyledBodyTableRow } from 'common/styles/tableStyl
 type CardPropsType = {
   question: string
   answer: string
-  updated: Date
+  updated: Date | string
   grade: number
   _id: string
 }
@@ -24,9 +27,15 @@ export const Card = ({ question, answer, updated, grade, _id }: CardPropsType) =
   const year = date.substr(0, 4)
   const updatedDate = `${day}.${month}.${year}`
 
+  const navigate = useNavigate()
+
+  const runLearn = () => {
+    navigate(PATH.LEARN)
+  }
+
   return (
     <StyledBodyTableRow>
-      <StyledBodyTableCell component="th" scope="row">
+      <StyledBodyTableCell component="th" scope="row" onClick={runLearn}>
         {question}
       </StyledBodyTableCell>
       <StyledBodyTableCell align="center">{answer}</StyledBodyTableCell>

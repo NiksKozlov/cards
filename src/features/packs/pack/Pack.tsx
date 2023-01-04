@@ -5,6 +5,7 @@ import { IconButton } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import { userProfile } from '../../../common/selectors/profile-selector'
+import { PATH } from '../../../common/routePaths/routePaths.enum'
 import { setPackIdAC } from '../../cards/cardList/cards-reducer'
 import { DeletePackModal } from '../../modals/basicDeleteModal/deletePackModal/DeletePackModal'
 import { EditPackModal } from '../../modals/basicPackModal/editPackModal/EditPackModal'
@@ -49,7 +50,13 @@ export const Pack = ({
   const onNameClickHandler = () => {
     dispatch(setPackIdAC(id))
 
-    navigate('/cards-list')
+    navigate(PATH.CARDS_LIST)
+  }
+
+  const runLearn = async () => {
+    await dispatch(setPackIdAC(id))
+
+    navigate(PATH.LEARN)
   }
 
   return (
@@ -65,7 +72,7 @@ export const Pack = ({
       <StyledBodyTableCell align="left">{created}</StyledBodyTableCell>
       <StyledBodyTableCell align="left">
         <div className={s.iconButtons}>
-          <IconButton disabled={!cardsCount} sx={{ color: 'black' }}>
+          <IconButton disabled={!cardsCount} sx={{ color: 'black' }} onClick={runLearn}>
             <SchoolOutlinedIcon />
           </IconButton>
           {profile._id == userId && (
