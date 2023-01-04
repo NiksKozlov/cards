@@ -3,14 +3,14 @@ import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import { showMyAll } from '../../../common/selectors/packs-selector'
+import { myAllFilter } from '../../../common/selectors/packs-selector'
 import { userID } from '../../../common/selectors/profile-selector'
 
 import s from './PacksFilterButtons.module.css'
 
 export const PacksFilterButtons = () => {
   const userId = useAppSelector(userID)
-  const filter = useAppSelector(showMyAll)
+  const filter = useAppSelector(myAllFilter)
 
   const [searchParams, setSearchParams] = useSearchParams()
 

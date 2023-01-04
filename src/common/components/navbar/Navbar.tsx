@@ -38,6 +38,8 @@ export const Navbar: FC<PropsType> = ({ isLoggedIn }) => {
     dispatch(setAppErrorAC('Something is wrong with the uploaded image.'))
   }
 
+  const anotherExpression = avatar ? avatar : defaultAva
+
   return (
     <div className={s.navbarContainer}>
       <div>image</div>
@@ -47,7 +49,7 @@ export const Navbar: FC<PropsType> = ({ isLoggedIn }) => {
           <img
             className={s.navAva}
             onClick={profileBtnHandler}
-            src={isAvaBroken ? defaultAva : avatar}
+            src={isAvaBroken ? defaultAva : anotherExpression}
             onError={errorHandler}
             alt="profile photo"
           />

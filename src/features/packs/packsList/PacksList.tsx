@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead'
 import { useSearchParams } from 'react-router-dom'
 
 import { DomainPackType } from '../../../api/packs-api'
+import noCover from '../../../assets/images/noCover.jpg'
 import {
   cardPacksTotalCount,
   packsCount,
@@ -88,6 +89,7 @@ export const PacksList = () => {
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <StyledHeadTableRow>
+              <StyledHeadTableCell align="left">Cover</StyledHeadTableCell>
               <StyledHeadTableCell onClick={createSortHandler('name')}>Name</StyledHeadTableCell>
               <StyledHeadTableCell align="left" onClick={createSortHandler('cardsCount')}>
                 Cards
@@ -109,6 +111,7 @@ export const PacksList = () => {
                 cardsCount={p.cardsCount}
                 updated={p.updated}
                 created={p.user_name}
+                deckCover={p.deckCover ? p.deckCover : noCover}
               />
             ))}
           </TableBody>

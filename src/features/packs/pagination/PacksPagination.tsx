@@ -56,9 +56,8 @@ export const PacksPagination: React.FC<PropsType> = ({ page, packsCount, totalPa
         <StyledPagination
           color="primary"
           shape="rounded"
-          /*count={totalPacksCount}*/
-          count={Math.ceil(totalPacksCount / packsCount)}
-          page={currentPage}
+          count={(totalPacksCount && packsCount && Math.ceil(totalPacksCount / packsCount)) || 1}
+          page={currentPage ? currentPage : 1}
           onChange={handleChangePage}
         />
         <div>Show</div>

@@ -44,12 +44,15 @@ export const Profile = () => {
         </div>
         <br />
         <div className={s.email}>{profile.email}</div>
-        <button className={s.submitBtn} onClick={logOut}>
-          <IconButton size={'small'}>
-            <LogoutIcon fontSize={'small'} />
-            Log Out
-          </IconButton>
-        </button>
+        <IconButton
+          size={'small'}
+          sx={{ marginTop: '30px' }}
+          onClick={logOut}
+          className={s.submitBtn}
+        >
+          <LogoutIcon fontSize={'small'} />
+          Log Out
+        </IconButton>
       </div>
     </div>
   )

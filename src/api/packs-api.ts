@@ -27,7 +27,7 @@ export const packsAPI = {
 
 export type DomainPackType = Pick<
   ResponseType,
-  '_id' | 'user_id' | 'user_name' | 'name' | 'cardsCount' | 'updated'
+  '_id' | 'user_id' | 'user_name' | 'name' | 'cardsCount' | 'updated' | 'deckCover'
 >
 
 type ResponseType = {
