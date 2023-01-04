@@ -9,10 +9,10 @@ import Modal from '@mui/material/Modal'
 
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
+import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
+import st from '../../../common/uniComponents/uniButton/UniButton.module.css'
+import { UniInput } from '../../../common/uniComponents/uniInput/UniImput'
 import { addNewCardTC, editCardTC } from '../../cards/cardList/cards-reducer'
-import { UniButton } from '../uniButton/UniButton'
-import st from '../uniButton/UniButton.module.css'
-import { UniInput } from '../uniInput/UniImput'
 
 import s from './BasicCardModal.module.css'
 

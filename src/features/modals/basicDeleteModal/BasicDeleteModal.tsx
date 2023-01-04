@@ -8,10 +8,10 @@ import Button from '@mui/material/Button'
 import Modal from '@mui/material/Modal'
 
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
+import st from '../../../common/uniComponents/uniButton/UniButton.module.css'
 import { deleteCardTC } from '../../cards/cardList/cards-reducer'
 import { deletePackTC } from '../../packs/packsList/packs-reducer'
-import { UniButton } from '../uniButton/UniButton'
-import st from '../uniButton/UniButton.module.css'
 
 import s from './BasicDeleteModal.module.css'
 

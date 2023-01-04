@@ -8,15 +8,15 @@ import Modal from '@mui/material/Modal'
 
 import noCover from '../../../assets/images/noCover.jpg'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
+import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
+import st from '../../../common/uniComponents/uniButton/UniButton.module.css'
+import { UniInput } from '../../../common/uniComponents/uniInput/UniImput'
 import {
   AddNewPackLocalStateType,
   addNewPackTC,
   EditPackLocalStateType,
   editPackTC,
 } from '../../packs/packsList/packs-reducer'
-import { UniButton } from '../uniButton/UniButton'
-import st from '../uniButton/UniButton.module.css'
-import { UniInput } from '../uniInput/UniImput'
 
 import s from './BasicPackModal.module.css'
 import { InputTypeFileCover } from './inputTypeFileCover/InputTypeFileCover'

@@ -9,6 +9,8 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
+import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
+import { UniInput } from '../../../common/uniComponents/uniInput/UniImput'
 import { loginValidationSchema } from '../../../common/utils/validationSchema/validationSchema'
 
 import { loginTC } from './auth-reducer'
@@ -59,44 +61,26 @@ export const Login = () => {
           <h1>Sign in</h1>
           <form onSubmit={formik.handleSubmit}>
             <FormGroup sx={{ width: '350px' }}>
-              <TextField
-                InputLabelProps={{ className: s.textFieldLabel }}
-                inputProps={{ className: s.textFieldMain }}
-                variant="standard"
-                label="Email"
-                margin="normal"
-                name="email"
+              <UniInput
+                label={'Email'}
+                name={'email'}
                 onChange={handleInput}
                 value={formik.values.email}
                 error={!!formik.errors.email}
               />
               {formik.touched.email && formik.errors.email && (
-                <div style={{ color: 'red' }}>{formik.errors.email}</div>
+                <div className={s.error}>{formik.errors.email}</div>
               )}
-              <TextField
-                InputLabelProps={{ className: s.textFieldLabel }}
-                inputProps={{ className: s.textFieldMain }}
-                type={showPassword ? 'text' : 'password'}
-                variant="standard"
-                label="Password"
-                margin="normal"
-                name="password"
+              <UniInput
+                label={'Password'}
+                name={'password'}
                 onChange={handleInput}
                 value={formik.values.password}
                 error={!!formik.errors.password}
-                InputProps={{
-                  endAdornment: (
-                    <IconButton
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  ),
-                }}
+                eye={true}
               />
               {formik.touched.password && formik.errors.password && (
-                <div style={{ color: 'red' }}>{formik.errors.password}</div>
+                <div className={s.error}>{formik.errors.password}</div>
               )}
               <FormControlLabel
                 className={s.formControl}
@@ -112,14 +96,12 @@ export const Login = () => {
               <NavLink to={PATH.FORGOT_PASSWORD} className={s.forgotPassword}>
                 Forgot Password?
               </NavLink>
-              <button
-                className={disabled ? s.disabledBtn : s.submitBtn}
+              <UniButton
+                className={disabled ? 'disabledBtn' : 'submitBtn'}
+                title={'Sign In'}
                 type={'submit'}
-                color={'primary'}
                 disabled={disabled}
-              >
-                Sign In
-              </button>
+              />
             </FormGroup>
           </form>
         </FormControl>

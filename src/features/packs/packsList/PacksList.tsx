@@ -76,7 +76,7 @@ export const PacksList = () => {
   return (
     <div className={s.mainContainer}>
       <div className={s.addPack}>
-        <h1 className={s.title}>Packs list</h1>
+        <h1>Packs list</h1>
         <AddNewPackModal />
       </div>
       <div className={s.filtersContainer}>

@@ -29,7 +29,7 @@ export const CardsList = () => {
     <div className={s.mainContainer}>
       <BackToPacksList />
       <div className={s.addCard}>
-        <h1 className={s.title}>Cards list</h1>
+        <h1>Cards list</h1>
         <AddNewCardModal />
       </div>
       <TableContainer component={Paper} className={s.tableContainer}>

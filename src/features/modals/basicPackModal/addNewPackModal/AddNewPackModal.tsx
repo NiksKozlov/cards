@@ -1,6 +1,6 @@
 import React from 'react'
 
-import s from '../../../packs/packsList/PacksList.module.css'
+import { UniButton } from '../../../../common/uniComponents/uniButton/UniButton'
 import { BasicPackModal } from '../BasicPackModal'
 
 export const AddNewPackModal = () => {
@@ -9,9 +9,7 @@ export const AddNewPackModal = () => {
 
   return (
     <BasicPackModal title={'Add new pack'} open={open} setOpen={setOpen} comp={'add'}>
-      <button className={s.addPackBtn} onClick={handleOpen}>
-        Add new pack
-      </button>
+      <UniButton className={'addBtn'} onClick={handleOpen} title={'Add new pack'} />
     </BasicPackModal>
   )
 }

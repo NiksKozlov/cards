@@ -21,19 +21,11 @@
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.formContainer a {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
 .span {
   margin-top: 25px;
 
-  font-family: 'Montserrat';
   font-size: 14px;
   font-weight: 600;
-  font-style: normal;
-  line-height: 24px;
   color: #000000;
   text-align: center;
 
@@ -43,60 +35,15 @@
 .formContainer h1 {
   margin: 30px 0 0;
 
-  font-family: 'Montserrat';
   font-size: 26px;
-  font-weight: 600;
-  font-style: normal;
-  line-height: 32px;
   text-align: center;
-
-  background-color: white;
-}
-
-.submitBtn {
-  height: 36px;
-  margin-top: 30px;
-
-  font-family: 'Montserrat';
-  font-size: 16px;
-  font-weight: 500;
-  font-style: normal;
-  line-height: 20px;
-  color: white;
-
-  background-color: #366eff;
-  border: 0;
-  border-radius: 30px;
-  box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.submitBtn:active {
-  background-color: #1544d9;
-}
-
-.disabledBtn {
-  height: 36px;
-  margin-top: 30px;
-
-  font-family: 'Montserrat';
-  font-size: 16px;
-  font-weight: 500;
-  font-style: normal;
-  line-height: 20px;
-  color: white;
-
-  background-color: #9499ad;
-  border: 0;
-  border-radius: 30px;
-  box-shadow: 0 4px 18px rgba(163, 174, 197, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .signInBtn {
-  font-family: 'Montserrat';
-  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
   font-weight: 600;
-  font-style: normal;
-  line-height: 24px;
   color: #366eff;
   text-decoration-line: underline;
 }
@@ -106,39 +53,15 @@
   border-bottom: 1.6px solid black;
 }
 
-.textFieldLabel {
-  font-family: 'Montserrat' !important;
-  font-size: 16px !important;
-  font-weight: 400 !important;
-  font-style: normal !important;
-  line-height: 24px !important;
-  color: #000000;
-
-  opacity: 0.5;
-}
-
-.textFieldMain {
-  font-family: 'Montserrat' !important;
-  font-size: 16px !important;
-  font-weight: 500 !important;
-  font-style: normal !important;
-  line-height: 24px !important;
-}
-
 .error {
-  font-family: 'Montserrat';
-  font-size: 16px;
   font-weight: 400;
-  font-style: normal;
-  line-height: 24px;
   color: red;
 }
 
 .forgotPassword {
-  font-family: 'Montserrat';
-  font-size: 16px;
-  font-weight: 500;
-  font-style: normal;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
   color: black;
   text-align: right;
   text-decoration: none;

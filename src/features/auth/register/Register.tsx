@@ -9,6 +9,8 @@ import { BadErrorSnackbar } from '../../../common/components/ErrorSnackbar/BadEr
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
+import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
+import { UniInput } from '../../../common/uniComponents/uniInput/UniImput'
 import { registrationValidationSchema } from '../../../common/utils/validationSchema/validationSchema'
 
 import { registration, setRegisterServerError } from './register-reducer'
@@ -30,18 +32,6 @@ export const Register = () => {
 
   if (isRegistered) {
     navigate(PATH.LOGIN)
-  }
-
-  const [showPassword, setShowPassword] = useState(false)
-  const handleClickShowPassword = () => setShowPassword(show => !show)
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-  }
-
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const handleClickShowConfirmPassword = () => setShowConfirmPassword(show => !show)
-  const handleMouseDownConfirmPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
   }
 
   const formik = useFormik({
@@ -76,77 +66,43 @@ export const Register = () => {
         <h1>Sign Up</h1>
         <form onSubmit={formik.handleSubmit}>
           <FormGroup sx={{ width: '350px' }}>
-            <TextField
-              InputLabelProps={{ className: s.textfieldLabel }}
-              inputProps={{ className: s.textfieldMain }}
-              variant="standard"
-              label="Email"
-              margin="normal"
-              name="email"
+            <UniInput
+              label={'Email'}
+              name={'email'}
               onChange={handleInput}
               value={formik.values.email}
               error={!!formik.errors.email}
             />
             {formik.errors.email ? <div className={s.error}>{formik.errors.email}</div> : null}
-            <TextField
-              InputLabelProps={{ className: s.textfieldLabel }}
-              inputProps={{ className: s.textfieldMain }}
-              type={showPassword ? 'text' : 'password'}
-              variant="standard"
-              label="Password"
-              margin="normal"
-              name="password"
+            <UniInput
+              label={'Password'}
+              name={'password'}
               onChange={handleInput}
               value={formik.values.password}
               error={!!formik.errors.password}
-              InputProps={{
-                endAdornment: (
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                ),
-              }}
+              eye={true}
             />
             {formik.errors.password ? (
               <div className={s.error}>{formik.errors.password}</div>
             ) : null}
-            <TextField
-              InputLabelProps={{ className: s.textfieldLabel }}
-              inputProps={{ className: s.textfieldMain }}
-              type={showConfirmPassword ? 'text' : 'password'}
-              variant="standard"
-              label="Confirm Password"
-              margin="normal"
-              name="confirmPassword"
+            <UniInput
+              label={'Confirm Password'}
+              name={'confirmPassword'}
               onChange={handleInput}
               value={formik.values.confirmPassword}
               error={!!formik.errors.confirmPassword}
-              InputProps={{
-                endAdornment: (
-                  <IconButton
-                    onClick={handleClickShowConfirmPassword}
-                    onMouseDown={handleMouseDownConfirmPassword}
-                  >
-                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                ),
-              }}
+              eye={true}
             />
             {formik.errors.confirmPassword ? (
               <div className={s.error}>{formik.errors.confirmPassword}</div>
             ) : null}
             {error ? <div className={s.error}>{error}</div> : null}
-            <button
-              className={disabled ? s.disabledBtn : s.submitBtn}
+            <UniButton
+              className={disabled ? 'disabledBtn' : 'submitBtn'}
+              title={'Sign Up'}
               type={'submit'}
-              color={'primary'}
               disabled={disabled}
-            >
-              Sign Up
-            </button>
+            />
           </FormGroup>
         </form>
         <span>Already have an account?</span>

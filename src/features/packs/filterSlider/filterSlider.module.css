@@ -4,14 +4,6 @@
     align-items: flex-start;
 }
 
-.sliderContainer h3{
-    font-family: 'Montserrat';
-    font-size: 18px;
-    font-weight: 500;
-    font-style: normal;
-    line-height: 11px;
-}
-
 .number {
     display: flex;
     align-items: center;
@@ -30,9 +22,5 @@
 }
 
 .slider span {
-    font-family: 'Montserrat';
-    font-size: 16px;
     font-weight: 600;
-    font-style: normal;
-    line-height: 20px;
 }
