@@ -3,6 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { PATH } from '../../../common/routePaths/routePaths.enum'
+import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
 
 import s from './CheckEmail.module.css'
 
@@ -21,9 +22,7 @@ export const CheckEmail = () => {
         <span
           className={s.instruction}
         >{`We've sent an Email with instructions to example@mail.com`}</span>
-        <button className={s.submitBtn} onClick={navigateToLogin}>
-          Back to login
-        </button>
+        <UniButton className={'submitBackToLoginBtn'} title={'Back to login'} type={'submit'} />
       </div>
     </div>
   )

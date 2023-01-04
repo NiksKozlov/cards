@@ -10,11 +10,8 @@
 }
 
 .title {
-    font-family: 'Montserrat';
     font-size: 18px;
     font-weight: 500;
-    font-style: normal;
-    line-height: 11px;
 }
 
 .formContainer {
@@ -30,25 +27,4 @@
     font-weight: 500;
     font-style: normal;
     color: black;
-}
-
-.addPackBtn {
-    width: 150px;
-    height: 36px;
-
-    font-family: 'Montserrat';
-    font-size: 16px;
-    font-weight: 500;
-    font-style: normal;
-    line-height: 20px;
-    color: white;
-
-    background-color: #366eff;
-    border: 0;
-    border-radius: 30px;
-    box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.addPackBtn:active {
-    background-color: #1544d9;
 }

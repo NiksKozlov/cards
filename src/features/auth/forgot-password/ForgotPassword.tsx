@@ -8,6 +8,8 @@ import { BadErrorSnackbar } from '../../../common/components/ErrorSnackbar/BadEr
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
+import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
+import { UniInput } from '../../../common/uniComponents/uniInput/UniImput'
 import { forgotPasswordValidationSchema } from '../../../common/utils/validationSchema/validationSchema'
 
 import { forgotPassword, setForgotPasswordServerError } from './forgotPassword-reducer'
@@ -59,13 +61,9 @@ export const ForgotPassword = () => {
         <h1>Forgot your password?</h1>
         <form onSubmit={formik.handleSubmit}>
           <FormGroup sx={{ width: '350px' }}>
-            <TextField
-              InputLabelProps={{ className: s.textfieldLabel }}
-              inputProps={{ className: s.textfieldMain }}
-              variant="standard"
-              label="Email"
-              margin="normal"
-              name="email"
+            <UniInput
+              label={'Email'}
+              name={'email'}
               onChange={handleInput}
               value={formik.values.email}
               error={!!formik.errors.email}
@@ -75,14 +73,12 @@ export const ForgotPassword = () => {
             <span className={s.instruction}>
               Enter your email address and we will send you further instructions?
             </span>
-            <button
-              className={disabled ? s.disabledBtn : s.submitBtn}
+            <UniButton
+              className={disabled ? 'disabledBtn' : 'submitBtn'}
+              title={'Send Instructions'}
               type={'submit'}
-              color={'primary'}
               disabled={disabled}
-            >
-              Send Instructions
-            </button>
+            />
           </FormGroup>
         </form>
         <span>Do you remember your password?</span>

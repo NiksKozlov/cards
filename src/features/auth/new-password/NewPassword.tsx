@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { FormGroup, IconButton, TextField } from '@mui/material'
@@ -9,6 +9,8 @@ import { BadErrorSnackbar } from '../../../common/components/ErrorSnackbar/BadEr
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
+import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
+import { UniInput } from '../../../common/uniComponents/uniInput/UniImput'
 import { newPasswordValidationSchema } from '../../../common/utils/validationSchema/validationSchema'
 
 import { createNewPassword, setNewPasswordServerError } from './newPassword-reducer'
@@ -46,7 +48,15 @@ export const NewPassword = () => {
     onSubmit: values => {
       dispatch(createNewPassword(values.password, token as string))
     },
+    validateOnChange: false,
   })
+
+  const handleInput = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    formik.handleChange(e)
+    formik.setErrors({})
+  }
+
+  const disabled = formik.values.password.length === 0 || !(formik.isValid && formik.dirty)
 
   return (
     <div className={s.mainContainer}>
@@ -58,27 +68,13 @@ export const NewPassword = () => {
         <h1>Create new password</h1>
         <form onSubmit={formik.handleSubmit}>
           <FormGroup sx={{ width: '350px' }}>
-            <TextField
-              InputLabelProps={{ className: s.textfieldLabel }}
-              inputProps={{ className: s.textfieldMain }}
-              type={showPassword ? 'text' : 'password'}
-              variant="standard"
-              label="Password"
-              margin="normal"
-              name="password"
-              onChange={formik.handleChange}
+            <UniInput
+              label={'Password'}
+              name={'password'}
+              onChange={handleInput}
               value={formik.values.password}
               error={!!formik.errors.password}
-              InputProps={{
-                endAdornment: (
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                ),
-              }}
+              eye={true}
             />
             {formik.errors.password ? (
               <div className={s.error}>{formik.errors.password}</div>
@@ -87,9 +83,12 @@ export const NewPassword = () => {
             <span className={s.instruction}>
               Create new password and we will send you futherinstructions to email
             </span>
-            <button className={s.submitBtn} type={'submit'} color={'primary'}>
-              Create new password
-            </button>
+            <UniButton
+              className={disabled ? 'disabledBtn' : 'submitBtn'}
+              title={'Create new password'}
+              type={'submit'}
+              disabled={disabled}
+            />
           </FormGroup>
         </form>
       </div>
