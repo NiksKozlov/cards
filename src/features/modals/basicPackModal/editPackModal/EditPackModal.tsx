@@ -16,7 +16,7 @@ export const EditPackModal = ({ id }: PropsType) => {
   return (
     <BasicPackModal title={'Edit pack'} open={open} setOpen={setOpen} id={id} comp={'edit'}>
       <IconButton onClick={handleOpen}>
-        <ModeOutlinedIcon />
+        <ModeOutlinedIcon sx={{ color: 'black' }} />
       </IconButton>
     </BasicPackModal>
   )
