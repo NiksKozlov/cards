@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
 
 import { CardType } from '../../api/cards-api'
+import { BackToPacksList } from '../../common/components/backToPacksList/BackToPacksList'
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../common/hooks/useAppSelector'
 import { editCardTC, getCardsTC } from '../cards/cardList/cards-reducer'
+import s from '../profile/profile/Profile.module.css'
 
 const grades = ['didn`t know', 'forgot', 'thought for a long time', 'mixed up', 'knew']
 
@@ -61,7 +63,6 @@ export const Learn = () => {
   }
 
   const nextHandler = () => {
-    setIsChecked(false)
     const index = grades.indexOf(value)
     const incShots = card.shots + 1
 
@@ -76,58 +77,57 @@ export const Learn = () => {
 
     dispatch(editCardTC(editCardLocalState))
 
-    if (cards.length > 0) {
-      setCard(getCard(cards))
-    }
+    setIsChecked(false)
   }
 
   return (
-    <div>
-      <h2>LearnPage</h2>
-      <div>
-        <span>Question: </span>
-        <span>{card.question}</span>
+    <div className={s.mainContainer}>
+      <BackToPacksList />
+      <div className={s.formContainer}>
+        <h1>LearnPage</h1>
+        <div>
+          <h4>{card.question}</h4>
+        </div>
+        {!isChecked ? (
+          <>
+            <button onClick={() => setIsChecked(true)}>show answer</button>
+          </>
+        ) : (
+          <>
+            <div>
+              <span>Number of answers to the question: </span>
+              <span>{card.shots}</span>
+            </div>
+            <hr />
+            <div>
+              <h4>{card.answer}</h4>
+            </div>
+
+            <FormControl>
+              <FormLabel id="controlled-radio-buttons-group">Rate yourself:</FormLabel>
+              <RadioGroup
+                aria-labelledby="controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={value}
+                onChange={handleChange}
+              >
+                {grades.map((g, i) => (
+                  <FormControlLabel
+                    key={'grade-' + i}
+                    value={g}
+                    control={<Radio size={'small'} />}
+                    label={g}
+                  />
+                ))}
+              </RadioGroup>
+            </FormControl>
+
+            <div>
+              <button onClick={nextHandler}>Next</button>
+            </div>
+          </>
+        )}
       </div>
-      {!isChecked ? (
-        <>
-          <button onClick={() => setIsChecked(true)}>show answer</button>
-        </>
-      ) : (
-        <>
-          <div>
-            <span>Number of answers to the question: </span>
-            <span>{card.shots}</span>
-          </div>
-          <hr />
-          <div>
-            <span>Answer: </span>
-            <span>{card.answer}</span>
-          </div>
-
-          <FormControl>
-            <FormLabel id="controlled-radio-buttons-group">Rate yourself:</FormLabel>
-            <RadioGroup
-              aria-labelledby="controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={value}
-              onChange={handleChange}
-            >
-              {grades.map((g, i) => (
-                <FormControlLabel
-                  key={'grade-' + i}
-                  value={g}
-                  control={<Radio size={'small'} />}
-                  label={g}
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
-
-          <div>
-            <button onClick={nextHandler}>Next</button>
-          </div>
-        </>
-      )}
     </div>
   )
 }
