@@ -32,13 +32,14 @@ export const packsReducer = (
         ...action.packs,
         filter: action.filter,
         cardPacks: action.packs.cardPacks.map(
-          ({ _id, name, user_name, updated, cardsCount, user_id }) => ({
+          ({ _id, name, user_name, updated, cardsCount, user_id, deckCover }) => ({
             _id,
             name,
             cardsCount,
             updated,
             user_name,
             user_id,
+            deckCover,
           })
         ),
       }

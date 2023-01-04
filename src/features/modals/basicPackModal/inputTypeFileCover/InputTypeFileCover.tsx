@@ -1,20 +1,20 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 
 import { setAppErrorAC } from '../../../../app/app-reducer'
 import noCover from '../../../../assets/images/noCover.jpg'
 import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../../../common/hooks/useAppSelector'
-import { deckCover } from '../../../../common/selectors/packs-selector'
 import { convertFileToBase64 } from '../../../../common/utils/convertFileToBase64/convertFileToBase64'
 
 import s from './InputTypeFileCover.module.css'
 
-export const InputTypeFileCover = () => {
+type PropsType = {
+  cover: string
+  setCover: (value: string) => void
+}
+
+export const InputTypeFileCover: FC<PropsType> = ({ cover, setCover }) => {
   const dispatch = useAppDispatch()
 
-  const serverCover = useAppSelector(deckCover)
-
-  const [cover, setCover] = useState(serverCover ? serverCover : noCover)
   const [isCoverBroken, setIsCoverBroken] = useState(false)
 
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +51,6 @@ export const InputTypeFileCover = () => {
           <span className={s.changeCover}>Change Cover</span>
         </label>
       </div>
-      {/*<span className={s.changeCover}>Change cover</span>*/}
       <img
         className={s.cover}
         src={isCoverBroken ? noCover : cover}

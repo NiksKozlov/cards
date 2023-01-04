@@ -15,5 +15,3 @@ export const maxCardsCount = (state: AppRootStateType) => state.packs.maxCardsCo
 export const sortPacks = (state: AppRootStateType) => state.packs.sortPacks
 
 export const myAllFilter = (state: AppRootStateType) => state.packs.filter
-
-export const deckCover = (state: AppRootStateType) => state.packs.deckCover

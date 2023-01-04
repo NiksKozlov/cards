@@ -6,6 +6,7 @@ import { Checkbox, Divider, FormControlLabel, IconButton } from '@mui/material'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 
+import noCover from '../../../assets/images/noCover.jpg'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import {
   AddNewPackLocalStateType,
@@ -43,6 +44,8 @@ type PropsType = {
 
 export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: PropsType) => {
   const dispatch = useAppDispatch()
+
+  const [cover, setCover] = useState(noCover)
   const [value, setValue] = useState<string>('')
   const [checked, setChecked] = useState<boolean>(false)
 
@@ -54,7 +57,7 @@ export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: Pro
     const addNewPackLocalState: AddNewPackLocalStateType = {
       cardsPack: {
         name: value,
-        deckCover: 'New Url',
+        deckCover: cover,
         private: checked,
       },
     }
@@ -96,7 +99,7 @@ export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: Pro
           </div>
           <Divider />
           <div className={s.formContainer}>
-            <InputTypeFileCover /> {/*может не работать*/}
+            <InputTypeFileCover cover={cover} setCover={setCover} />
             <UniInput value={value} label={'Pack title'} onChange={onChangeInputHandler} />
             <FormControlLabel
               label={<span className={s.formControlLabel}>Private pack</span>}
