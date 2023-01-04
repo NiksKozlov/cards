@@ -4,6 +4,9 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
 import { IconButton } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
+import noCover from '../../../assets/images/noCover.jpg'
+import { deckCover } from '../../../common/selectors/packs-selector'
+import { userProfile } from '../../../common/selectors/profile-selector'
 import { setPackIdAC } from '../../cards/cardList/cards-reducer'
 import { DeletePackModal } from '../../modals/basicDeleteModal/deletePackModal/DeletePackModal'
 import { EditPackModal } from '../../modals/basicPackModal/editPackModal/EditPackModal'
@@ -25,8 +28,11 @@ type PackPropsType = {
 
 export const Pack = ({ name, cardsCount, updated, created, id, userId }: PackPropsType) => {
   const navigate = useNavigate()
+
   const dispatch = useAppDispatch()
-  const profile = useAppSelector(state => state.profile)
+
+  const profile = useAppSelector(userProfile)
+  const cover = useAppSelector(deckCover)
 
   const date = updated.toString()
   const day = date.substr(8, 2)
@@ -34,14 +40,17 @@ export const Pack = ({ name, cardsCount, updated, created, id, userId }: PackPro
   const year = date.substr(0, 4)
   const updatedDate = `${day}.${month}.${year}`
 
-  const onNameClickHandler = async () => {
-    await dispatch(setPackIdAC(id))
+  const onNameClickHandler = () => {
+    dispatch(setPackIdAC(id))
 
     navigate('/cards-list')
   }
 
   return (
     <StyledBodyTableRow>
+      <StyledBodyTableCell align="left">
+        <img className={s.cover} src={cover ? cover : noCover} alt="no cover" />
+      </StyledBodyTableCell>
       <StyledBodyTableCell component="th" scope="row" onClick={onNameClickHandler}>
         {name}
       </StyledBodyTableCell>

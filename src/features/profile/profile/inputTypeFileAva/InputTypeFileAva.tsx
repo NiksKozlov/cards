@@ -21,6 +21,7 @@ export const InputTypeFileAva = () => {
   const [isAvaBroken, setIsAvaBroken] = useState(false)
 
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsAvaBroken(false)
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
 
@@ -38,17 +39,23 @@ export const InputTypeFileAva = () => {
     setIsAvaBroken(true)
     dispatch(setAppErrorAC('Something is wrong with the uploaded image.'))
   }
+  const anotherExpression = avatar ? avatar : defaultAva
 
   return (
     <div>
       <img
         className={s.ava}
-        src={isAvaBroken ? defaultAva : avatar}
+        src={isAvaBroken ? defaultAva : anotherExpression}
         onError={errorHandler}
         alt="ava"
       />
       <label>
-        <input type="file" onChange={uploadHandler} style={{ display: 'none' }} />
+        <input
+          type="file"
+          onChange={uploadHandler}
+          accept={'image/*'}
+          style={{ display: 'none' }}
+        />
         <IconButton component="span">
           <AddAPhotoIcon sx={{ color: 'grey' }} fontSize={'large'} />
         </IconButton>

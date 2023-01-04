@@ -1,0 +1,32 @@
+.coverContainer {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 30px;
+}
+
+.changeWord {
+  min-width: 90px;
+  height: 36px;
+
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 20px;
+}
+
+.changeCover {
+  composes: changeWord;
+
+  color: #366eff;
+  text-decoration: underline;
+}
+
+.changeCover:hover {
+  cursor: pointer;
+}
+
+.cover {
+  width: 400px;
+}

@@ -1,3 +1,7 @@
 .iconButtons {
-    display: flex;
+  display: flex;
+}
+
+.cover {
+  width: 120px;
 }

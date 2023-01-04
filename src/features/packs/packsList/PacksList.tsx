@@ -88,6 +88,7 @@ export const PacksList = () => {
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <StyledHeadTableRow>
+              <StyledHeadTableCell align="left">Cover</StyledHeadTableCell>
               <StyledHeadTableCell onClick={createSortHandler('name')}>Name</StyledHeadTableCell>
               <StyledHeadTableCell align="left" onClick={createSortHandler('cardsCount')}>
                 Cards

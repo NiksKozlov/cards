@@ -1,54 +1,54 @@
 .modalContainer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .titleContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .title {
-    font-family: 'Montserrat';
-    font-size: 18px;
-    font-weight: 500;
-    font-style: normal;
-    line-height: 11px;
+  font-family: 'Montserrat';
+  font-size: 18px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 11px;
 }
 
 .formContainer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .formControlLabel {
-    font-family: 'Montserrat';
-    font-size: 16px;
-    font-weight: 500;
-    font-style: normal;
-    color: black;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  color: black;
 }
 
 .addPackBtn {
-    width: 150px;
-    height: 36px;
+  width: 150px;
+  height: 36px;
 
-    font-family: 'Montserrat';
-    font-size: 16px;
-    font-weight: 500;
-    font-style: normal;
-    line-height: 20px;
-    color: white;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 20px;
+  color: white;
 
-    background-color: #366eff;
-    border: 0;
-    border-radius: 30px;
-    box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background-color: #366eff;
+  border: 0;
+  border-radius: 30px;
+  box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .addPackBtn:active {
-    background-color: #1544d9;
+  background-color: #1544d9;
 }

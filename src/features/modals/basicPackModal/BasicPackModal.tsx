@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { ChangeEvent, FC, ReactNode, useState } from 'react'
+import { ChangeEvent, ReactNode, useState } from 'react'
 
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import { Checkbox, Divider, FormControlLabel, IconButton, TextField } from '@mui/material'
+import { Checkbox, Divider, FormControlLabel, IconButton } from '@mui/material'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 
@@ -18,6 +18,7 @@ import st from '../uniButton/UniButton.module.css'
 import { UniInput } from '../uniInput/UniImput'
 
 import s from './BasicPackModal.module.css'
+import { InputTypeFileCover } from './inputTypeFileCover/InputTypeFileCover'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -95,6 +96,7 @@ export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: Pro
           </div>
           <Divider />
           <div className={s.formContainer}>
+            <InputTypeFileCover /> {/*может не работать*/}
             <UniInput value={value} label={'Pack title'} onChange={onChangeInputHandler} />
             <FormControlLabel
               label={<span className={s.formControlLabel}>Private pack</span>}
