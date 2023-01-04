@@ -4,24 +4,24 @@ import { instance } from './instance'
 
 export const cardsAPI = {
   getCards(params: CardsParamsType) {
-    return instance.get<CardsResponseType>('cards/card', {
+    return instance.get<CardsResponseType>('/cards/card', {
       params,
     })
   },
   addNewCard(cardData: addNewCardDataType) {
     return instance.post<'', AxiosResponse<addNewCardResponseType>, addNewCardDataType>(
-      'cards/card',
+      '/cards/card',
       cardData
     )
   },
   editCard(cardData: editCardDataType) {
     return instance.put<'', AxiosResponse<editCardResponseType>, editCardDataType>(
-      'cards/card',
+      '/cards/card',
       cardData
     )
   },
   deleteCard(_id: string) {
-    return instance.delete<deletedCardResponseType>(`cards/card/?id=${_id}`)
+    return instance.delete<deletedCardResponseType>(`/cards/card/?id=${_id}`)
   },
 }
 

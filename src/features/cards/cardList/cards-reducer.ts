@@ -1,11 +1,22 @@
-import { EditCardLocalStateType } from '../card/cardCrud/EditCard'
-
-import { AddNewCardLocalStateType } from './cardListCrud/AddNewCard'
-
 import { cardsAPI, CardsParamsType, CardType } from 'api/cards-api'
 import { setAppStatusAC } from 'app/app-reducer'
 import { AppThunk } from 'common/hooks/useAppDispatch'
 import { handleServerError } from 'common/utils/error-handler/error-handler'
+
+export type AddNewCardLocalStateType = {
+  card: {
+    cardsPack_id: string
+    question: string
+    answer: string
+  }
+}
+
+export type EditCardLocalStateType = {
+  card: {
+    _id: string
+    question: string
+  }
+}
 
 const initialState = {
   packId: '',

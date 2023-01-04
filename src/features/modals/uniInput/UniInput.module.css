@@ -1,0 +1,18 @@
+.input {
+    font-family: 'Montserrat' !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    line-height: 24px !important;
+}
+
+.inputLabel {
+    font-family: 'Montserrat' !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    line-height: 24px !important;
+    color: #000000;
+
+    opacity: 0.5;
+}

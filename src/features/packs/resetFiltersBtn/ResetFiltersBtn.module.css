@@ -1,0 +1,14 @@
+.resetFiltersButton {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 47px;
+  height: 38px;
+  margin-top: 47px;
+
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+}

@@ -1,58 +1,46 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import { ButtonGroup } from '@mui/material'
-import Button from '@mui/material/Button'
 import { useSearchParams } from 'react-router-dom'
 
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import { getPacksTC } from '../packsList/packs-reducer'
+import { showMyAll } from '../../../common/selectors/packs-selector'
+import { userID } from '../../../common/selectors/profile-selector'
 
 import s from './PacksFilterButtons.module.css'
 
 export const PacksFilterButtons = () => {
-  const dispatch = useAppDispatch()
-
-  const packsFilter = useAppSelector(state => state.packs.packsFilter)
-  const profileId = useAppSelector(state => state.profile._id)
+  const userId = useAppSelector(userID)
+  const filter = useAppSelector(showMyAll)
 
   const [searchParams, setSearchParams] = useSearchParams()
-  const userId = searchParams.get('user_id')
 
   const onMyClickHandler = () => {
-    setSearchParams({ user_id: profileId })
-  }
-  const onAllClickHandler = () => {
-    setSearchParams()
+    searchParams.set('user_id', userId)
+    setSearchParams(searchParams)
   }
 
-  useEffect(() => {
-    if (userId) {
-      dispatch(getPacksTC('My', userId))
-    } else {
-      dispatch(getPacksTC('All'))
-    }
-  }, [userId])
+  const onAllClickHandler = () => {
+    searchParams.delete('user_id')
+    setSearchParams(searchParams)
+  }
 
   return (
     <div className={s.container}>
       <h3>Show packs cards</h3>
-      <ButtonGroup>
-        <Button
+      <div>
+        <button
           onClick={onMyClickHandler}
-          variant={packsFilter === 'My' ? 'contained' : 'outlined'}
-          size={'large'}
+          className={filter === 'my' ? s.filterChosenBtn : s.filterDefaultBtn}
         >
           My
-        </Button>
-        <Button
+        </button>
+        <button
           onClick={onAllClickHandler}
-          variant={packsFilter === 'All' ? 'contained' : 'outlined'}
-          size={'large'}
+          className={filter === 'all' ? s.filterChosenBtn : s.filterDefaultBtn}
         >
           All
-        </Button>
-      </ButtonGroup>
+        </button>
+      </div>
     </div>
   )
 }

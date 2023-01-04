@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Checkbox, FormControlLabel, FormGroup, IconButton, TextField } from '@mui/material'
@@ -35,10 +35,21 @@ export const Login = () => {
     onSubmit: values => {
       dispatch(loginTC(values))
     },
+    validateOnChange: false,
   })
 
+  const handleInput = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    formik.handleChange(e)
+    formik.setErrors({})
+  }
+
+  const disabled =
+    formik.values.password.length === 0 ||
+    formik.values.email.length === 0 ||
+    !(formik.isValid && formik.dirty)
+
   if (isLoggedIn) {
-    navigate(PATH.PROFILE)
+    navigate(PATH.PACKS_LIST)
   }
 
   return (
@@ -54,7 +65,10 @@ export const Login = () => {
                 variant="standard"
                 label="Email"
                 margin="normal"
-                {...formik.getFieldProps('email')}
+                name="email"
+                onChange={handleInput}
+                value={formik.values.email}
+                error={!!formik.errors.email}
               />
               {formik.touched.email && formik.errors.email && (
                 <div style={{ color: 'red' }}>{formik.errors.email}</div>
@@ -63,6 +77,13 @@ export const Login = () => {
                 InputLabelProps={{ className: s.textFieldLabel }}
                 inputProps={{ className: s.textFieldMain }}
                 type={showPassword ? 'text' : 'password'}
+                variant="standard"
+                label="Password"
+                margin="normal"
+                name="password"
+                onChange={handleInput}
+                value={formik.values.password}
+                error={!!formik.errors.password}
                 InputProps={{
                   endAdornment: (
                     <IconButton
@@ -73,10 +94,6 @@ export const Login = () => {
                     </IconButton>
                   ),
                 }}
-                variant="standard"
-                label="Password"
-                margin="normal"
-                {...formik.getFieldProps('password')}
               />
               {formik.touched.password && formik.errors.password && (
                 <div style={{ color: 'red' }}>{formik.errors.password}</div>
@@ -86,7 +103,8 @@ export const Login = () => {
                 label={<span className={s.formControlLabel}>Remember Me</span>}
                 control={
                   <Checkbox
-                    {...formik.getFieldProps('rememberMe')}
+                    name="rememberMe"
+                    onChange={handleInput}
                     checked={formik.values.rememberMe}
                   />
                 }
@@ -94,7 +112,12 @@ export const Login = () => {
               <NavLink to={PATH.FORGOT_PASSWORD} className={s.forgotPassword}>
                 Forgot Password?
               </NavLink>
-              <button className={s.submitBtn} type={'submit'} color={'primary'}>
+              <button
+                className={disabled ? s.disabledBtn : s.submitBtn}
+                type={'submit'}
+                color={'primary'}
+                disabled={disabled}
+              >
                 Sign In
               </button>
             </FormGroup>

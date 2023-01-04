@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router-dom'
 
 import { PATH } from '../../../common/routePaths/routePaths.enum'
 import { setPackIdAC } from '../../cards/cardList/cards-reducer'
+import { DeletePackModal } from '../../modals/basicDeleteModal/deletePackModal/DeletePackModal'
+import { EditPackModal } from '../../modals/basicPackModal/editPackModal/EditPackModal'
 
-import { DeletePack } from './packCrud/DeletePack'
-import { EditPack } from './packCrud/EditPack'
+import s from './Pack.module.css'
 
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
 import { useAppSelector } from 'common/hooks/useAppSelector'
@@ -16,14 +17,14 @@ import { StyledBodyTableCell, StyledBodyTableRow } from 'common/styles/tableStyl
 
 type PackPropsType = {
   id: string
+  userId: string
   name: string
   cardsCount: number
   updated: Date
   created: string
-  user_id: string
 }
 
-export const Pack = ({ name, cardsCount, updated, created, id, user_id }: PackPropsType) => {
+export const Pack = ({ name, cardsCount, updated, created, id, userId }: PackPropsType) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const profile = useAppSelector(state => state.profile)
@@ -37,11 +38,11 @@ export const Pack = ({ name, cardsCount, updated, created, id, user_id }: PackPr
   const onNameClickHandler = async () => {
     await dispatch(setPackIdAC(id))
 
-    navigate(PATH.CARDS_LIST)
+      navigate(PATH.CARDS_LIST)
   }
 
-  const runLearn = () => {
-    navigate(PATH.LEARN)
+    const runLearn = () => {
+        navigate(PATH.LEARN)
   }
 
   return (
@@ -53,15 +54,17 @@ export const Pack = ({ name, cardsCount, updated, created, id, user_id }: PackPr
       <StyledBodyTableCell align="left">{updatedDate}</StyledBodyTableCell>
       <StyledBodyTableCell align="left">{created}</StyledBodyTableCell>
       <StyledBodyTableCell align="left">
-        <IconButton disabled={!cardsCount} sx={{ color: 'black' }} onClick={runLearn}>
-          <SchoolOutlinedIcon />
-        </IconButton>
-        {profile._id == user_id && (
-          <>
-            <EditPack id={id} />
-            <DeletePack id={id} />
-          </>
-        )}
+        <div className={s.iconButtons}>
+          <IconButton disabled={!cardsCount} sx={{ color: 'black' }}>
+            <SchoolOutlinedIcon />
+          </IconButton>
+          {profile._id == userId && (
+            <>
+              <EditPackModal id={id} />
+              <DeletePackModal id={id} name={name} />
+            </>
+          )}
+        </div>
       </StyledBodyTableCell>
     </StyledBodyTableRow>
   )

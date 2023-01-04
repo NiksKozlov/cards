@@ -46,3 +46,8 @@
 .navBtn:active {
   background-color: #1544d9;
 }
+
+.navAva {
+  height: 50px;
+  margin-left: 20px;
+}

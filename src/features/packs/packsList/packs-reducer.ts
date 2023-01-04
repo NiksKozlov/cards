@@ -1,34 +1,24 @@
-import { EditPackLocalStateType } from '../pack/packCrud/EditPack'
-
-import { AddNewPackLocalStateType } from './packListCrud/AddNewPacks'
-
-import { packsAPI } from 'api/packs-api'
+import { packsAPI, PacksParamsType, PacksType } from 'api/packs-api'
 import { setAppStatusAC } from 'app/app-reducer'
 import { AppThunk } from 'common/hooks/useAppDispatch'
 import { handleServerError } from 'common/utils/error-handler/error-handler'
 
-export type CardPacksType = {
-  _id: string
-  user_id: string
-  name: string
-  cardsCount: number
-  created: Date
-  updated: Date
-  user_name: string
-  deckCover: string
-  private: boolean
+export type EditPackLocalStateType = {
+  cardsPack: {
+    _id: string
+    name: string
+  }
 }
 
-const initialState = {
-  packsFilter: '' as FilterType,
-  cardPacks: [] as CardPacksType[],
-  cardPacksTotalCount: null as null | number,
-  maxCardsCount: null as null | number,
-  minCardsCount: null as null | number,
-  page: undefined as undefined | number,
-  pageCount: 5,
-  pageQty: null as null | number,
+export type AddNewPackLocalStateType = {
+  cardsPack: {
+    name: string
+    deckCover: string
+    private: boolean
+  }
 }
+
+const initialState: PacksType = {} as PacksType
 
 type InitialStateType = typeof initialState
 
@@ -37,59 +27,59 @@ export const packsReducer = (
   action: PacksActionsTypes
 ): InitialStateType => {
   switch (action.type) {
-    case 'PACKS/SET-PACKS-FILTER':
-      return { ...state, packsFilter: action.value }
     case 'PACKS/SET-PACKS-LIST':
-      return { ...state, cardPacks: action.packsList }
-    case 'PACKS/SET-PAGE':
+      return {
+        ...action.packs,
+        filter: action.filter,
+        cardPacks: action.packs.cardPacks.map(
+          ({ _id, name, user_name, updated, cardsCount, user_id }) => ({
+            _id,
+            name,
+            cardsCount,
+            updated,
+            user_name,
+            user_id,
+          })
+        ),
+      }
+    case 'PACKS/CHANGE-PAGE':
       return { ...state, page: action.page }
-    case 'PACKS/SET-PAGE-COUNT':
+    case 'PACKS/CHANGE-PAGE-COUNT':
       return { ...state, pageCount: action.pageCount }
-    case 'PACKS/SET-PAGE-QTY':
-      return { ...state, pageQty: action.pageQty }
+    case 'PACKS/SET-MIN-MAX':
+      return { ...state, minCardsCount: action.min, maxCardsCount: action.max }
+    case 'PACKS/CHANGE-SORT-PACKS':
+      return { ...state, sortPacks: action.sortPacks }
     default:
       return state
   }
 }
 
 // actions
-export const setPacksFilterAC = (value: FilterType) =>
-  ({ type: 'PACKS/SET-PACKS-FILTER', value } as const)
-export const setPacksListAC = (packsList: CardPacksType[]) =>
-  ({ type: 'PACKS/SET-PACKS-LIST', packsList } as const)
-export const setPageAC = (page: number) => ({ type: 'PACKS/SET-PAGE', page } as const)
-export const setPageCountAC = (pageCount: number) =>
-  ({ type: 'PACKS/SET-PAGE-COUNT', pageCount } as const)
-export const setPageQtyAC = (pageQty: number) => ({ type: 'PACKS/SET-PAGE-QTY', pageQty } as const)
+export const setPacksListAC = (packs: InitialStateType, filter: 'my' | 'all') =>
+  ({ type: 'PACKS/SET-PACKS-LIST', packs, filter } as const)
+export const changePageAC = (page: number) => ({ type: 'PACKS/CHANGE-PAGE', page } as const)
+export const changePageCountAC = (pageCount: number) =>
+  ({ type: 'PACKS/CHANGE-PAGE-COUNT', pageCount } as const)
+export const setMinMaxAC = (min: number, max: number) =>
+  ({ type: 'PACKS/SET-MIN-MAX', min, max } as const)
+export const changeSortPacksAC = (sortPacks: string) =>
+  ({ type: 'PACKS/CHANGE-SORT-PACKS', sortPacks } as const)
 
 //thunks
 export const getPacksTC =
-  (
-    filter?: FilterType,
-    profileId?: string,
-    page?: number,
-    packName?: string,
-    pageCount?: number
-  ): AppThunk =>
+  (searchParams?: PacksParamsType): AppThunk =>
   async dispatch => {
     try {
-      // dispatch(setAppStatusAC('loading'))
-      const params: ParamsType = {}
+      dispatch(setAppStatusAC('loading'))
 
-      if (profileId) params.user_id = profileId
-      if (page) params.page = page
-      if (packName) params.packName = packName
-      if (pageCount) params.pageCount = pageCount
+      const res = await packsAPI.getPacks(searchParams)
 
-      const res = await packsAPI.getPacks(params)
+      searchParams?.user_id
+        ? dispatch(setPacksListAC(res.data, 'my'))
+        : dispatch(setPacksListAC(res.data, 'all'))
 
-      if (filter) dispatch(setPacksFilterAC(filter))
-      if (page) dispatch(setPageAC(res.data.page))
-      if (pageCount) dispatch(setPageCountAC(res.data.pageCount))
-      if (pageCount) dispatch(setPageQtyAC(Math.ceil(res.data.cardPacksTotalCount / pageCount)))
-
-      dispatch(setPacksListAC(res.data.cardPacks))
-      // dispatch(setAppStatusAC('succeeded'))
+      dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)
     }
@@ -137,19 +127,9 @@ export const deletePackTC =
     }
   }
 
-type ParamsType = {
-  filter?: FilterType | undefined
-  user_id?: string | undefined
-  page?: number | undefined
-  pageCount?: number | undefined
-  packName?: string | undefined
-}
-
-type FilterType = 'My' | 'All'
-
 export type PacksActionsTypes =
-  | ReturnType<typeof setPacksFilterAC>
   | ReturnType<typeof setPacksListAC>
-  | ReturnType<typeof setPageAC>
-  | ReturnType<typeof setPageCountAC>
-  | ReturnType<typeof setPageQtyAC>
+  | ReturnType<typeof changePageAC>
+  | ReturnType<typeof changePageCountAC>
+  | ReturnType<typeof setMinMaxAC>
+  | ReturnType<typeof changeSortPacksAC>

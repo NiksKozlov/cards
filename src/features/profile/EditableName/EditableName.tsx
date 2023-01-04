@@ -26,12 +26,20 @@ export const EditableName = memo(function (props: EditableNamePropsType) {
   }
 
   return editMode ? (
-    <TextField value={name} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
+    <TextField
+      type={'search'}
+      value={name}
+      label={'NickName'}
+      variant={'standard'}
+      onChange={changeTitle}
+      autoFocus
+      onBlur={activateViewMode}
+    />
   ) : (
     <span onDoubleClick={activateEditMode}>
       {props.name}
       <IconButton onClick={activateEditMode}>
-        <EditOutlinedIcon />
+        <EditOutlinedIcon fontSize={'small'} />
       </IconButton>
     </span>
   )

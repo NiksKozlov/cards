@@ -1,48 +1,80 @@
-import React, { ChangeEvent, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Container, Pagination, Stack } from '@mui/material'
+import { Container, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import { getPacksTC } from '../packsList/packs-reducer'
+import { StyledPagination } from '../../../common/styles/paginationStyle'
 
-export const PacksPagination = () => {
-  const dispatch = useAppDispatch()
+import s from './PacksPagination.module.css'
 
-  const page = useAppSelector(state => state.packs.page)
-  const pageQty = useAppSelector(state => state.packs.pageQty)
-  const elementsOnPage = useAppSelector(state => state.packs.pageCount)
+type PropsType = {
+  page: number
+  packsCount: number
+  totalPacksCount: number
+}
+
+export const PacksPagination: React.FC<PropsType> = ({ page, packsCount, totalPacksCount }) => {
+  const [packsPerPage, setPacksPerPage] = useState<number>(4)
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
   const [searchParams, setSearchParams] = useSearchParams()
-  const pageQuery = searchParams.get('page')
 
-  const paginationHandler = (_: ChangeEvent<unknown>, num: number) => {
-    setSearchParams({ page: String(num) })
-    /*dispatch(paginationTC(num))*/
+  const handleChangePage = (event: unknown, page: number) => {
+    searchParams.set('page', String(page))
+    setSearchParams(searchParams)
+    setCurrentPage(page)
+  }
+
+  const handleChangePacksPerPage = (event: SelectChangeEvent) => {
+    const ev = event.target.value
+
+    searchParams.set('pageCount', ev)
+    setSearchParams(searchParams)
+    setPacksPerPage(+ev)
   }
 
   useEffect(() => {
-    if (pageQuery) dispatch(getPacksTC(undefined, undefined, +pageQuery))
-    else setSearchParams({ page: '1' })
-  }, [pageQuery])
+    if (searchParams.get('page')) {
+      const pageParams = Number(searchParams.get('page'))
 
-  console.log('page: ' + page, 'pageQuery: ' + pageQuery, 'pageQty: ' + pageQty)
+      setCurrentPage(pageParams)
+    } else {
+      setCurrentPage(page)
+    }
+    if (searchParams.get('pageCount')) {
+      const pageCountParam = Number(searchParams.get('pageCount'))
+
+      setPacksPerPage(pageCountParam)
+    } else {
+      setPacksPerPage(packsPerPage)
+    }
+  }, [searchParams, packsPerPage, page])
 
   return (
-    <Container sx={{ marginTop: 5 }} maxWidth={'md'}>
-      <Stack spacing={2}>
-        {!!pageQty && (
-          <Pagination
-            color="primary"
-            shape="rounded"
-            count={pageQty}
-            page={page}
-            onChange={paginationHandler}
-            sx={{ marginY: 3, marginX: 'auto' }}
-          />
-        )}
-      </Stack>
+    <Container sx={{ marginTop: 3 }}>
+      <div className={s.pagContainer}>
+        <StyledPagination
+          color="primary"
+          shape="rounded"
+          /*count={totalPacksCount}*/
+          count={Math.ceil(totalPacksCount / packsCount)}
+          page={currentPage}
+          onChange={handleChangePage}
+        />
+        <div>Show</div>
+        <Select
+          value={String(packsPerPage)}
+          onChange={handleChangePacksPerPage}
+          sx={{ width: '70px', height: '35px', marginLeft: '10px', marginRight: '10px' }}
+        >
+          <MenuItem value={4}>4</MenuItem>
+          <MenuItem value={5}>5</MenuItem>
+          <MenuItem value={10}>10</MenuItem>
+          <MenuItem value={15}>15</MenuItem>
+          <MenuItem value={100}>100</MenuItem>
+        </Select>
+        <div>Packs per Page</div>
+      </div>
     </Container>
   )
 }
