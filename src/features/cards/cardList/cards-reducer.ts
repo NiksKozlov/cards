@@ -3,23 +3,6 @@ import { setAppStatusAC } from 'app/app-reducer'
 import { AppThunk } from 'common/hooks/useAppDispatch'
 import { handleServerError } from 'common/utils/error-handler/error-handler'
 
-export type AddNewCardLocalStateType = {
-  card: {
-    cardsPack_id: string
-    question: string
-    answer: string
-  }
-}
-
-export type EditCardLocalStateType = {
-  card: {
-    _id: string
-    question: string
-    grade: number
-    shots: number
-  }
-}
-
 const initialState = {
   packId: '',
   cards: [] as CardType[],
@@ -28,7 +11,7 @@ const initialState = {
   minGrade: null as null | number,
   page: undefined as undefined | number,
   pageCount: 5,
-  pageUserId: null as null | number,
+  packUserId: null as null | number,
 }
 
 type InitialStateType = typeof initialState
@@ -114,5 +97,22 @@ export const deleteCardTC =
       handleServerError(e, dispatch)
     }
   }
+
+export type AddNewCardLocalStateType = {
+  card: {
+    cardsPack_id: string
+    question: string
+    answer: string
+  }
+}
+
+export type EditCardLocalStateType = {
+  card: {
+    _id: string
+    question: string
+    grade: number
+    shots: number
+  }
+}
 
 export type CardsActionsTypes = ReturnType<typeof setCardsDataAC> | ReturnType<typeof setPackIdAC>

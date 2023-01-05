@@ -1,110 +1,112 @@
 .buttons {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .saveBtn {
-    min-width: 90px;
-    height: 36px;
-    margin-top: 30px;
+  min-width: 90px;
+  height: 36px;
+  margin-top: 30px;
 
-    background-color: #366eff;
-    border: 0;
-    border-radius: 30px;
-    box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  color: white;
+
+  background-color: #366eff;
+  border: 0;
+  border-radius: 30px;
+  box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .saveBtn:active {
-    background-color: #1544d9;
+  background-color: #1544d9;
 }
 
 .cancelBtn {
-    composes: saveBtn;
+  composes: saveBtn;
 
-    color: black;
+  color: black;
 
-    background-color: white;
-    box-shadow: 0 4px 18px rgba(130, 130, 136, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background-color: white;
+  box-shadow: 0 4px 18px rgba(130, 130, 136, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .cancelBtn:active {
-    background-color: #dee0e8;
+  background-color: #dee0e8;
 }
 
 .deleteBtn {
-    composes: saveBtn;
+  composes: saveBtn;
 
-    background-color: #ce1616;
-    box-shadow: 0 4px 18px rgb(248, 155, 155), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background-color: #ce1616;
+  box-shadow: 0 4px 18px rgb(248, 155, 155), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .deleteBtn:active {
-    background-color: #980909;
+  background-color: #980909;
 }
 
 .addImageBtn {
-    composes: saveBtn;
+  composes: saveBtn;
 
-    background-color: #366eff;
-    box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background-color: #366eff;
+  box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .addImageBtn:active {
-    background-color: #1544d9;
+  background-color: #1544d9;
 }
 
 .addBtn {
-    width: 150px;
-    height: 36px;
+  width: 150px;
+  height: 36px;
 
-    color: white;
+  color: white;
 
-    background-color: #366eff;
-    border: 0;
-    border-radius: 30px;
-    box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background-color: #366eff;
+  border: 0;
+  border-radius: 30px;
+  box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .addBtn:active {
-    background-color: #1544d9;
+  background-color: #1544d9;
 }
 
 .submitBtn {
-    height: 36px;
-    margin-top: 30px;
+  height: 36px;
+  margin-top: 30px;
 
-    color: white;
+  color: white;
 
-    background-color: #366eff;
-    border: 0;
-    border-radius: 30px;
-    box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background-color: #366eff;
+  border: 0;
+  border-radius: 30px;
+  box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .submitBtn:active {
-    background-color: #1544d9;
+  background-color: #1544d9;
 }
 
 .disabledBtn {
-    height: 36px;
-    margin-top: 30px;
+  height: 36px;
+  margin-top: 30px;
 
-    color: white;
+  color: white;
 
-    background-color: #9499ad;
-    border: 0;
-    border-radius: 30px;
-    box-shadow: 0 4px 18px rgba(163, 174, 197, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background-color: #9499ad;
+  border: 0;
+  border-radius: 30px;
+  box-shadow: 0 4px 18px rgba(163, 174, 197, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .submitBackToLoginBtn {
-    composes: submitBtn;
+  composes: submitBtn;
 
-    width: 100%;
-    margin-top: 0;
-    margin-bottom: 20px;
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
 .submitBackToLoginBtn:active {
-    background-color: #1544d9;
+  background-color: #1544d9;
 }

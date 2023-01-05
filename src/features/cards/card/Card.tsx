@@ -4,7 +4,6 @@ import { Rating } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import { PATH } from '../../../common/routePaths/routePaths.enum'
-
 import { EditCardModal } from '../../modals/basicCardModal/editCardModal/EditCardModal'
 import { DeleteCardModal } from '../../modals/basicDeleteModal/deleteCardModal/DeleteCardModal'
 

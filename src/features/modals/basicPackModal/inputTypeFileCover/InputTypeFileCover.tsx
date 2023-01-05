@@ -8,23 +8,25 @@ import { convertFileToBase64 } from '../../../../common/utils/convertFileToBase6
 import s from './InputTypeFileCover.module.css'
 
 type PropsType = {
-  cover: string
-  setCover: (value: string) => void
+  /*cover: string*/
+  setCoverToRequest: (value: string) => void
 }
 
-export const InputTypeFileCover: FC<PropsType> = ({ cover, setCover }) => {
+export const InputTypeFileCover: FC<PropsType> = ({ setCoverToRequest }) => {
   const dispatch = useAppDispatch()
 
+  const [cover, setCover] = useState(noCover)
   const [isCoverBroken, setIsCoverBroken] = useState(false)
 
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsCoverBroken(false)
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
 
       if (file.size < 4000000) {
         convertFileToBase64(file, (file64: string) => {
+          setIsCoverBroken(false)
           setCover(file64)
+          setCoverToRequest(file64)
         })
       } else {
         setAppErrorAC('File size too large 0_0')

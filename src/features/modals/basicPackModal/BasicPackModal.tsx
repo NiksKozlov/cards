@@ -45,8 +45,8 @@ type PropsType = {
 export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: PropsType) => {
   const dispatch = useAppDispatch()
 
-  const [cover, setCover] = useState(noCover)
   const [value, setValue] = useState<string>('')
+  const [cover, setCover] = useState(noCover)
   const [checked, setChecked] = useState<boolean>(false)
 
   const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -99,7 +99,7 @@ export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: Pro
           </div>
           <Divider />
           <div className={s.formContainer}>
-            <InputTypeFileCover cover={cover} setCover={setCover} />
+            <InputTypeFileCover setCoverToRequest={setCover} />
             <UniInput value={value} label={'Pack title'} onChange={onChangeInputHandler} />
             <FormControlLabel
               label={<span className={s.formControlLabel}>Private pack</span>}
