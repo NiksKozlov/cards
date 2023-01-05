@@ -52,6 +52,7 @@ export const CardsList = () => {
                 updated={c.updated}
                 grade={c.grade}
                 _id={c._id}
+                user_id={c.user_id}
               />
             ))}
           </TableBody>

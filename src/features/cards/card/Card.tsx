@@ -3,8 +3,9 @@ import React from 'react'
 import { Rating } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
+import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
-
+import { userProfile } from '../../../common/selectors/profile-selector'
 import { EditCardModal } from '../../modals/basicCardModal/editCardModal/EditCardModal'
 import { DeleteCardModal } from '../../modals/basicDeleteModal/deleteCardModal/DeleteCardModal'
 
@@ -18,9 +19,10 @@ type CardPropsType = {
   updated: Date | string
   grade: number
   _id: string
+  user_id: string
 }
 
-export const Card = ({ question, answer, updated, grade, _id }: CardPropsType) => {
+export const Card = ({ question, answer, updated, grade, _id, user_id }: CardPropsType) => {
   const date = updated.toString()
   const day = date.substr(8, 2)
   const month = date.substr(5, 2)
@@ -28,6 +30,8 @@ export const Card = ({ question, answer, updated, grade, _id }: CardPropsType) =
   const updatedDate = `${day}.${month}.${year}`
 
   const navigate = useNavigate()
+
+  const profile = useAppSelector(userProfile)
 
   const runLearn = () => {
     navigate(PATH.LEARN)
@@ -45,8 +49,12 @@ export const Card = ({ question, answer, updated, grade, _id }: CardPropsType) =
       </StyledBodyTableCell>
       <StyledBodyTableCell align="center">
         <div className={s.actions}>
-          <EditCardModal _id={_id} />
-          <DeleteCardModal id={_id} />
+          {profile._id == user_id && (
+            <>
+              <EditCardModal _id={_id} />
+              <DeleteCardModal id={_id} />
+            </>
+          )}
         </div>
       </StyledBodyTableCell>
     </StyledBodyTableRow>
