@@ -1,21 +1,20 @@
 import React, { ChangeEvent, FC, useState } from 'react'
 
-import { setAppErrorAC } from '../../../../app/app-reducer'
-import noCover from '../../../../assets/images/noCover.jpg'
-import { useAppDispatch } from '../../../../common/hooks/useAppDispatch'
-import { convertFileToBase64 } from '../../../../common/utils/convertFileToBase64/convertFileToBase64'
+import { setAppErrorAC } from '../../../app/app-reducer'
+import noCover from '../../../assets/images/noCover.jpg'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { convertFileToBase64 } from '../../utils/convertFileToBase64/convertFileToBase64'
 
 import s from './InputTypeFileCover.module.css'
 
 type PropsType = {
-  /*cover: string*/
-  setCoverToRequest: (value: string) => void
+  cover: string
+  setCover: (value: string) => void
 }
 
-export const InputTypeFileCover: FC<PropsType> = ({ setCoverToRequest }) => {
+export const InputTypeFileCover: FC<PropsType> = ({ cover, setCover }) => {
   const dispatch = useAppDispatch()
 
-  const [cover, setCover] = useState(noCover)
   const [isCoverBroken, setIsCoverBroken] = useState(false)
 
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +25,6 @@ export const InputTypeFileCover: FC<PropsType> = ({ setCoverToRequest }) => {
         convertFileToBase64(file, (file64: string) => {
           setIsCoverBroken(false)
           setCover(file64)
-          setCoverToRequest(file64)
         })
       } else {
         setAppErrorAC('File size too large 0_0')

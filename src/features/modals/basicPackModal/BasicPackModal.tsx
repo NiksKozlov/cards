@@ -7,6 +7,7 @@ import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 
 import noCover from '../../../assets/images/noCover.jpg'
+import { InputTypeFileCover } from '../../../common/components/inputTypeFileCover/InputTypeFileCover'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
 import st from '../../../common/uniComponents/uniButton/UniButton.module.css'
@@ -19,7 +20,6 @@ import {
 } from '../../packs/packsList/packs-reducer'
 
 import s from './BasicPackModal.module.css'
-import { InputTypeFileCover } from './inputTypeFileCover/InputTypeFileCover'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -64,6 +64,9 @@ export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: Pro
 
     dispatch(addNewPackTC(addNewPackLocalState))
     setOpen(false)
+    setValue('')
+    setCover(noCover)
+    setChecked(false)
   }
 
   const editPackName = () => {
@@ -76,10 +79,16 @@ export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: Pro
 
     dispatch(editPackTC(editPack))
     setOpen(false)
+    setValue('')
+    setCover(noCover)
+    setChecked(false)
   }
 
   const handleClose = () => {
     setOpen(false)
+    setValue('')
+    setCover(noCover)
+    setChecked(false)
   }
 
   const onChangeCheckboxHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +108,7 @@ export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: Pro
           </div>
           <Divider />
           <div className={s.formContainer}>
-            <InputTypeFileCover setCoverToRequest={setCover} />
+            <InputTypeFileCover cover={cover} setCover={setCover} />
             <UniInput value={value} label={'Pack title'} onChange={onChangeInputHandler} />
             <FormControlLabel
               label={<span className={s.formControlLabel}>Private pack</span>}

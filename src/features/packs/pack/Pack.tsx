@@ -53,8 +53,8 @@ export const Pack = ({
     navigate(PATH.CARDS_LIST)
   }
 
-  const runLearn = async () => {
-    await dispatch(setPackIdAC(id))
+  const runLearn = () => {
+    dispatch(setPackIdAC(id))
 
     navigate(PATH.LEARN)
   }

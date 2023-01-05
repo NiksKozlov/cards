@@ -42,7 +42,7 @@ export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: Pr
   const getCardsPack_id = useAppSelector(st => st.cards.packId)
   const [questionValue, setQuestionValue] = useState<string>('')
   const [answerValue, setAnswerValue] = useState<string>('')
-  const [selectValue, setSelectValue] = React.useState('Text')
+  const [selectValue, setSelectValue] = useState('Text')
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelectValue(event.target.value)
@@ -67,6 +67,9 @@ export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: Pr
 
     dispatch(addNewCardTC(addNewCardLocalState))
     setOpen(false)
+    setQuestionValue('')
+    setAnswerValue('')
+    setSelectValue('Text')
   }
 
   const editCardName = () => {
@@ -81,10 +84,16 @@ export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: Pr
 
     dispatch(editCardTC(editCardLocalState))
     setOpen(false)
+    setQuestionValue('')
+    setAnswerValue('')
+    setSelectValue('Text')
   }
 
   const handleClose = () => {
     setOpen(false)
+    setQuestionValue('')
+    setAnswerValue('')
+    setSelectValue('Text')
   }
 
   return (
