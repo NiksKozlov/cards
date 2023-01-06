@@ -6,7 +6,7 @@ import { Checkbox, Divider, FormControlLabel, IconButton } from '@mui/material'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 
-import noCover from '../../../assets/images/noCover.jpg'
+import noCover from '../../../assets/images/packNoCover.jpg'
 import { InputTypeFileCover } from '../../../common/components/inputTypeFileCover/InputTypeFileCover'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
@@ -108,7 +108,12 @@ export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: Pro
           </div>
           <Divider />
           <div className={s.formContainer}>
-            <InputTypeFileCover cover={cover} setCover={setCover} />
+            <InputTypeFileCover
+              cover={cover}
+              setCover={setCover}
+              text={'Cover'}
+              defaultCover={noCover}
+            />
             <UniInput value={value} label={'Pack title'} onChange={onChangeInputHandler} />
             <FormControlLabel
               label={<span className={s.formControlLabel}>Private pack</span>}

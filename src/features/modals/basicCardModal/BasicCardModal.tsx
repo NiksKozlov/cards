@@ -7,6 +7,8 @@ import Box from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 import Modal from '@mui/material/Modal'
 
+import noCover from '../../../assets/images/cardNoCover.png'
+import { InputTypeFileCover } from '../../../common/components/inputTypeFileCover/InputTypeFileCover'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
@@ -41,6 +43,7 @@ export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: Pr
   const dispatch = useAppDispatch()
   const getCardsPack_id = useAppSelector(st => st.cards.packId)
   const [questionValue, setQuestionValue] = useState<string>('')
+  const [questionImg, setQuestionImg] = useState<string>(noCover)
   const [answerValue, setAnswerValue] = useState<string>('')
   const [selectValue, setSelectValue] = useState('Text')
 
@@ -68,6 +71,7 @@ export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: Pr
     dispatch(addNewCardTC(addNewCardLocalState))
     setOpen(false)
     setQuestionValue('')
+    setQuestionImg(noCover)
     setAnswerValue('')
     setSelectValue('Text')
   }
@@ -85,6 +89,7 @@ export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: Pr
     dispatch(editCardTC(editCardLocalState))
     setOpen(false)
     setQuestionValue('')
+    setQuestionImg(noCover)
     setAnswerValue('')
     setSelectValue('Text')
   }
@@ -92,6 +97,7 @@ export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: Pr
   const handleClose = () => {
     setOpen(false)
     setQuestionValue('')
+    setQuestionImg(noCover)
     setAnswerValue('')
     setSelectValue('Text')
   }
@@ -126,7 +132,13 @@ export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: Pr
                 onChange={onChangeQuestionHandler}
               />
             ) : (
-              <UniButton className={'addImageBtn'} title={'Upload the question as an image'} />
+              <InputTypeFileCover
+                cover={questionImg}
+                setCover={setQuestionImg}
+                text={'Question:'}
+                defaultCover={noCover}
+              />
+              /*<UniButton className={'addImageBtn'} title={'Upload the question as an image'} />*/
             )}
             <UniInput value={answerValue} label={'Answer'} onChange={onChangeAnswerHandler} />
           </FormControl>

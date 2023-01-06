@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead'
 import { useSearchParams } from 'react-router-dom'
 
 import { DomainPackType } from '../../../api/packs-api'
-import noCover from '../../../assets/images/noCover.jpg'
+import noCover from '../../../assets/images/packNoCover.jpg'
 import {
   cardPacksTotalCount,
   packsCount,
