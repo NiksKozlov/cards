@@ -90,9 +90,13 @@ export const Learn = () => {
     <div className={s.mainContainer}>
       <BackToPacksList />
       <div className={s.formContainer}>
-        <h1>LearnPage</h1>
+        <h1>Question: </h1>
         <div>
-          <h4>{card.question}</h4>
+          {card.questionImg ? (
+            <img className={s.questionImg} src={card.questionImg} alt={'questionImg'} />
+          ) : (
+            <h4>{card.question}</h4>
+          )}
         </div>
         {!isChecked ? (
           <>
