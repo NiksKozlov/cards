@@ -6,7 +6,8 @@ import { Checkbox, Divider, FormControlLabel, IconButton } from '@mui/material'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 
-import noCover from '../../../assets/images/noCover.jpg'
+import noCover from '../../../assets/images/packNoCover.jpg'
+import { InputTypeFileCover } from '../../../common/components/inputTypeFileCover/InputTypeFileCover'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
 import st from '../../../common/uniComponents/uniButton/UniButton.module.css'
@@ -19,7 +20,6 @@ import {
 } from '../../packs/packsList/packs-reducer'
 
 import s from './BasicPackModal.module.css'
-import { InputTypeFileCover } from './inputTypeFileCover/InputTypeFileCover'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -45,8 +45,8 @@ type PropsType = {
 export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: PropsType) => {
   const dispatch = useAppDispatch()
 
-  const [cover, setCover] = useState(noCover)
   const [value, setValue] = useState<string>('')
+  const [cover, setCover] = useState(noCover)
   const [checked, setChecked] = useState<boolean>(false)
 
   const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -64,6 +64,9 @@ export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: Pro
 
     dispatch(addNewPackTC(addNewPackLocalState))
     setOpen(false)
+    setValue('')
+    setCover(noCover)
+    setChecked(false)
   }
 
   const editPackName = () => {
@@ -76,10 +79,16 @@ export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: Pro
 
     dispatch(editPackTC(editPack))
     setOpen(false)
+    setValue('')
+    setCover(noCover)
+    setChecked(false)
   }
 
   const handleClose = () => {
     setOpen(false)
+    setValue('')
+    setCover(noCover)
+    setChecked(false)
   }
 
   const onChangeCheckboxHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +108,12 @@ export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: Pro
           </div>
           <Divider />
           <div className={s.formContainer}>
-            <InputTypeFileCover cover={cover} setCover={setCover} />
+            <InputTypeFileCover
+              cover={cover}
+              setCover={setCover}
+              text={'Cover'}
+              defaultCover={noCover}
+            />
             <UniInput value={value} label={'Pack title'} onChange={onChangeInputHandler} />
             <FormControlLabel
               label={<span className={s.formControlLabel}>Private pack</span>}

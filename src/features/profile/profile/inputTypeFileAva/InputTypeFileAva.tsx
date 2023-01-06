@@ -21,11 +21,11 @@ export const InputTypeFileAva = () => {
   const [isAvaBroken, setIsAvaBroken] = useState(false)
 
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsAvaBroken(false)
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
 
       if (file.size < 4000000) {
+        setIsAvaBroken(false)
         convertFileToBase64(file, (file64: string) => {
           dispatch(changeProfileAvatarTC(file64))
         })

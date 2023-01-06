@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead'
 import { useSearchParams } from 'react-router-dom'
 
 import { DomainPackType } from '../../../api/packs-api'
-import noCover from '../../../assets/images/noCover.jpg'
+import noCover from '../../../assets/images/packNoCover.jpg'
 import {
   cardPacksTotalCount,
   packsCount,
@@ -90,11 +90,21 @@ export const PacksList = () => {
           <TableHead>
             <StyledHeadTableRow>
               <StyledHeadTableCell align="left">Cover</StyledHeadTableCell>
-              <StyledHeadTableCell onClick={createSortHandler('name')}>Name</StyledHeadTableCell>
-              <StyledHeadTableCell align="left" onClick={createSortHandler('cardsCount')}>
+              <StyledHeadTableCell onClick={createSortHandler('name')} className={s.sortCell}>
+                Name
+              </StyledHeadTableCell>
+              <StyledHeadTableCell
+                align="left"
+                onClick={createSortHandler('cardsCount')}
+                className={s.sortCell}
+              >
                 Cards
               </StyledHeadTableCell>
-              <StyledHeadTableCell align="left" onClick={createSortHandler('updated')}>
+              <StyledHeadTableCell
+                align="left"
+                onClick={createSortHandler('updated')}
+                className={s.sortCell}
+              >
                 Last Updated
               </StyledHeadTableCell>
               <StyledHeadTableCell align="left">Created by</StyledHeadTableCell>
@@ -111,7 +121,11 @@ export const PacksList = () => {
                 cardsCount={p.cardsCount}
                 updated={p.updated}
                 created={p.user_name}
-                deckCover={p.deckCover ? p.deckCover : noCover}
+                deckCover={
+                  p.deckCover && p.deckCover !== 'New Url' && p.deckCover !== 'url or base64'
+                    ? p.deckCover
+                    : noCover
+                }
               />
             ))}
           </TableBody>

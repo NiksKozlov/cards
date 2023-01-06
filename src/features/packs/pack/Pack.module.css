@@ -4,4 +4,9 @@
 
 .cover {
   width: 120px;
+  height: 80px;
+}
+
+.nameCell:hover {
+  cursor: pointer;
 }
