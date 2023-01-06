@@ -48,6 +48,7 @@ export const CardsList = () => {
               <Card
                 key={c._id}
                 question={c.question}
+                questionImg={c.questionImg ? c.questionImg : ''}
                 answer={c.answer}
                 updated={c.updated}
                 grade={c.grade}

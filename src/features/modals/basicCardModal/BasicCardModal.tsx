@@ -64,6 +64,7 @@ export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: Pr
       card: {
         cardsPack_id: getCardsPack_id,
         question: questionValue,
+        questionImg: questionImg,
         answer: answerValue,
       },
     }

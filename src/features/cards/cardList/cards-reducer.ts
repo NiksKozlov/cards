@@ -102,6 +102,7 @@ export type AddNewCardLocalStateType = {
   card: {
     cardsPack_id: string
     question: string
+    questionImg: string
     answer: string
   }
 }

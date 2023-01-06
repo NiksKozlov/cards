@@ -1,4 +1,9 @@
 .actions {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+}
+
+.cover {
+  width: 120px;
+  height: 70px;
 }

@@ -15,6 +15,7 @@ import { StyledBodyTableCell, StyledBodyTableRow } from 'common/styles/tableStyl
 
 type CardPropsType = {
   question: string
+  questionImg: string
   answer: string
   updated: Date | string
   grade: number
@@ -22,7 +23,15 @@ type CardPropsType = {
   user_id: string
 }
 
-export const Card = ({ question, answer, updated, grade, _id, user_id }: CardPropsType) => {
+export const Card = ({
+  question,
+  questionImg,
+  answer,
+  updated,
+  grade,
+  _id,
+  user_id,
+}: CardPropsType) => {
   const date = updated.toString()
   const day = date.substr(8, 2)
   const month = date.substr(5, 2)
@@ -40,7 +49,7 @@ export const Card = ({ question, answer, updated, grade, _id, user_id }: CardPro
   return (
     <StyledBodyTableRow>
       <StyledBodyTableCell component="th" scope="row" onClick={runLearn}>
-        {question}
+        {questionImg ? <img className={s.cover} src={questionImg} alt={'cover'} /> : question}
       </StyledBodyTableCell>
       <StyledBodyTableCell align="center">{answer}</StyledBodyTableCell>
       <StyledBodyTableCell align="center">{updatedDate}</StyledBodyTableCell>

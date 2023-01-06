@@ -39,6 +39,7 @@ export type CardsResponseType = {
 export type CardType = {
   answer: string
   question: string
+  questionImg?: string
   cardsPack_id: string
   grade: number
   shots: number
@@ -65,6 +66,7 @@ type addNewCardDataType = {
   card: {
     cardsPack_id: string
     question: string
+    questionImg: string
     answer: string
   }
 }
