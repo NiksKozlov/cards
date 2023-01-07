@@ -5,15 +5,15 @@ import FormControl from '@mui/material/FormControl'
 import { useFormik } from 'formik'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import { PATH } from '../../../common/routePaths/routePaths.enum'
-import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
-import { UniInput } from '../../../common/uniComponents/uniInput/UniImput'
-import { loginValidationSchema } from '../../../common/utils/validationSchema/validationSchema'
-
 import { loginTC } from './auth-reducer'
 import s from './Login.module.css'
+
+import { useAppDispatch } from 'common/hooks/useAppDispatch'
+import { useAppSelector } from 'common/hooks/useAppSelector'
+import { PATH } from 'common/routePaths/routePaths.enum'
+import { UniButton } from 'common/uniComponents/uniButton/UniButton'
+import { UniInput } from 'common/uniComponents/uniInput/UniImput'
+import { loginValidationSchema } from 'common/utils/validationSchema/validationSchema'
 
 export const Login = () => {
   const navigate = useNavigate()
