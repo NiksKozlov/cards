@@ -32,8 +32,10 @@ export const loginTC =
   async dispatch => {
     try {
       dispatch(setAppStatusAC('loading'))
-      const res = await authAPI.login(data)
+      await authAPI.login(data)
+      const res = await authAPI.me()
 
+      dispatch(setProfileAC(res.data))
       dispatch(setIsLoggedInAC(true))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {

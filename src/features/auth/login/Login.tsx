@@ -1,7 +1,6 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent } from 'react'
 
-import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { Checkbox, FormControlLabel, FormGroup, IconButton, TextField } from '@mui/material'
+import { Checkbox, FormControlLabel, FormGroup } from '@mui/material'
 import FormControl from '@mui/material/FormControl'
 import { useFormik } from 'formik'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -20,12 +19,6 @@ export const Login = () => {
   const navigate = useNavigate()
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
-
-  const [showPassword, setShowPassword] = useState(false)
-  const handleClickShowPassword = () => setShowPassword(show => !show)
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-  }
 
   const formik = useFormik({
     initialValues: {
