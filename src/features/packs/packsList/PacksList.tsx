@@ -122,9 +122,7 @@ export const PacksList = () => {
                 updated={p.updated}
                 created={p.user_name}
                 deckCover={
-                  p.deckCover && p.deckCover !== 'New Url' && p.deckCover !== 'url or base64'
-                    ? p.deckCover
-                    : noCover
+                  p.deckCover && p.deckCover.includes('data:image') ? p.deckCover : noCover
                 }
               />
             ))}

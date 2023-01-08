@@ -49,7 +49,11 @@ export const Card = ({
   return (
     <StyledBodyTableRow>
       <StyledBodyTableCell component="th" scope="row" onClick={runLearn}>
-        {questionImg ? <img className={s.cover} src={questionImg} alt={'cover'} /> : question}
+        {questionImg && questionImg.includes('data:image') ? (
+          <img className={s.cover} src={questionImg} alt={'cover'} />
+        ) : (
+          question
+        )}
       </StyledBodyTableCell>
       <StyledBodyTableCell align="center">{answer}</StyledBodyTableCell>
       <StyledBodyTableCell align="center">{updatedDate}</StyledBodyTableCell>
