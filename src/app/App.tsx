@@ -32,7 +32,7 @@ const App = () => {
   return (
     <div className="App">
       <Navbar isLoggedIn={isLoggedIn} />
-      {status === 'loading' && <LinearProgress color="secondary" />}
+      {status === 'loading' && <LinearProgress />}
       <ErrorSnackbar />
       <RoutePaths isLoggedIn={isLoggedIn} />
     </div>

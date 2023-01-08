@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
 import { editCardTC, getCardsTC } from '../cards/cardList/cards-reducer'
-import s from '../profile/profile/Profile.module.css'
 
 import { Checkboxes, grades } from './checkboxes/Checkboxes'
 import { getCardRandom } from './getCardRandom/getCardRandom'
+import s from './Learn.module.css'
 
 import { CardType } from 'api/cards-api'
 import { BackToPacksList } from 'common/components/backToPacksList/BackToPacksList'
@@ -81,7 +81,9 @@ export const Learn = () => {
         </div>
         {!isChecked ? (
           <>
-            <button onClick={() => setIsChecked(true)}>show answer</button>
+            <button className={s.learnBtn} onClick={() => setIsChecked(true)}>
+              show answer
+            </button>
           </>
         ) : (
           <>
@@ -92,13 +94,15 @@ export const Learn = () => {
               </div>
             )}
             <div>
-              <h4>{card.answer}</h4>
+              <h4>Answer: {card.answer}</h4>
             </div>
 
             <Checkboxes value={value} setValue={setValue} />
 
             <div>
-              <button onClick={nextHandler}>Next</button>
+              <button className={s.learnBtn} onClick={nextHandler}>
+                Next
+              </button>
             </div>
           </>
         )}
