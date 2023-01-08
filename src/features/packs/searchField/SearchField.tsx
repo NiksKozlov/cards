@@ -33,7 +33,7 @@ const SearchField = () => {
 
   return (
     <div className={s.searchContainer}>
-      <h3>Search</h3>
+      <h3>Search by Pack Name</h3>
       <TextField
         inputProps={{ className: s.textFieldMain }}
         value={value}

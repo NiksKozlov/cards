@@ -34,7 +34,7 @@ export const PacksList = () => {
   const dispatch = useAppDispatch()
 
   const cardPacks = useAppSelector(packsSelector)
-  const pageState = useAppSelector(packsPage)
+  const currentPage = useAppSelector(packsPage)
   const packsCountState = useAppSelector(packsCount)
   const cardPacksTotal = useAppSelector(cardPacksTotalCount)
 
@@ -90,22 +90,14 @@ export const PacksList = () => {
           <TableHead>
             <StyledHeadTableRow>
               <StyledHeadTableCell align="left">Cover</StyledHeadTableCell>
-              <StyledHeadTableCell onClick={createSortHandler('name')} className={s.sortCell}>
-                Name
+              <StyledHeadTableCell onClick={createSortHandler('name')}>
+                <span className={s.sortCell}>Name</span>
               </StyledHeadTableCell>
-              <StyledHeadTableCell
-                align="left"
-                onClick={createSortHandler('cardsCount')}
-                className={s.sortCell}
-              >
-                Cards
+              <StyledHeadTableCell align="left" onClick={createSortHandler('cardsCount')}>
+                <span className={s.sortCell}>Cards</span>
               </StyledHeadTableCell>
-              <StyledHeadTableCell
-                align="left"
-                onClick={createSortHandler('updated')}
-                className={s.sortCell}
-              >
-                Last Updated
+              <StyledHeadTableCell align="left" onClick={createSortHandler('updated')}>
+                <span className={s.sortCell}>Last Updated</span>
               </StyledHeadTableCell>
               <StyledHeadTableCell align="left">Created by</StyledHeadTableCell>
               <StyledHeadTableCell align="left">Actions</StyledHeadTableCell>
@@ -131,9 +123,10 @@ export const PacksList = () => {
       </TableContainer>
       <div>
         <PacksPagination
-          page={pageState}
+          page={currentPage}
           packsCount={packsCountState}
           totalPacksCount={cardPacksTotal}
+          title={'Packs'}
         />
       </div>
     </div>

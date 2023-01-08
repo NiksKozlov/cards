@@ -48,11 +48,10 @@ export const Navbar: FC<PropsType> = ({ isLoggedIn }) => {
         </NavLink>
       </div>
       {isLoggedIn ? (
-        <div>
-          {profileName}
+        <div className={s.profileIcon} onClick={profileBtnHandler}>
+          {profileName.toUpperCase()}
           <img
             className={s.navAva}
-            onClick={profileBtnHandler}
             src={isAvaBroken ? defaultAva : anotherExpression}
             onError={errorHandler}
             alt="profile photo"
