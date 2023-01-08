@@ -1,4 +1,4 @@
-import React, { ChangeEvent, memo, useState } from 'react'
+import React, { ChangeEvent, memo, KeyboardEvent, useState } from 'react'
 
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import { IconButton } from '@mui/material'
@@ -25,6 +25,12 @@ export const EditableName = memo(function (props: EditableNamePropsType) {
     setName(e.currentTarget.value)
   }
 
+  const enterChangeTitle = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      activateViewMode()
+    }
+  }
+
   return editMode ? (
     <TextField
       type={'search'}
@@ -34,6 +40,7 @@ export const EditableName = memo(function (props: EditableNamePropsType) {
       onChange={changeTitle}
       autoFocus
       onBlur={activateViewMode}
+      onKeyDown={enterChangeTitle}
     />
   ) : (
     <span onDoubleClick={activateEditMode}>
