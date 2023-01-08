@@ -45,8 +45,11 @@
 }
 
 .email {
+  margin-top: 10px;
+
   font-family: 'Montserrat', serif;
-  font-weight: 500;
+
+  opacity: 0.5;
 }
 
 .submitBtn {
