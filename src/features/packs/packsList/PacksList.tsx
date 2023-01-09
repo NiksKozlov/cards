@@ -80,7 +80,7 @@ export const PacksList = () => {
         <AddNewPackModal />
       </div>
       <div className={s.filtersContainer}>
-        <SearchField />
+        <SearchField paramURL={'packName'} searchLabel={'Pack Name'} />
         <PacksFilterButtons />
         <FilterSlider />
         <ResetFiltersBtn />
@@ -90,14 +90,20 @@ export const PacksList = () => {
           <TableHead>
             <StyledHeadTableRow>
               <StyledHeadTableCell align="left">Cover</StyledHeadTableCell>
-              <StyledHeadTableCell onClick={createSortHandler('name')}>
-                <span className={s.sortCell}>Name</span>
+              <StyledHeadTableCell>
+                <span className={s.sortCell} onClick={createSortHandler('name')}>
+                  Name
+                </span>
               </StyledHeadTableCell>
               <StyledHeadTableCell align="left" onClick={createSortHandler('cardsCount')}>
-                <span className={s.sortCell}>Cards</span>
+                <span className={s.sortCell} onClick={createSortHandler('cardsCount')}>
+                  Cards
+                </span>
               </StyledHeadTableCell>
               <StyledHeadTableCell align="left" onClick={createSortHandler('updated')}>
-                <span className={s.sortCell}>Last Updated</span>
+                <span className={s.sortCell} onClick={createSortHandler('updated')}>
+                  Last Updated
+                </span>
               </StyledHeadTableCell>
               <StyledHeadTableCell align="left">Created by</StyledHeadTableCell>
               <StyledHeadTableCell align="left">Actions</StyledHeadTableCell>

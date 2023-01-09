@@ -64,13 +64,10 @@ export const Pack = ({
       <StyledBodyTableCell align="left">
         <img className={s.cover} src={deckCover} alt="no cover" />
       </StyledBodyTableCell>
-      <StyledBodyTableCell
-        className={s.nameCell}
-        component="th"
-        scope="row"
-        onClick={onNameClickHandler}
-      >
-        {name}
+      <StyledBodyTableCell component="th" scope="row">
+        <span className={s.nameCell} onClick={onNameClickHandler}>
+          {name}
+        </span>
       </StyledBodyTableCell>
       <StyledBodyTableCell align="left">{cardsCount}</StyledBodyTableCell>
       <StyledBodyTableCell align="left">{updatedDate}</StyledBodyTableCell>

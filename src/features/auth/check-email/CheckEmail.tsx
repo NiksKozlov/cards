@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
+import checkMailIcon from '../../../assets/images/check-icon.jpg'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
 import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
 
@@ -18,7 +19,7 @@ export const CheckEmail = () => {
     <div className={s.mainContainer}>
       <div className={s.formContainer}>
         <h1>Check Email</h1>
-        <img style={{ width: '130px', height: '130px', backgroundColor: 'palegoldenrod' }} alt="" />
+        <img style={{ width: '150px', height: '150px' }} src={checkMailIcon} alt="" />
         <span
           className={s.instruction}
         >{`We've sent an Email with instructions to example@mail.com`}</span>
