@@ -52,7 +52,7 @@ export const Card = ({
         {questionImg && questionImg.includes('data:image') ? (
           <img className={s.cover} src={questionImg} alt={'cover'} />
         ) : (
-          question
+          <span className={s.hover}>{question}</span>
         )}
       </StyledBodyTableCell>
       <StyledBodyTableCell align="center">{answer}</StyledBodyTableCell>
