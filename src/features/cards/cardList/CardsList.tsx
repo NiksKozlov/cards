@@ -11,6 +11,7 @@ import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { StyledHeadTableCell, StyledHeadTableRow } from '../../../common/styles/tableStyleWrapper'
 import { AddNewCardModal } from '../../modals/basicCardModal/addNewCardModal/AddNewCardModal'
+import SearchField from '../../packs/searchField/SearchField'
 import { Card } from '../card/Card'
 
 import { getCardsTC } from './cards-reducer'
@@ -18,6 +19,7 @@ import s from './CardsList.module.css'
 
 export const CardsList = () => {
   const dispatch = useAppDispatch()
+
   const cards = useAppSelector(st => st.cards.cards)
   const packId = useAppSelector(st => st.cards.packId)
 
@@ -32,6 +34,7 @@ export const CardsList = () => {
         <h1>Cards list</h1>
         <AddNewCardModal />
       </div>
+      <SearchField paramURL={'cardQuestion'} searchLabel={'Card Question'} />
       <TableContainer component={Paper} className={s.tableContainer}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>

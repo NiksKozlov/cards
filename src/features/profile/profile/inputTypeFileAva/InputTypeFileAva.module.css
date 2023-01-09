@@ -1,4 +1,8 @@
 .ava {
-  height: 150px;
-  margin: 30px 0 15px 40px;
+  width: 120px;
+  height: 120px;
+  margin: 30px 0 0 40px;
+
+  background-size: auto 120px;
+  border-radius: 50%;
 }

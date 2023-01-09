@@ -11,9 +11,15 @@ type PropsType = {
   page: number
   packsCount: number
   totalPacksCount: number
+  title: string
 }
 
-export const PacksPagination: React.FC<PropsType> = ({ page, packsCount, totalPacksCount }) => {
+export const PacksPagination: React.FC<PropsType> = ({
+  page,
+  packsCount,
+  totalPacksCount,
+  title,
+}) => {
   const [packsPerPage, setPacksPerPage] = useState<number>(4)
   const [currentPage, setCurrentPage] = useState<number>(1)
 
@@ -72,7 +78,7 @@ export const PacksPagination: React.FC<PropsType> = ({ page, packsCount, totalPa
           <MenuItem value={15}>15</MenuItem>
           <MenuItem value={100}>100</MenuItem>
         </Select>
-        <div>Packs per Page</div>
+        <div>{title} per Page</div>
       </div>
     </Container>
   )

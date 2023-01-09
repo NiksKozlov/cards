@@ -7,3 +7,11 @@
   width: 120px;
   height: 70px;
 }
+
+.cover:hover {
+  cursor: pointer;
+}
+
+.hover:hover {
+  cursor: pointer;
+}

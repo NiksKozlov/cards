@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { setAppErrorAC } from '../../../app/app-reducer'
 import defaultAva from '../../../assets/images/defaultAva.jpg'
@@ -42,13 +42,16 @@ export const Navbar: FC<PropsType> = ({ isLoggedIn }) => {
 
   return (
     <div className={s.navbarContainer}>
-      <div>image</div>
+      <div className={s.buttonGroup}>
+        <NavLink to={PATH.PACKS_LIST} className={s.titleContainer}>
+          {'The Learning Cards🦒'}
+        </NavLink>
+      </div>
       {isLoggedIn ? (
-        <div>
-          {profileName}
+        <div className={s.profileIcon} onClick={profileBtnHandler}>
+          {profileName.toUpperCase()}
           <img
             className={s.navAva}
-            onClick={profileBtnHandler}
             src={isAvaBroken ? defaultAva : anotherExpression}
             onError={errorHandler}
             alt="profile photo"

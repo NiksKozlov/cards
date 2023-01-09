@@ -2,6 +2,7 @@ import React, { useCallback } from 'react'
 
 import LogoutIcon from '@mui/icons-material/Logout'
 import { IconButton } from '@mui/material'
+import Button from '@mui/material/Button'
 import { Navigate } from 'react-router-dom'
 
 import { BackToPacksList } from '../../../common/components/backToPacksList/BackToPacksList'
@@ -12,6 +13,7 @@ import { userIsLoggedIn } from '../../../common/selectors/auth-selector'
 import { userProfile } from '../../../common/selectors/profile-selector'
 import { EditableName } from '../EditableName/EditableName'
 
+import { CardsJoy } from './CardsJoy/CardsJoy'
 import { InputTypeFileAva } from './inputTypeFileAva/InputTypeFileAva'
 import { changeProfileNameTC, logOutTC } from './profile-reducer'
 import s from './Profile.module.css'
@@ -42,17 +44,12 @@ export const Profile = () => {
         <div className={s.name}>
           <EditableName name={profile.name} onChange={changeProfileName} />
         </div>
-        <br />
         <div className={s.email}>{profile.email}</div>
-        <IconButton
-          size={'small'}
-          sx={{ marginTop: '30px' }}
-          onClick={logOut}
-          className={s.submitBtn}
-        >
+        <CardsJoy packsCount={profile.publicCardPacksCount} />
+        <Button onClick={logOut} sx={{ marginTop: '30px' }} className={s.submitBtn}>
           <LogoutIcon fontSize={'small'} />
           Log Out
-        </IconButton>
+        </Button>
       </div>
     </div>
   )

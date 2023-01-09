@@ -34,7 +34,7 @@ export const PacksList = () => {
   const dispatch = useAppDispatch()
 
   const cardPacks = useAppSelector(packsSelector)
-  const pageState = useAppSelector(packsPage)
+  const currentPage = useAppSelector(packsPage)
   const packsCountState = useAppSelector(packsCount)
   const cardPacksTotal = useAppSelector(cardPacksTotalCount)
 
@@ -80,7 +80,7 @@ export const PacksList = () => {
         <AddNewPackModal />
       </div>
       <div className={s.filtersContainer}>
-        <SearchField />
+        <SearchField paramURL={'packName'} searchLabel={'Pack Name'} />
         <PacksFilterButtons />
         <FilterSlider />
         <ResetFiltersBtn />
@@ -90,22 +90,20 @@ export const PacksList = () => {
           <TableHead>
             <StyledHeadTableRow>
               <StyledHeadTableCell align="left">Cover</StyledHeadTableCell>
-              <StyledHeadTableCell onClick={createSortHandler('name')} className={s.sortCell}>
-                Name
+              <StyledHeadTableCell>
+                <span className={s.sortCell} onClick={createSortHandler('name')}>
+                  Name
+                </span>
               </StyledHeadTableCell>
-              <StyledHeadTableCell
-                align="left"
-                onClick={createSortHandler('cardsCount')}
-                className={s.sortCell}
-              >
-                Cards
+              <StyledHeadTableCell align="left" onClick={createSortHandler('cardsCount')}>
+                <span className={s.sortCell} onClick={createSortHandler('cardsCount')}>
+                  Cards
+                </span>
               </StyledHeadTableCell>
-              <StyledHeadTableCell
-                align="left"
-                onClick={createSortHandler('updated')}
-                className={s.sortCell}
-              >
-                Last Updated
+              <StyledHeadTableCell align="left" onClick={createSortHandler('updated')}>
+                <span className={s.sortCell} onClick={createSortHandler('updated')}>
+                  Last Updated
+                </span>
               </StyledHeadTableCell>
               <StyledHeadTableCell align="left">Created by</StyledHeadTableCell>
               <StyledHeadTableCell align="left">Actions</StyledHeadTableCell>
@@ -122,9 +120,7 @@ export const PacksList = () => {
                 updated={p.updated}
                 created={p.user_name}
                 deckCover={
-                  p.deckCover && p.deckCover !== 'New Url' && p.deckCover !== 'url or base64'
-                    ? p.deckCover
-                    : noCover
+                  p.deckCover && p.deckCover.includes('data:image') ? p.deckCover : noCover
                 }
               />
             ))}
@@ -133,9 +129,10 @@ export const PacksList = () => {
       </TableContainer>
       <div>
         <PacksPagination
-          page={pageState}
+          page={currentPage}
           packsCount={packsCountState}
           totalPacksCount={cardPacksTotal}
+          title={'Packs'}
         />
       </div>
     </div>
