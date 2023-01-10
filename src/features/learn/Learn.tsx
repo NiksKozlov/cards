@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
+import { useParams } from 'react-router-dom'
+
 import { editCardTC, getCardsTC } from '../cards/cardList/cards-reducer'
 
 import { Checkboxes, grades } from './checkboxes/Checkboxes'
@@ -10,7 +12,7 @@ import { CardType } from 'api/cards-api'
 import { BackToPacksList } from 'common/components/backToPacksList/BackToPacksList'
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
 import { useAppSelector } from 'common/hooks/useAppSelector'
-import { cardsPackId, userCards } from 'common/selectors/cards-selector'
+import { userCards } from 'common/selectors/cards-selector'
 import { userProfile } from 'common/selectors/profile-selector'
 
 export const Learn = () => {
@@ -20,8 +22,11 @@ export const Learn = () => {
 
   const dispatch = useAppDispatch()
   const cards = useAppSelector(userCards)
-  const packId = useAppSelector(cardsPackId)
+  const { packId } = useParams()
+  //const packId = useAppSelector(cardsPackId)
   const profile = useAppSelector(userProfile)
+
+  console.log(packId)
 
   const [card, setCard] = useState<CardType>({
     answer: '',
@@ -35,9 +40,13 @@ export const Learn = () => {
     _id: '',
   })
 
+  const params = {
+    cardsPack_id: packId as string,
+  }
+
   useEffect(() => {
     if (first) {
-      dispatch(getCardsTC(packId))
+      dispatch(getCardsTC(params))
       setFirst(false)
     }
 
@@ -61,7 +70,7 @@ export const Learn = () => {
 
     profile._id == card.user_id
       ? dispatch(editCardTC(editCardLocalState))
-      : dispatch(getCardsTC(packId))
+      : dispatch(getCardsTC(params))
 
     setValue(grades[0])
     setIsChecked(false)

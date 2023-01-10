@@ -37,17 +37,12 @@ export const setPackIdAC = (packId: string) => ({ type: 'CARDS/SET-PACKS-ID', pa
 
 //thunks
 export const getCardsTC =
-  (cardsPack_id: string): AppThunk =>
+  (searchParams?: CardsParamsType): AppThunk =>
   async dispatch => {
     try {
       dispatch(setAppStatusAC('loading'))
-      let params: CardsParamsType = {
-        cardsPack_id: '',
-      }
 
-      if (cardsPack_id) params.cardsPack_id = cardsPack_id
-
-      const res = await cardsAPI.getCards(params)
+      const res = await cardsAPI.getCards(searchParams)
 
       dispatch(setCardsDataAC(res.data.cards))
       dispatch(setAppStatusAC('succeeded'))
@@ -63,7 +58,7 @@ export const addNewCardTC =
       dispatch(setAppStatusAC('loading'))
       const res = await cardsAPI.addNewCard(cardData)
 
-      dispatch(getCardsTC(res.data.newCard.cardsPack_id))
+      dispatch(getCardsTC())
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)
@@ -77,7 +72,7 @@ export const editCardTC =
       dispatch(setAppStatusAC('loading'))
       const res = await cardsAPI.editCard(cardData)
 
-      dispatch(getCardsTC(res.data.updatedCard.cardsPack_id))
+      dispatch(getCardsTC())
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)
@@ -91,7 +86,7 @@ export const deleteCardTC =
       dispatch(setAppStatusAC('loading'))
       const res = await cardsAPI.deleteCard(_id)
 
-      dispatch(getCardsTC(res.data.deletedCard.cardsPack_id))
+      dispatch(getCardsTC())
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)

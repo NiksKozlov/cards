@@ -50,13 +50,13 @@ export const Pack = ({
   const onNameClickHandler = () => {
     dispatch(setPackIdAC(id))
 
-    navigate(PATH.CARDS_LIST)
+    navigate(`/cards-list/${id}`)
   }
 
   const runLearn = () => {
     dispatch(setPackIdAC(id))
 
-    navigate(PATH.LEARN)
+    navigate(`/learn/${id}`)
   }
 
   return (
