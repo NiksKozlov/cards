@@ -4,9 +4,8 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
 import { IconButton } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-import { PATH } from '../../../common/routePaths/routePaths.enum'
 import { userProfile } from '../../../common/selectors/profile-selector'
-import { setPackIdAC } from '../../cards/cardList/cards-reducer'
+import { setPackIdAC, setWhosePack } from '../../cards/cardList/cards-reducer'
 import { DeletePackModal } from '../../modals/basicDeleteModal/deletePackModal/DeletePackModal'
 import { EditPackModal } from '../../modals/basicPackModal/editPackModal/EditPackModal'
 
@@ -40,6 +39,8 @@ export const Pack = ({
   const dispatch = useAppDispatch()
 
   const profile = useAppSelector(userProfile)
+  const authUserId = useAppSelector(st => st.profile._id)
+  const whosePack = authUserId === userId ? 'my' : 'friends'
 
   const date = updated.toString()
   const day = date.substr(8, 2)
@@ -49,6 +50,7 @@ export const Pack = ({
 
   const onNameClickHandler = () => {
     dispatch(setPackIdAC(id))
+    dispatch(setWhosePack(whosePack))
 
     navigate(`/cards-list/${id}`)
   }

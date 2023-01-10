@@ -12,6 +12,7 @@ const initialState = {
   page: undefined as undefined | number,
   pageCount: 5,
   packUserId: null as null | number,
+  whosePack: 'my' as string | 'friends' as string,
 }
 
 type InitialStateType = typeof initialState
@@ -25,6 +26,8 @@ export const cardsReducer = (
       return { ...state, cards: action.cardsData }
     case 'CARDS/SET-PACKS-ID':
       return { ...state, packId: action.packId }
+    case 'CARDS/SET-WHOSE-PACK':
+      return { ...state, whosePack: action.whosePack }
     default:
       return state
   }
@@ -34,6 +37,8 @@ export const cardsReducer = (
 export const setCardsDataAC = (cardsData: CardType[]) =>
   ({ type: 'CARDS/SET-CARDS', cardsData } as const)
 export const setPackIdAC = (packId: string) => ({ type: 'CARDS/SET-PACKS-ID', packId } as const)
+export const setWhosePack = (whosePack: 'my' | 'friends') =>
+  ({ type: 'CARDS/SET-WHOSE-PACK', whosePack } as const)
 
 //thunks
 export const getCardsTC =
@@ -111,4 +116,7 @@ export type EditCardLocalStateType = {
   }
 }
 
-export type CardsActionsTypes = ReturnType<typeof setCardsDataAC> | ReturnType<typeof setPackIdAC>
+export type CardsActionsTypes =
+  | ReturnType<typeof setCardsDataAC>
+  | ReturnType<typeof setPackIdAC>
+  | ReturnType<typeof setWhosePack>

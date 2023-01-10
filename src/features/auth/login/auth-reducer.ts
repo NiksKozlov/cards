@@ -37,6 +37,9 @@ export const loginTC =
       const res = await authAPI.me()
 
       dispatch(setProfileAC(res.data))
+
+      console.log(res.data)
+
       dispatch(setIsLoggedInAC(true))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {

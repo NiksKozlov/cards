@@ -58,16 +58,16 @@ export const Card = ({
       <StyledBodyTableCell align="center">{answer}</StyledBodyTableCell>
       <StyledBodyTableCell align="center">{updatedDate}</StyledBodyTableCell>
       <StyledBodyTableCell align="center">
-        <Rating name="rating" defaultValue={grade} precision={0.1} readOnly />
-      </StyledBodyTableCell>
-      <StyledBodyTableCell align="center">
-        <div className={s.actions}>
-          {profile._id == user_id && (
-            <>
-              <EditCardModal _id={_id} />
-              <DeleteCardModal id={_id} />
-            </>
-          )}
+        <div className={s.gradeContainer}>
+          <Rating name="rating" defaultValue={grade} precision={0.1} readOnly />
+          <div className={s.actions}>
+            {profile._id == user_id && (
+              <>
+                <EditCardModal _id={_id} />
+                <DeleteCardModal id={_id} />
+              </>
+            )}
+          </div>
         </div>
       </StyledBodyTableCell>
     </StyledBodyTableRow>
