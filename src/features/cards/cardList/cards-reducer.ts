@@ -41,6 +41,10 @@ export const cardsReducer = (
           })
         ),
       }
+    case 'CARDS/SET-PACKS-ID':
+      return { ...state, packId: action.packId }
+    case 'CARDS/SET-WHOSE-PACK':
+      return { ...state, whosePack: action.whosePack }
     default:
       return state
   }
@@ -49,6 +53,9 @@ export const cardsReducer = (
 // actions
 export const setCardsDataAC = (cardsData: CardsResponseType) =>
   ({ type: 'CARDS/SET-CARDS', cardsData } as const)
+export const setPackIdAC = (packId: string) => ({ type: 'CARDS/SET-PACKS-ID', packId } as const)
+export const setWhosePack = (whosePack: 'my' | 'friends') =>
+  ({ type: 'CARDS/SET-WHOSE-PACK', whosePack } as const)
 
 //thunks
 export const getCardsTC =
@@ -131,4 +138,7 @@ export type EditCardLocalStateType = {
   }
 }
 
-export type CardsActionsTypes = ReturnType<typeof setCardsDataAC>
+export type CardsActionsTypes =
+  | ReturnType<typeof setCardsDataAC>
+  | ReturnType<typeof setPackIdAC>
+  | ReturnType<typeof setWhosePack>

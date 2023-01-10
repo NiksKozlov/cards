@@ -21,3 +21,12 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.span {
+  margin: 30px;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  opacity: 0.5;
+}
