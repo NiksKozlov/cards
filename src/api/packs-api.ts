@@ -71,6 +71,7 @@ export type PacksType = {
   sortPacks: string
   user_id: string
   filter?: 'my' | 'all'
+  searchParams?: string
 }
 
 //DataTypes

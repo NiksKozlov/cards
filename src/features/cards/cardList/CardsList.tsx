@@ -7,11 +7,17 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 
 import { BackToPacksList } from '../../../common/components/backToPacksList/BackToPacksList'
+import SearchField from '../../../common/components/searchField/SearchField'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
+import {
+  cardsPage,
+  cardsPageCount,
+  cardsTotalCount,
+} from '../../../common/selectors/cards-selector'
 import { StyledHeadTableCell, StyledHeadTableRow } from '../../../common/styles/tableStyleWrapper'
 import { AddNewCardModal } from '../../modals/basicCardModal/addNewCardModal/AddNewCardModal'
-import SearchField from '../../packs/searchField/SearchField'
+import { Pagination } from '../../packs/pagination/Pagination'
 import { Card } from '../card/Card'
 
 import { getCardsTC } from './cards-reducer'
@@ -22,6 +28,9 @@ export const CardsList = () => {
 
   const cards = useAppSelector(st => st.cards.cards)
   const packId = useAppSelector(st => st.cards.packId)
+  const currentPage = useAppSelector(cardsPage)
+  const cardsPageCountState = useAppSelector(cardsPageCount)
+  const cardsTotal = useAppSelector(cardsTotalCount)
 
   useEffect(() => {
     dispatch(getCardsTC(packId))
@@ -62,6 +71,14 @@ export const CardsList = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <div>
+        <Pagination
+          page={currentPage}
+          packsCount={cardsPageCountState}
+          totalPacksCount={cardsTotal}
+          title={'Cards'}
+        />
+      </div>
     </div>
   )
 }

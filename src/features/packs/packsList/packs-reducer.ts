@@ -43,14 +43,10 @@ export const packsReducer = (
           })
         ),
       }
-    case 'PACKS/CHANGE-PAGE':
-      return { ...state, page: action.page }
-    case 'PACKS/CHANGE-PAGE-COUNT':
-      return { ...state, pageCount: action.pageCount }
-    case 'PACKS/SET-MIN-MAX':
-      return { ...state, minCardsCount: action.min, maxCardsCount: action.max }
     case 'PACKS/CHANGE-SORT-PACKS':
       return { ...state, sortPacks: action.sortPacks }
+    case 'PACKS/SET-SEARCH-PARAMS':
+      return { ...state, searchParams: action.searchParams }
     default:
       return state
   }
@@ -59,13 +55,10 @@ export const packsReducer = (
 // actions
 export const setPacksListAC = (packs: InitialStateType, filter: 'my' | 'all') =>
   ({ type: 'PACKS/SET-PACKS-LIST', packs, filter } as const)
-export const changePageAC = (page: number) => ({ type: 'PACKS/CHANGE-PAGE', page } as const)
-export const changePageCountAC = (pageCount: number) =>
-  ({ type: 'PACKS/CHANGE-PAGE-COUNT', pageCount } as const)
-export const setMinMaxAC = (min: number, max: number) =>
-  ({ type: 'PACKS/SET-MIN-MAX', min, max } as const)
 export const changeSortPacksAC = (sortPacks: string) =>
   ({ type: 'PACKS/CHANGE-SORT-PACKS', sortPacks } as const)
+export const setSearchParamsAC = (searchParams: string) =>
+  ({ type: 'PACKS/SET-SEARCH-PARAMS', searchParams } as const)
 
 //thunks
 export const getPacksTC =
@@ -130,7 +123,5 @@ export const deletePackTC =
 
 export type PacksActionsTypes =
   | ReturnType<typeof setPacksListAC>
-  | ReturnType<typeof changePageAC>
-  | ReturnType<typeof changePageCountAC>
-  | ReturnType<typeof setMinMaxAC>
   | ReturnType<typeof changeSortPacksAC>
+  | ReturnType<typeof setSearchParamsAC>

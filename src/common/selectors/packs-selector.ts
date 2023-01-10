@@ -4,7 +4,7 @@ export const packsSelector = (state: AppRootStateType) => state.packs.cardPacks
 
 export const packsPage = (state: AppRootStateType) => state.packs.page
 
-export const packsCount = (state: AppRootStateType) => state.packs.pageCount
+export const packsPageCount = (state: AppRootStateType) => state.packs.pageCount
 
 export const cardPacksTotalCount = (state: AppRootStateType) => state.packs.cardPacksTotalCount
 
@@ -15,3 +15,5 @@ export const maxCardsCount = (state: AppRootStateType) => state.packs.maxCardsCo
 export const sortPacks = (state: AppRootStateType) => state.packs.sortPacks
 
 export const myAllFilter = (state: AppRootStateType) => state.packs.filter
+
+export const searchParamsState = (state: AppRootStateType) => state.packs.searchParams

@@ -14,12 +14,7 @@ type PropsType = {
   title: string
 }
 
-export const PacksPagination: React.FC<PropsType> = ({
-  page,
-  packsCount,
-  totalPacksCount,
-  title,
-}) => {
+export const Pagination: React.FC<PropsType> = ({ page, packsCount, totalPacksCount, title }) => {
   const [packsPerPage, setPacksPerPage] = useState<number>(4)
   const [currentPage, setCurrentPage] = useState<number>(1)
 

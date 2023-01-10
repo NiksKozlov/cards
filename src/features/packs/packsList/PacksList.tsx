@@ -5,25 +5,26 @@ import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 
 import { DomainPackType } from '../../../api/packs-api'
 import noCover from '../../../assets/images/packNoCover.jpg'
+import SearchField from '../../../common/components/searchField/SearchField'
 import {
   cardPacksTotalCount,
-  packsCount,
+  packsPageCount,
   packsPage,
   packsSelector,
+  searchParamsState,
 } from '../../../common/selectors/packs-selector'
 import { AddNewPackModal } from '../../modals/basicPackModal/addNewPackModal/AddNewPackModal'
 import { FilterSlider } from '../filterSlider/filterSlider'
 import { Pack } from '../pack/Pack'
 import { PacksFilterButtons } from '../packsFilterButtons/PacksFilterButtons'
-import { PacksPagination } from '../pagination/PacksPagination'
+import { Pagination } from '../pagination/Pagination'
 import { ResetFiltersBtn } from '../resetFiltersBtn/ResetFiltersBtn'
-import SearchField from '../searchField/SearchField'
 
-import { changeSortPacksAC, getPacksTC } from './packs-reducer'
+import { changeSortPacksAC, getPacksTC, setSearchParamsAC } from './packs-reducer'
 import s from './PacksList.module.css'
 
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
@@ -35,8 +36,11 @@ export const PacksList = () => {
 
   const cardPacks = useAppSelector(packsSelector)
   const currentPage = useAppSelector(packsPage)
-  const packsCountState = useAppSelector(packsCount)
+  const packsCountState = useAppSelector(packsPageCount)
   const cardPacksTotal = useAppSelector(cardPacksTotalCount)
+  // const reduxSearchParams = useAppSelector(searchParamsState)
+
+  // const { search } = useLocation()
 
   const [order, setOrder] = useState('ascending')
   const [orderBy, setOrderBy] = useState('updated')
@@ -72,6 +76,16 @@ export const PacksList = () => {
   useEffect(() => {
     dispatch(getPacksTC(URLParams))
   }, [URLParams])
+
+  /*useEffect(() => {
+    if (search) dispatch(setSearchParamsAC(search))
+  }, [search])
+
+  console.log(reduxSearchParams)
+
+  useEffect(() => {
+    if (reduxSearchParams) setSearchParams(reduxSearchParams)
+  }, [])*/
 
   return (
     <div className={s.mainContainer}>
@@ -128,7 +142,7 @@ export const PacksList = () => {
         </Table>
       </TableContainer>
       <div>
-        <PacksPagination
+        <Pagination
           page={currentPage}
           packsCount={packsCountState}
           totalPacksCount={cardPacksTotal}

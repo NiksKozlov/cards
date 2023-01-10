@@ -11,7 +11,7 @@ const initialState = {
   minGrade: null as null | number,
   page: undefined as undefined | number,
   pageCount: 5,
-  packUserId: null as null | number,
+  packUserId: null as null | string,
 }
 
 type InitialStateType = typeof initialState

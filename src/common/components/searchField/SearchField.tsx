@@ -3,7 +3,7 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import { TextField } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
-import useDebounce from '../../../common/hooks/useDebounce'
+import useDebounce from '../../hooks/useDebounce'
 
 import s from './SearchField.module.css'
 
