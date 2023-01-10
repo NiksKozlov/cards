@@ -27,8 +27,8 @@ export const RoutePaths: FC<PropsType> = memo(({ isLoggedIn }) => {
       <Route element={<PrivateRoutes />}>
         <Route path={PATH.PROFILE} element={<Profile />} />
         <Route path={PATH.PACKS_LIST} element={<PacksList />} />
-        <Route path={PATH.CARDS_LIST} element={<CardsList />} />
-        <Route path={PATH.LEARN} element={<Learn />} />
+        <Route path={'/cards-list/:packId'} element={<CardsList />} />
+        <Route path={'/learn/:packId'} element={<Learn />} />
       </Route>
       <Route path={PATH.LOGIN} element={<Login />} />
       <Route path={PATH.REGISTER} element={<Register />} />

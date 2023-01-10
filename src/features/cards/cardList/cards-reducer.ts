@@ -4,7 +4,6 @@ import { AppThunk } from 'common/hooks/useAppDispatch'
 import { handleServerError } from 'common/utils/error-handler/error-handler'
 
 const initialState = {
-  packId: '',
   cards: [] as CardType[],
   cardsTotalCount: null as null | number,
   maxGrade: null as null | number,
@@ -23,8 +22,6 @@ export const cardsReducer = (
   switch (action.type) {
     case 'CARDS/SET-CARDS':
       return { ...state, cards: action.cardsData }
-    case 'CARDS/SET-PACKS-ID':
-      return { ...state, packId: action.packId }
     default:
       return state
   }
@@ -33,21 +30,15 @@ export const cardsReducer = (
 // actions
 export const setCardsDataAC = (cardsData: CardType[]) =>
   ({ type: 'CARDS/SET-CARDS', cardsData } as const)
-export const setPackIdAC = (packId: string) => ({ type: 'CARDS/SET-PACKS-ID', packId } as const)
 
 //thunks
 export const getCardsTC =
-  (cardsPack_id: string): AppThunk =>
+  (searchParams?: CardsParamsType): AppThunk =>
   async dispatch => {
     try {
       dispatch(setAppStatusAC('loading'))
-      let params: CardsParamsType = {
-        cardsPack_id: '',
-      }
 
-      if (cardsPack_id) params.cardsPack_id = cardsPack_id
-
-      const res = await cardsAPI.getCards(params)
+      const res = await cardsAPI.getCards(searchParams)
 
       dispatch(setCardsDataAC(res.data.cards))
       dispatch(setAppStatusAC('succeeded'))
@@ -62,8 +53,9 @@ export const addNewCardTC =
     try {
       dispatch(setAppStatusAC('loading'))
       const res = await cardsAPI.addNewCard(cardData)
+      const params = { cardsPack_id: res.data.newCard.cardsPack_id }
 
-      dispatch(getCardsTC(res.data.newCard.cardsPack_id))
+      dispatch(getCardsTC(params))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)
@@ -76,8 +68,11 @@ export const editCardTC =
     try {
       dispatch(setAppStatusAC('loading'))
       const res = await cardsAPI.editCard(cardData)
+      const params = { cardsPack_id: res.data.updatedCard.cardsPack_id }
 
-      dispatch(getCardsTC(res.data.updatedCard.cardsPack_id))
+      console.log(res)
+
+      dispatch(getCardsTC(params))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)
@@ -90,8 +85,9 @@ export const deleteCardTC =
     try {
       dispatch(setAppStatusAC('loading'))
       const res = await cardsAPI.deleteCard(_id)
+      const params = { cardsPack_id: res.data.deletedCard.cardsPack_id }
 
-      dispatch(getCardsTC(res.data.deletedCard.cardsPack_id))
+      dispatch(getCardsTC(params))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)
@@ -116,4 +112,4 @@ export type EditCardLocalStateType = {
   }
 }
 
-export type CardsActionsTypes = ReturnType<typeof setCardsDataAC> | ReturnType<typeof setPackIdAC>
+export type CardsActionsTypes = ReturnType<typeof setCardsDataAC>

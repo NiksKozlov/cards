@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
+import { useLocation, useParams, useSearchParams } from 'react-router-dom'
 
 import { BackToPacksList } from '../../../common/components/backToPacksList/BackToPacksList'
 import SearchField from '../../../common/components/searchField/SearchField'
@@ -27,14 +28,30 @@ export const CardsList = () => {
   const dispatch = useAppDispatch()
 
   const cards = useAppSelector(st => st.cards.cards)
-  const packId = useAppSelector(st => st.cards.packId)
   const currentPage = useAppSelector(cardsPage)
   const cardsPageCountState = useAppSelector(cardsPageCount)
   const cardsTotal = useAppSelector(cardsTotalCount)
+  //const packId = useAppSelector(st => st.cards.packId)
+  const { packId } = useParams()
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  console.log(packId)
+
+  const URLParams = useMemo(() => {
+    const paramsSearch: any = {
+      cardsPack_id: packId,
+    }
+
+    searchParams.forEach((key, value) => {
+      paramsSearch[value] = key
+    })
+
+    return paramsSearch
+  }, [searchParams])
 
   useEffect(() => {
-    dispatch(getCardsTC(packId))
-  }, [])
+    dispatch(getCardsTC(URLParams))
+  }, [URLParams])
 
   return (
     <div className={s.mainContainer}>

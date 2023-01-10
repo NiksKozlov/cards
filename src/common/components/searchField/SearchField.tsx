@@ -29,13 +29,13 @@ const SearchField: FC<PropsType> = ({ paramURL, searchLabel }) => {
     }
   }
 
-  /*useEffect(() => {
-    if (searchParams.get(paramURL)) {
-      const pageNameSearch = String(searchParams.get(paramURL))
-
-      setValue(pageNameSearch)
-    }
-  }, [])*/
+  // useEffect(() => {
+  //   if (searchParams.get(paramURL)) {
+  //     const pageNameSearch = String(searchParams.get(paramURL))
+  //
+  //     setValue(pageNameSearch)
+  //   }
+  // }, [])
 
   useEffect(() => {
     if (debouncedValue) {
