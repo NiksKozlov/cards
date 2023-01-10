@@ -6,11 +6,11 @@ import { Divider, IconButton, MenuItem, Select, SelectChangeEvent } from '@mui/m
 import Box from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 import Modal from '@mui/material/Modal'
+import { useParams } from 'react-router-dom'
 
 import noCover from '../../../assets/images/cardNoCover.png'
 import { InputTypeFileCover } from '../../../common/components/inputTypeFileCover/InputTypeFileCover'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
-import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
 import st from '../../../common/uniComponents/uniButton/UniButton.module.css'
 import { UniInput } from '../../../common/uniComponents/uniInput/UniImput'
@@ -41,7 +41,8 @@ type PropsType = {
 
 export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: PropsType) => {
   const dispatch = useAppDispatch()
-  const getCardsPack_id = useAppSelector(st => st.cards.packId)
+  const { packId } = useParams()
+
   const [questionValue, setQuestionValue] = useState<string>('')
   const [questionImg, setQuestionImg] = useState<string>(noCover)
   const [answerValue, setAnswerValue] = useState<string>('')
@@ -62,7 +63,7 @@ export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: Pr
   const addNewCard = () => {
     const addNewCardLocalState = {
       card: {
-        cardsPack_id: getCardsPack_id,
+        cardsPack_id: packId as string,
         question: questionValue,
         questionImg: questionImg,
         answer: answerValue,
@@ -82,6 +83,7 @@ export const BasicCardModal = ({ children, title, open, setOpen, comp, _id }: Pr
       card: {
         _id: _id as string,
         question: questionValue,
+        answer: answerValue,
         grade: 0,
         shots: 0,
       },

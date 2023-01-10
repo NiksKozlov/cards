@@ -50,7 +50,7 @@ export const Card = ({
   return (
     <StyledBodyTableRow>
       <StyledBodyTableCell component="th" scope="row" onClick={runLearn}>
-        {questionImg ? (
+        {question === 'no question' ? (
           <img
             className={s.cover}
             src={questionImg.includes('data:image') ? questionImg : defaultCover}
