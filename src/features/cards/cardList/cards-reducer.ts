@@ -14,6 +14,7 @@ export const cardsReducer = (
   switch (action.type) {
     case 'CARDS/SET-CARDS':
       return {
+        ...state,
         ...action.cardsData,
         cards: action.cardsData.cards.map(
           ({

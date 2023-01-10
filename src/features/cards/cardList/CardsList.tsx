@@ -35,6 +35,8 @@ export const CardsList = () => {
   const whosePack = useAppSelector(st => st.cards.whosePack)
   const navigate = useNavigate()
 
+  console.log(whosePack)
+
   const { packId } = useParams()
   const [searchParams] = useSearchParams()
 
