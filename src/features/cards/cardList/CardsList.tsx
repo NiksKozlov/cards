@@ -31,11 +31,9 @@ export const CardsList = () => {
   const currentPage = useAppSelector(cardsPage)
   const cardsPageCountState = useAppSelector(cardsPageCount)
   const cardsTotal = useAppSelector(cardsTotalCount)
-  //const packId = useAppSelector(st => st.cards.packId)
-  const { packId } = useParams()
-  const [searchParams, setSearchParams] = useSearchParams()
 
-  console.log(packId)
+  const { packId } = useParams()
+  const [searchParams] = useSearchParams()
 
   const URLParams = useMemo(() => {
     const paramsSearch: any = {
@@ -73,7 +71,7 @@ export const CardsList = () => {
             </StyledHeadTableRow>
           </TableHead>
           <TableBody>
-            {cards.map(c => (
+            {cards?.map(c => (
               <Card
                 key={c._id}
                 question={c.question}

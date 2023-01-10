@@ -1,17 +1,9 @@
-import { cardsAPI, CardsParamsType, CardType } from 'api/cards-api'
+import { cardsAPI, CardsParamsType, CardsResponseType } from 'api/cards-api'
 import { setAppStatusAC } from 'app/app-reducer'
 import { AppThunk } from 'common/hooks/useAppDispatch'
 import { handleServerError } from 'common/utils/error-handler/error-handler'
 
-const initialState = {
-  cards: [] as CardType[],
-  cardsTotalCount: null as null | number,
-  maxGrade: null as null | number,
-  minGrade: null as null | number,
-  page: undefined as undefined | number,
-  pageCount: 5,
-  packUserId: null as null | string,
-}
+const initialState = {} as CardsResponseType
 
 type InitialStateType = typeof initialState
 
@@ -21,14 +13,41 @@ export const cardsReducer = (
 ): InitialStateType => {
   switch (action.type) {
     case 'CARDS/SET-CARDS':
-      return { ...state, cards: action.cardsData }
+      return {
+        ...action.cardsData,
+        cards: action.cardsData.cards.map(
+          ({
+            answer,
+            question,
+            questionImg,
+            cardsPack_id,
+            grade,
+            shots,
+            user_id,
+            created,
+            updated,
+            _id,
+          }) => ({
+            answer,
+            question,
+            questionImg,
+            cardsPack_id,
+            grade,
+            shots,
+            user_id,
+            created,
+            updated,
+            _id,
+          })
+        ),
+      }
     default:
       return state
   }
 }
 
 // actions
-export const setCardsDataAC = (cardsData: CardType[]) =>
+export const setCardsDataAC = (cardsData: CardsResponseType) =>
   ({ type: 'CARDS/SET-CARDS', cardsData } as const)
 
 //thunks
@@ -40,7 +59,7 @@ export const getCardsTC =
 
       const res = await cardsAPI.getCards(searchParams)
 
-      dispatch(setCardsDataAC(res.data.cards))
+      dispatch(setCardsDataAC(res.data))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       handleServerError(e, dispatch)
