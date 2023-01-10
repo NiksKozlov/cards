@@ -3,6 +3,7 @@ import React from 'react'
 import { Rating } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
+import defaultCover from '../../../assets/images/cardNoCover.png'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
 import { userProfile } from '../../../common/selectors/profile-selector'
@@ -49,8 +50,12 @@ export const Card = ({
   return (
     <StyledBodyTableRow>
       <StyledBodyTableCell component="th" scope="row" onClick={runLearn}>
-        {questionImg && questionImg.includes('data:image') ? (
-          <img className={s.cover} src={questionImg} alt={'cover'} />
+        {questionImg ? (
+          <img
+            className={s.cover}
+            src={questionImg.includes('data:image') ? questionImg : defaultCover}
+            alt={'cover'}
+          />
         ) : (
           <span className={s.hover}>{question}</span>
         )}
