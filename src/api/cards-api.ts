@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios'
 import { instance } from './instance'
 
 export const cardsAPI = {
-  getCards(params: CardsParamsType) {
+  getCards(params?: CardsParamsType) {
     return instance.get<CardsResponseType>('/cards/card', {
       params,
     })

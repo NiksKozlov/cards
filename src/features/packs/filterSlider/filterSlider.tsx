@@ -13,6 +13,8 @@ export const FilterSlider = () => {
   const maxValue = useAppSelector(maxCardsCount)
   const [value, setValue] = useState<number[]>([minValue, maxValue])
 
+  console.log()
+
   const [searchParams, setSearchParams] = useSearchParams()
 
   const handleChange = (event: Event, newValue: number | number[]) => {

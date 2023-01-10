@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react'
 
 import LogoutIcon from '@mui/icons-material/Logout'
-import { IconButton } from '@mui/material'
-import Button from '@mui/material/Button'
 import { Navigate } from 'react-router-dom'
 
 import { BackToPacksList } from '../../../common/components/backToPacksList/BackToPacksList'
@@ -11,6 +9,7 @@ import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
 import { userIsLoggedIn } from '../../../common/selectors/auth-selector'
 import { userProfile } from '../../../common/selectors/profile-selector'
+import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
 import { EditableName } from '../EditableName/EditableName'
 
 import { CardsJoy } from './CardsJoy/CardsJoy'
@@ -46,10 +45,9 @@ export const Profile = () => {
         </div>
         <div className={s.email}>{profile.email}</div>
         <CardsJoy packsCount={profile.publicCardPacksCount} />
-        <Button onClick={logOut} sx={{ marginTop: '30px' }} className={s.submitBtn}>
+        <UniButton className={'logoutBtn'} onClick={logOut} title={'Log out'}>
           <LogoutIcon fontSize={'small'} />
-          Log Out
-        </Button>
+        </UniButton>
       </div>
     </div>
   )
