@@ -63,51 +63,51 @@ export const CardsList = () => {
   return (
     <div className={s.mainContainer}>
       <BackToPacksList />
-      {cards.length !== 0 ? (
+      {cards?.length !== 0 ? (
         <>
-        <div className={s.addCard}>
-          <h1>{whosePack === 'my' ? 'My pack' : "Friend's Pack"}</h1>
-          {whosePack === 'my' ? (
-            <AddNewCardModal />
-          ) : (
-            <UniButton className={'learnBtn'} title={'Learn to pack'} onClick={runLearn} />
-          )}
-        </div>
-      <SearchField paramURL={'cardQuestion'} searchLabel={'Card Question'} />
-      <TableContainer component={Paper} className={s.tableContainer}>
-        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-          <TableHead>
-            <StyledHeadTableRow>
-              <StyledHeadTableCell>Question</StyledHeadTableCell>
-              <StyledHeadTableCell align="center">Answer</StyledHeadTableCell>
-              <StyledHeadTableCell align="center">Last Updated</StyledHeadTableCell>
-              <StyledHeadTableCell align="center">Grade</StyledHeadTableCell>
-            </StyledHeadTableRow>
-          </TableHead>
-          <TableBody>
-            {cards?.map(c => (
-              <Card
-                key={c._id}
-                question={c.question}
-                questionImg={c.questionImg ? c.questionImg : ''}
-                answer={c.answer}
-                updated={c.updated}
+          <div className={s.addCard}>
+            <h1>{whosePack === 'my' ? 'My pack' : "Friend's Pack"}</h1>
+            {whosePack === 'my' ? (
+              <AddNewCardModal />
+            ) : (
+              <UniButton className={'learnBtn'} title={'Learn to pack'} onClick={runLearn} />
+            )}
+          </div>
+          <SearchField paramURL={'cardQuestion'} searchLabel={'Card Question'} />
+          <TableContainer component={Paper} className={s.tableContainer}>
+            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+              <TableHead>
+                <StyledHeadTableRow>
+                  <StyledHeadTableCell>Question</StyledHeadTableCell>
+                  <StyledHeadTableCell align="center">Answer</StyledHeadTableCell>
+                  <StyledHeadTableCell align="center">Last Updated</StyledHeadTableCell>
+                  <StyledHeadTableCell align="center">Grade</StyledHeadTableCell>
+                </StyledHeadTableRow>
+              </TableHead>
+              <TableBody>
+                {cards?.map(c => (
+                  <Card
+                    key={c._id}
+                    question={c.question}
+                    questionImg={c.questionImg ? c.questionImg : ''}
+                    answer={c.answer}
+                    updated={c.updated}
                     grade={c.grade}
-                _id={c._id}
-                user_id={c.user_id}
-              />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <div>
-        <Pagination
-          page={currentPage}
-          packsCount={cardsPageCountState}
-          totalPacksCount={cardsTotal}
-          title={'Cards'}
-        />
-      </div>
+                    _id={c._id}
+                    user_id={c.user_id}
+                  />
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <div>
+            <Pagination
+              page={currentPage}
+              packsCount={cardsPageCountState}
+              totalPacksCount={cardsTotal}
+              title={'Cards'}
+            />
+          </div>
         </>
       ) : (
         <>
