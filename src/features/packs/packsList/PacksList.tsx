@@ -68,9 +68,6 @@ export const PacksList = () => {
   const sortCards = sortParam === '0cardsCount' || sortParam === '1cardsCount'
   const sortUpdated = sortParam === '0updated' || sortParam === '1updated'
 
-  console.log(sortParam)
-  console.log(sortName)
-
   const URLParams = useMemo(() => {
     const paramsSearch: any = {}
 

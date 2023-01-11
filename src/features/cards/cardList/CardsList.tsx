@@ -33,8 +33,16 @@ export const CardsList = () => {
   const currentPage = useAppSelector(cardsPage)
   const cardsPageCountState = useAppSelector(cardsPageCount)
   const cardsTotal = useAppSelector(cardsTotalCount)
-  const whosePack = useAppSelector(st => st.cards.whosePack)
+  const authUserId = useAppSelector(st => st.profile._id)
+  // const whosePack = authUserId === userId ? 'my' : 'friends'
+  //const whosePack = useAppSelector(st => st.cards.whosePack)
   const navigate = useNavigate()
+
+  // if (cards) {
+  //   console.log(cards[0].user_id)
+  // }
+
+  const whosePack = cards && cards[0].user_id === authUserId ? 'my' : 'all'
 
   console.log(whosePack)
 

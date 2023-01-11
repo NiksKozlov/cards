@@ -5,13 +5,11 @@ import { IconButton } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import { userProfile } from '../../../common/selectors/profile-selector'
-import { setWhosePack } from '../../cards/cardList/cards-reducer'
 import { DeletePackModal } from '../../modals/basicDeleteModal/deletePackModal/DeletePackModal'
 import { EditPackModal } from '../../modals/basicPackModal/editPackModal/EditPackModal'
 
 import s from './Pack.module.css'
 
-import { useAppDispatch } from 'common/hooks/useAppDispatch'
 import { useAppSelector } from 'common/hooks/useAppSelector'
 import { StyledBodyTableCell, StyledBodyTableRow } from 'common/styles/tableStyleWrapper'
 
@@ -36,11 +34,7 @@ export const Pack = ({
 }: PackPropsType) => {
   const navigate = useNavigate()
 
-  const dispatch = useAppDispatch()
-
   const profile = useAppSelector(userProfile)
-  const authUserId = useAppSelector(st => st.profile._id)
-  const whosePack = authUserId === userId ? 'my' : 'friends'
 
   const date = updated.toString()
   const day = date.substr(8, 2)
@@ -49,8 +43,6 @@ export const Pack = ({
   const updatedDate = `${day}.${month}.${year}`
 
   const onNameClickHandler = () => {
-    dispatch(setWhosePack(whosePack))
-
     navigate(`/cards-list/${id}`)
   }
 
