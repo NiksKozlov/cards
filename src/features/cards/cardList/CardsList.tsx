@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { BackToPacksList } from '../../../common/components/backToPacksList/BackToPacksList'
+import { Pagination } from '../../../common/components/pagination/Pagination'
 import SearchField from '../../../common/components/searchField/SearchField'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
@@ -20,7 +21,6 @@ import { StyledHeadTableCell, StyledHeadTableRow } from '../../../common/styles/
 import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
 import { AddNewCardModal } from '../../modals/basicCardModal/addNewCardModal/AddNewCardModal'
 import { PackSelector } from '../../packs/packSelector/PackSelector'
-import { Pagination } from '../../packs/pagination/Pagination'
 import { Card } from '../card/Card'
 
 import { getCardsTC } from './cards-reducer'

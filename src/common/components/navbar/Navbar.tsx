@@ -44,7 +44,7 @@ export const Navbar: FC<PropsType> = ({ isLoggedIn }) => {
     <div className={s.navbarContainer}>
       <div className={s.buttonGroup}>
         <NavLink to={PATH.PACKS_LIST} className={s.titleContainer}>
-          {'The Learning Cards🦒'}
+          {'Magic Cards🦒'}
         </NavLink>
       </div>
       {isLoggedIn ? (
