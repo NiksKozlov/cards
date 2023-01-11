@@ -1,8 +1,5 @@
-import React, { MouseEvent, useEffect, useLayoutEffect, useMemo, useState } from 'react'
+import React, { MouseEvent, useEffect, useMemo, useState } from 'react'
 
-import { ArrowDropUp } from '@mui/icons-material'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -12,8 +9,8 @@ import { useLocation, useSearchParams } from 'react-router-dom'
 
 import { DomainPackType } from '../../../api/packs-api'
 import noCover from '../../../assets/images/packNoCover.jpg'
-import { Pagination } from '../../../common/components/pagination/Pagination'
 import { ArrowDropIcon } from '../../../common/components/ArrowDropIcon'
+import { Pagination } from '../../../common/components/pagination/Pagination'
 import SearchField from '../../../common/components/searchField/SearchField'
 import {
   cardPacksTotalCount,
