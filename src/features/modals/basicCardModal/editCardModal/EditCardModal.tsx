@@ -16,7 +16,7 @@ export const EditCardModal = ({ _id }: PropsType) => {
   return (
     <BasicCardModal title={'Edit card'} open={open} setOpen={setOpen} comp={'edit'} _id={_id}>
       <IconButton onClick={handleOpen}>
-        <ModeOutlinedIcon />
+        <ModeOutlinedIcon sx={{ color: 'black' }} />
       </IconButton>
     </BasicCardModal>
   )

@@ -4,9 +4,8 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
 import { IconButton } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-import { PATH } from '../../../common/routePaths/routePaths.enum'
 import { userProfile } from '../../../common/selectors/profile-selector'
-import { setPackIdAC, setWhosePack } from '../../cards/cardList/cards-reducer'
+import { setWhosePack } from '../../cards/cardList/cards-reducer'
 import { DeletePackModal } from '../../modals/basicDeleteModal/deletePackModal/DeletePackModal'
 import { EditPackModal } from '../../modals/basicPackModal/editPackModal/EditPackModal'
 
@@ -50,15 +49,12 @@ export const Pack = ({
   const updatedDate = `${day}.${month}.${year}`
 
   const onNameClickHandler = () => {
-    dispatch(setPackIdAC(id))
     dispatch(setWhosePack(whosePack))
 
     navigate(`/cards-list/${id}`)
   }
 
   const runLearn = () => {
-    dispatch(setPackIdAC(id))
-
     navigate(`/learn/${id}`)
   }
 

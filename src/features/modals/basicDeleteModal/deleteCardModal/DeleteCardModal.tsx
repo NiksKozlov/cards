@@ -16,7 +16,7 @@ export const DeleteCardModal = ({ id }: PropsType) => {
   return (
     <BasicDeleteModal title={'Delete Card'} comp={'delCard'} id={id} open={open} setOpen={setOpen}>
       <IconButton onClick={handleOpen}>
-        <DeleteOutlinedIcon />
+        <DeleteOutlinedIcon sx={{ color: 'black' }} />
       </IconButton>
     </BasicDeleteModal>
   )

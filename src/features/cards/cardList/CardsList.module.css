@@ -30,3 +30,9 @@
 
   opacity: 0.5;
 }
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

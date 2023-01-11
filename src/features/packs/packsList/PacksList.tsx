@@ -1,21 +1,24 @@
 import React, { MouseEvent, useEffect, useMemo, useState } from 'react'
 
+import { ArrowDropUp } from '@mui/icons-material'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
-import { useLocation, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 import { DomainPackType } from '../../../api/packs-api'
 import noCover from '../../../assets/images/packNoCover.jpg'
+import { ArrowDropIcon } from '../../../common/components/ArrowDropIcon'
 import SearchField from '../../../common/components/searchField/SearchField'
 import {
   cardPacksTotalCount,
   packsPageCount,
   packsPage,
   packsSelector,
-  searchParamsState,
 } from '../../../common/selectors/packs-selector'
 import { AddNewPackModal } from '../../modals/basicPackModal/addNewPackModal/AddNewPackModal'
 import { FilterSlider } from '../filterSlider/filterSlider'
@@ -38,9 +41,6 @@ export const PacksList = () => {
   const currentPage = useAppSelector(packsPage)
   const packsCountState = useAppSelector(packsPageCount)
   const cardPacksTotal = useAppSelector(cardPacksTotalCount)
-  // const reduxSearchParams = useAppSelector(searchParamsState)
-
-  // const { search } = useLocation()
 
   const [order, setOrder] = useState('ascending')
   const [orderBy, setOrderBy] = useState('updated')
@@ -62,6 +62,14 @@ export const PacksList = () => {
   const createSortHandler = (property: any) => (event: React.MouseEvent<unknown>) => {
     handleRequestSort(event, property)
   }
+
+  const sortParam = searchParams.get('sortPacks')
+  const sortName = sortParam === '0name' || sortParam === '1name'
+  const sortCards = sortParam === '0cardsCount' || sortParam === '1cardsCount'
+  const sortUpdated = sortParam === '0updated' || sortParam === '1updated'
+
+  console.log(sortParam)
+  console.log(sortName)
 
   const URLParams = useMemo(() => {
     const paramsSearch: any = {}
@@ -104,19 +112,28 @@ export const PacksList = () => {
           <TableHead>
             <StyledHeadTableRow>
               <StyledHeadTableCell align="left">Cover</StyledHeadTableCell>
-              <StyledHeadTableCell>
+              <StyledHeadTableCell align="left">
                 <span className={s.sortCell} onClick={createSortHandler('name')}>
                   Name
+                  {sortName ? (
+                    <ArrowDropIcon sortParam={sortParam as string} ascending={'1name'} />
+                  ) : null}
                 </span>
               </StyledHeadTableCell>
-              <StyledHeadTableCell align="left" onClick={createSortHandler('cardsCount')}>
+              <StyledHeadTableCell align="left">
                 <span className={s.sortCell} onClick={createSortHandler('cardsCount')}>
                   Cards
+                  {sortCards ? (
+                    <ArrowDropIcon sortParam={sortParam as string} ascending={'1cardsCount'} />
+                  ) : null}
                 </span>
               </StyledHeadTableCell>
-              <StyledHeadTableCell align="left" onClick={createSortHandler('updated')}>
+              <StyledHeadTableCell align="left">
                 <span className={s.sortCell} onClick={createSortHandler('updated')}>
                   Last Updated
+                  {sortUpdated ? (
+                    <ArrowDropIcon sortParam={sortParam as string} ascending={'1updated'} />
+                  ) : null}
                 </span>
               </StyledHeadTableCell>
               <StyledHeadTableCell align="left">Created by</StyledHeadTableCell>

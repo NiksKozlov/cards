@@ -146,3 +146,28 @@
 .learnBtn:active {
   background-color: #1544d9;
 }
+
+.selectBtn {
+  display: flex;
+
+  width: 100%;
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+
+  font-size: 20px;
+  font-weight: 400;
+
+  background-color: #ffffff;
+  border: 0;
+}
+
+.selectBtn:hover {
+  background-color: #d2d2d2;
+}
+
+.selectBtn:active {
+  background-color: #b0b0b0;
+}
+

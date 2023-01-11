@@ -1,11 +1,10 @@
 import React from 'react'
 
 import { Rating } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import defaultCover from '../../../assets/images/cardNoCover.png'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
-import { PATH } from '../../../common/routePaths/routePaths.enum'
 import { userProfile } from '../../../common/selectors/profile-selector'
 import { EditCardModal } from '../../modals/basicCardModal/editCardModal/EditCardModal'
 import { DeleteCardModal } from '../../modals/basicDeleteModal/deleteCardModal/DeleteCardModal'
@@ -40,11 +39,12 @@ export const Card = ({
   const updatedDate = `${day}.${month}.${year}`
 
   const navigate = useNavigate()
+  const { packId } = useParams()
 
   const profile = useAppSelector(userProfile)
 
   const runLearn = () => {
-    navigate(PATH.LEARN)
+    navigate(`/learn/${packId}`)
   }
 
   return (

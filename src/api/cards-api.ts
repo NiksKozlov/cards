@@ -34,7 +34,6 @@ export type CardsResponseType = {
   page: number
   pageCount: number
   packUserId: string
-  packId?: string
   whosePack?: 'my' | 'friends'
 }
 

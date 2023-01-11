@@ -31,6 +31,5 @@ export const StyledHeadTableCell = styled(TableCell)(() => ({
     fontStyle: 'normal',
     fontWeight: '500',
     fontSize: '14px',
-    lineHeight: '17px',
   },
 }))

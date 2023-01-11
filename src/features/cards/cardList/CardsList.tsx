@@ -19,10 +19,11 @@ import {
 import { StyledHeadTableCell, StyledHeadTableRow } from '../../../common/styles/tableStyleWrapper'
 import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
 import { AddNewCardModal } from '../../modals/basicCardModal/addNewCardModal/AddNewCardModal'
+import { PackSelector } from '../../packs/packSelector/PackSelector'
 import { Pagination } from '../../packs/pagination/Pagination'
 import { Card } from '../card/Card'
 
-import { getCardsTC, setPackIdAC } from './cards-reducer'
+import { getCardsTC } from './cards-reducer'
 import s from './CardsList.module.css'
 
 export const CardsList = () => {
@@ -41,8 +42,6 @@ export const CardsList = () => {
   const [searchParams] = useSearchParams()
 
   const runLearn = () => {
-    dispatch(setPackIdAC(packId as string))
-
     navigate(`/learn/${packId}`)
   }
 
@@ -68,7 +67,14 @@ export const CardsList = () => {
       {cards?.length !== 0 ? (
         <>
           <div className={s.addCard}>
-            <h1>{whosePack === 'my' ? 'My pack' : "Friend's Pack"}</h1>
+            {whosePack === 'my' ? (
+              <div className={s.titleContainer}>
+                <h1>My pack</h1>
+                <PackSelector />
+              </div>
+            ) : (
+              <h1>{"Friend's Pack"}</h1>
+            )}
             {whosePack === 'my' ? (
               <AddNewCardModal />
             ) : (

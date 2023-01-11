@@ -38,8 +38,6 @@ export const loginTC =
 
       dispatch(setProfileAC(res.data))
 
-      console.log(res.data)
-
       dispatch(setIsLoggedInAC(true))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {

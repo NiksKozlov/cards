@@ -40,6 +40,11 @@
 
   margin-bottom: 20px;
 }
+
+.sortCell {
+  display: flex;
+}
+
 .sortCell:hover {
   cursor: pointer;
 }

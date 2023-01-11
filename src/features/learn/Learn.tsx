@@ -23,10 +23,7 @@ export const Learn = () => {
   const dispatch = useAppDispatch()
   const cards = useAppSelector(userCards)
   const { packId } = useParams()
-  //const packId = useAppSelector(cardsPackId)
   const profile = useAppSelector(userProfile)
-
-  console.log(packId)
 
   const [card, setCard] = useState<CardType>({
     answer: '',

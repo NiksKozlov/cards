@@ -5,7 +5,7 @@ import s from './UniButton.module.css'
 type PropsType = {
   children?: ReactNode
   className: string
-  title: string
+  title?: string
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset' | undefined
   onClick?: () => void

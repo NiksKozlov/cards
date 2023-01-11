@@ -1,0 +1,7 @@
+.buttons {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 100px;
+    min-height: 35px;
+}
