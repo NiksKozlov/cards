@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useMemo, useState } from 'react'
+import React, { MouseEvent, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -9,6 +9,7 @@ import { useLocation, useSearchParams } from 'react-router-dom'
 
 import { DomainPackType } from '../../../api/packs-api'
 import noCover from '../../../assets/images/packNoCover.jpg'
+import { Pagination } from '../../../common/components/pagination/Pagination'
 import SearchField from '../../../common/components/searchField/SearchField'
 import {
   cardPacksTotalCount,
@@ -21,7 +22,6 @@ import { AddNewPackModal } from '../../modals/basicPackModal/addNewPackModal/Add
 import { FilterSlider } from '../filterSlider/filterSlider'
 import { Pack } from '../pack/Pack'
 import { PacksFilterButtons } from '../packsFilterButtons/PacksFilterButtons'
-import { Pagination } from '../pagination/Pagination'
 import { ResetFiltersBtn } from '../resetFiltersBtn/ResetFiltersBtn'
 
 import { changeSortPacksAC, getPacksTC, setSearchParamsAC } from './packs-reducer'
@@ -38,14 +38,22 @@ export const PacksList = () => {
   const currentPage = useAppSelector(packsPage)
   const packsCountState = useAppSelector(packsPageCount)
   const cardPacksTotal = useAppSelector(cardPacksTotalCount)
-  // const reduxSearchParams = useAppSelector(searchParamsState)
+  const reduxSearchParams = useAppSelector(searchParamsState)
 
-  // const { search } = useLocation()
+  const { search } = useLocation()
 
   const [order, setOrder] = useState('ascending')
   const [orderBy, setOrderBy] = useState('updated')
 
   const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    if (search) dispatch(setSearchParamsAC(search))
+  }, [search])
+
+  useEffect(() => {
+    if (reduxSearchParams) setSearchParams(reduxSearchParams)
+  }, [])
 
   const handleRequestSort = (event: MouseEvent<unknown>, property: keyof DomainPackType) => {
     if (property === 'user_id') return
@@ -76,16 +84,6 @@ export const PacksList = () => {
   useEffect(() => {
     dispatch(getPacksTC(URLParams))
   }, [URLParams])
-
-  /*useEffect(() => {
-    if (search) dispatch(setSearchParamsAC(search))
-  }, [search])
-
-  console.log(reduxSearchParams)
-
-  useEffect(() => {
-    if (reduxSearchParams) setSearchParams(reduxSearchParams)
-  }, [])*/
 
   return (
     <div className={s.mainContainer}>

@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { BackToPacksList } from '../../../common/components/backToPacksList/BackToPacksList'
+import { Pagination } from '../../../common/components/pagination/Pagination'
 import SearchField from '../../../common/components/searchField/SearchField'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
@@ -19,7 +20,6 @@ import {
 import { StyledHeadTableCell, StyledHeadTableRow } from '../../../common/styles/tableStyleWrapper'
 import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
 import { AddNewCardModal } from '../../modals/basicCardModal/addNewCardModal/AddNewCardModal'
-import { Pagination } from '../../packs/pagination/Pagination'
 import { Card } from '../card/Card'
 
 import { getCardsTC, setPackIdAC } from './cards-reducer'
@@ -34,8 +34,6 @@ export const CardsList = () => {
   const cardsTotal = useAppSelector(cardsTotalCount)
   const whosePack = useAppSelector(st => st.cards.whosePack)
   const navigate = useNavigate()
-
-  console.log(whosePack)
 
   const { packId } = useParams()
   const [searchParams] = useSearchParams()

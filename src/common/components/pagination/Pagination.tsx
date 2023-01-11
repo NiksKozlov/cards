@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Container, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
-import { StyledPagination } from '../../../common/styles/paginationStyle'
+import { StyledPagination } from '../../styles/paginationStyle'
 
 import s from './PacksPagination.module.css'
 
