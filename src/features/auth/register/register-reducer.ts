@@ -65,8 +65,6 @@ export const registration =
       dispatch(setRegistrationData(true))
       const response = await authAPI.register(data)
 
-      console.log(response)
-
       if (response.data.error) {
         dispatch(setError(response.data.error))
       } else {
