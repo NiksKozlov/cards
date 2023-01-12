@@ -18,6 +18,14 @@ const SearchField: FC<PropsType> = ({ paramURL, searchLabel }) => {
 
   const [searchParams, setSearchParams] = useSearchParams()
 
+  /*useEffect(() => {
+    if (searchParams.get(paramURL)) {
+      const pageNameSearch = String(searchParams.get(paramURL))
+
+      setValue(pageNameSearch)
+    }
+  }, [])*/
+
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const packNameSearch = e.currentTarget.value
 
@@ -28,14 +36,6 @@ const SearchField: FC<PropsType> = ({ paramURL, searchLabel }) => {
       setSearchParams(searchParams)
     }
   }
-
-  // useEffect(() => {
-  //   if (searchParams.get(paramURL)) {
-  //     const pageNameSearch = String(searchParams.get(paramURL))
-  //
-  //     setValue(pageNameSearch)
-  //   }
-  // }, [])
 
   useEffect(() => {
     if (debouncedValue) {

@@ -5,7 +5,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
 type PropsType = {
   sortParam: string
-  ascending: '1name' | '1cardsCount' | '1updated'
+  ascending: '1name' | '1cardsCount' | '1updated' | '1grade'
 }
 
 export const ArrowDropIcon = ({ sortParam, ascending }: PropsType) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { MouseEvent, useEffect, useMemo, useState } from 'react'
 
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -7,6 +7,8 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
+import { DomainPackType } from '../../../api/packs-api'
+import { ArrowDropIcon } from '../../../common/components/ArrowDropIcon'
 import { BackToPacksList } from '../../../common/components/backToPacksList/BackToPacksList'
 import { Pagination } from '../../../common/components/pagination/Pagination'
 import SearchField from '../../../common/components/searchField/SearchField'
@@ -21,6 +23,7 @@ import { StyledHeadTableCell, StyledHeadTableRow } from '../../../common/styles/
 import { UniButton } from '../../../common/uniComponents/uniButton/UniButton'
 import { AddNewCardModal } from '../../modals/basicCardModal/addNewCardModal/AddNewCardModal'
 import { PackSelector } from '../../packs/packSelector/PackSelector'
+import { changeSortPacksAC } from '../../packs/packsList/packs-reducer'
 import { Card } from '../card/Card'
 
 import { getCardsTC } from './cards-reducer'
@@ -34,20 +37,34 @@ export const CardsList = () => {
   const cardsPageCountState = useAppSelector(cardsPageCount)
   const cardsTotal = useAppSelector(cardsTotalCount)
   const authUserId = useAppSelector(st => st.profile._id)
-  // const whosePack = authUserId === userId ? 'my' : 'friends'
-  //const whosePack = useAppSelector(st => st.cards.whosePack)
   const navigate = useNavigate()
 
-  // if (cards) {
-  //   console.log(cards[0].user_id)
-  // }
+  const [order, setOrder] = useState('asc')
+  const [orderBy, setOrderBy] = useState('updated')
 
-  const whosePack = cards && cards[0].user_id === authUserId ? 'my' : 'all'
-
-  console.log(whosePack)
+  const whosePack = cards && cards[0]?.user_id === authUserId ? 'my' : 'all'
 
   const { packId } = useParams()
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const handleRequestSort = (event: MouseEvent<unknown>, property: keyof DomainPackType) => {
+    const isAscending = order === 'asc' && orderBy === property
+
+    searchParams.set('sortCards', (isAscending ? 1 : 0) + property)
+    setSearchParams(searchParams)
+
+    dispatch(changeSortPacksAC((isAscending ? 1 : 0) + property))
+    setOrder(isAscending ? 'desc' : 'asc')
+    setOrderBy(property)
+  }
+
+  const createSortHandler = (property: any) => (event: React.MouseEvent<unknown>) => {
+    handleRequestSort(event, property)
+  }
+
+  const sortParam = searchParams.get('sortCards')
+  const sortGrade = sortParam === '0grade' || sortParam === '1grade'
+  const sortUpdated = sortParam === '0updated' || sortParam === '1updated'
 
   const runLearn = () => {
     navigate(`/learn/${packId}`)
@@ -96,8 +113,22 @@ export const CardsList = () => {
                 <StyledHeadTableRow>
                   <StyledHeadTableCell>Question</StyledHeadTableCell>
                   <StyledHeadTableCell align="center">Answer</StyledHeadTableCell>
-                  <StyledHeadTableCell align="center">Last Updated</StyledHeadTableCell>
-                  <StyledHeadTableCell align="center">Grade</StyledHeadTableCell>
+                  <StyledHeadTableCell align="center">
+                    <span className={s.sortCell} onClick={createSortHandler('updated')}>
+                      Last Updated
+                      {sortUpdated ? (
+                        <ArrowDropIcon sortParam={sortParam as string} ascending={'1updated'} />
+                      ) : null}
+                    </span>
+                  </StyledHeadTableCell>
+                  <StyledHeadTableCell align="center">
+                    <span className={s.sortCell} onClick={createSortHandler('grade')}>
+                      Grade
+                      {sortGrade ? (
+                        <ArrowDropIcon sortParam={sortParam as string} ascending={'1grade'} />
+                      ) : null}
+                    </span>
+                  </StyledHeadTableCell>
                 </StyledHeadTableRow>
               </TableHead>
               <TableBody>

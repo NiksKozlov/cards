@@ -43,7 +43,7 @@ export const PacksList = () => {
 
   const { search } = useLocation()
 
-  const [order, setOrder] = useState('ascending')
+  const [order, setOrder] = useState('asc')
   const [orderBy, setOrderBy] = useState('updated')
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -58,13 +58,13 @@ export const PacksList = () => {
 
   const handleRequestSort = (event: MouseEvent<unknown>, property: keyof DomainPackType) => {
     if (property === 'user_id') return
-    const ascending = order === 'ascending' && orderBy === property
+    const isAscending = order === 'asc' && orderBy === property
 
-    searchParams.set('sortPacks', (ascending ? 1 : 0) + property)
+    searchParams.set('sortPacks', (isAscending ? 1 : 0) + property)
     setSearchParams(searchParams)
 
-    dispatch(changeSortPacksAC((ascending ? 1 : 0) + property))
-    setOrder(ascending ? 'descending' : 'ascending')
+    dispatch(changeSortPacksAC((isAscending ? 1 : 0) + property))
+    setOrder(isAscending ? 'desc' : 'asc')
     setOrderBy(property)
   }
 
