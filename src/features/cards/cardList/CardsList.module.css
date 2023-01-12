@@ -1,19 +1,13 @@
 .mainContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 
   max-width: 80%;
   min-height: 80vh;
   margin: 0 auto;
+  margin-top: 60px;
 
   text-align: center;
-}
-
-.tableContainer {
-  margin-top: 30px;
-
-  box-shadow: 0px 0px 12px -2px rgba(34, 60, 80, 0.2);
 }
 
 .addCard {
@@ -42,4 +36,10 @@
 
 .sortCell:hover {
   cursor: pointer;
+}
+
+.emptyPack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

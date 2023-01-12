@@ -37,12 +37,17 @@ export const CardsList = () => {
   const cardsPageCountState = useAppSelector(cardsPageCount)
   const cardsTotal = useAppSelector(cardsTotalCount)
   const authUserId = useAppSelector(st => st.profile._id)
+  const packUserId = useAppSelector(st => st.cards.packUserId)
+  const packName = useAppSelector(st => st.cards.packName)
   const navigate = useNavigate()
 
   const [order, setOrder] = useState('asc')
   const [orderBy, setOrderBy] = useState('updated')
+  console.log(packName)
+  console.log(packUserId)
+  console.log(authUserId)
 
-  const whosePack = cards && cards[0]?.user_id === authUserId ? 'my' : 'all'
+  const whosePack = packUserId === authUserId ? 'my' : 'all'
 
   const { packId } = useParams()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -94,11 +99,11 @@ export const CardsList = () => {
           <div className={s.addCard}>
             {whosePack === 'my' ? (
               <div className={s.titleContainer}>
-                <h1>My pack</h1>
+                <h1>{packName}</h1>
                 <PackSelector />
               </div>
             ) : (
-              <h1>{"Friend's Pack"}</h1>
+              <h1>{packName}</h1>
             )}
             {whosePack === 'my' ? (
               <AddNewCardModal />
@@ -157,10 +162,18 @@ export const CardsList = () => {
           </div>
         </>
       ) : (
-        <>
-          <span className={s.span}>This pack is empty. Click add new card to fill this pack</span>
-          <AddNewCardModal />
-        </>
+        <div className={s.emptyPack}>
+          {whosePack === 'my' ? (
+            <>
+              <span className={s.span}>
+                This pack is empty. Click add new card to fill this pack
+              </span>
+              <AddNewCardModal />
+            </>
+          ) : (
+            <span className={s.span}>This pack is empty.</span>
+          )}
+        </div>
       )}
     </div>
   )

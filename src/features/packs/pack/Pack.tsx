@@ -4,7 +4,9 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
 import { IconButton } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { userProfile } from '../../../common/selectors/profile-selector'
+import { setPackName } from '../../cards/cardList/cards-reducer'
 import { DeletePackModal } from '../../modals/basicDeleteModal/deletePackModal/DeletePackModal'
 import { EditPackModal } from '../../modals/basicPackModal/editPackModal/EditPackModal'
 
@@ -33,6 +35,7 @@ export const Pack = ({
   deckCover,
 }: PackPropsType) => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const profile = useAppSelector(userProfile)
 
@@ -43,6 +46,8 @@ export const Pack = ({
   const updatedDate = `${day}.${month}.${year}`
 
   const onNameClickHandler = () => {
+    dispatch(setPackName(name))
+
     navigate(`/cards-list/${id}`)
   }
 
