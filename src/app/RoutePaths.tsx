@@ -2,6 +2,7 @@ import React, { FC, memo } from 'react'
 
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 
+import { PageNotFound } from '../common/components/pageNotFound/PageNotFound'
 import { PATH } from '../common/routePaths/routePaths.enum'
 import { CheckEmail } from '../features/auth/check-email/CheckEmail'
 import { ForgotPassword } from '../features/auth/forgot-password/ForgotPassword'
@@ -35,7 +36,7 @@ export const RoutePaths: FC<PropsType> = memo(({ isLoggedIn }) => {
       <Route path={PATH.FORGOT_PASSWORD} element={<ForgotPassword />} />
       <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
       <Route path={PATH.NEW_PASSWORD_TOKEN} element={<NewPassword />} />
-      <Route path={'/404'} element={<h1 style={{ textAlign: 'center' }}>404: PAGE NOT FOUND</h1>} />
+      <Route path={'/404'} element={<PageNotFound />} />
       <Route path={'*'} element={<Navigate to={'/404'} />} />
     </Routes>
   )

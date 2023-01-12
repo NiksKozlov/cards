@@ -5,7 +5,6 @@
   max-width: 80%;
   min-height: 80vh;
   margin: 0 auto;
-  margin-top: 60px;
 
   text-align: center;
 }
@@ -42,4 +41,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.search {
+  margin-bottom: 20px;
 }

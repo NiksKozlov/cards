@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import './App.css'
 import { CircularProgress, LinearProgress } from '@mui/material'
+import { useLocation } from 'react-router-dom'
 
 import { ErrorSnackbar } from '../common/components/errorSnackbar/ErrorSnackbar'
 import { Navbar } from '../common/components/navbar/Navbar'
@@ -16,6 +17,7 @@ const App = () => {
   const isInitialized = useAppSelector(state => state.app.isInitialized)
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const status = useAppSelector(state => state.app.status)
+  const { pathname } = useLocation()
 
   useEffect(() => {
     dispatch(meTC())
@@ -31,7 +33,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Navbar isLoggedIn={isLoggedIn} />
+      {pathname !== '/404' ? <Navbar isLoggedIn={isLoggedIn} /> : null}
       {status === 'loading' && <LinearProgress />}
       <ErrorSnackbar />
       <RoutePaths isLoggedIn={isLoggedIn} />

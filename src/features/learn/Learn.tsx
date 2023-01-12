@@ -76,42 +76,44 @@ export const Learn = () => {
   return (
     <div className={s.mainContainer}>
       <BackToPacksList />
-      <div className={s.formContainer}>
-        <h1>Question: </h1>
-        <div>
-          {card.questionImg ? (
-            <img className={s.questionImg} src={card.questionImg} alt={'questionImg'} />
+      <div className={s.container}>
+        <div className={s.formContainer}>
+          <h1>Question: </h1>
+          <div>
+            {card.questionImg ? (
+              <img className={s.questionImg} src={card.questionImg} alt={'questionImg'} />
+            ) : (
+              <h4>{card.question}</h4>
+            )}
+          </div>
+          {!isChecked ? (
+            <>
+              <button className={s.learnBtn} onClick={() => setIsChecked(true)}>
+                show answer
+              </button>
+            </>
           ) : (
-            <h4>{card.question}</h4>
+            <>
+              {profile._id == card.user_id && (
+                <div>
+                  <span>Number of answers to the question: </span>
+                  <span>{card.shots}</span>
+                </div>
+              )}
+              <div>
+                <h4>Answer: {card.answer}</h4>
+              </div>
+
+              <Checkboxes value={value} setValue={setValue} />
+
+              <div>
+                <button className={s.learnBtn} onClick={nextHandler}>
+                  Next
+                </button>
+              </div>
+            </>
           )}
         </div>
-        {!isChecked ? (
-          <>
-            <button className={s.learnBtn} onClick={() => setIsChecked(true)}>
-              show answer
-            </button>
-          </>
-        ) : (
-          <>
-            {profile._id == card.user_id && (
-              <div>
-                <span>Number of answers to the question: </span>
-                <span>{card.shots}</span>
-              </div>
-            )}
-            <div>
-              <h4>Answer: {card.answer}</h4>
-            </div>
-
-            <Checkboxes value={value} setValue={setValue} />
-
-            <div>
-              <button className={s.learnBtn} onClick={nextHandler}>
-                Next
-              </button>
-            </div>
-          </>
-        )}
       </div>
     </div>
   )

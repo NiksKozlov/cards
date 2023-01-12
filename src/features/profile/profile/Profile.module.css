@@ -1,11 +1,17 @@
 .mainContainer {
+  max-width: 80%;
+  min-height: 80vh;
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  height: 100vh;
-
-  background-color: #f9f9fa;
+  height: 80vh;
 }
 
 .formContainer {
@@ -14,6 +20,7 @@
   align-items: center;
   justify-content: space-between;
 
+  max-width: 400px;
   padding: 20px 33px;
 
   background-color: #ffffff;

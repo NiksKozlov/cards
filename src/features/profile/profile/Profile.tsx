@@ -37,17 +37,19 @@ export const Profile = () => {
   return (
     <div className={s.mainContainer}>
       <BackToPacksList />
-      <div className={s.formContainer}>
-        <h1>Personal information</h1>
-        <InputTypeFileAva />
-        <div className={s.name}>
-          <EditableName name={profile.name} onChange={changeProfileName} />
+      <div className={s.container}>
+        <div className={s.formContainer}>
+          <h1>Personal information</h1>
+          <InputTypeFileAva />
+          <div className={s.name}>
+            <EditableName name={profile.name} onChange={changeProfileName} />
+          </div>
+          <div className={s.email}>{profile.email}</div>
+          <CardsJoy packsCount={profile.publicCardPacksCount} />
+          <UniButton className={'logoutBtn'} onClick={logOut} title={'Log out'}>
+            <LogoutIcon fontSize={'small'} />
+          </UniButton>
         </div>
-        <div className={s.email}>{profile.email}</div>
-        <CardsJoy packsCount={profile.publicCardPacksCount} />
-        <UniButton className={'logoutBtn'} onClick={logOut} title={'Log out'}>
-          <LogoutIcon fontSize={'small'} />
-        </UniButton>
       </div>
     </div>
   )

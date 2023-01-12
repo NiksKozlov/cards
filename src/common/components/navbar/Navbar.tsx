@@ -42,26 +42,28 @@ export const Navbar: FC<PropsType> = ({ isLoggedIn }) => {
 
   return (
     <div className={s.navbarContainer}>
-      <div className={s.buttonGroup}>
-        <NavLink to={PATH.PACKS_LIST} className={s.titleContainer}>
-          {'Magic Cards🦒'}
-        </NavLink>
-      </div>
-      {isLoggedIn ? (
-        <div className={s.profileIcon} onClick={profileBtnHandler}>
-          {profileName.toUpperCase()}
-          <img
-            className={s.navAva}
-            src={isAvaBroken ? defaultAva : anotherExpression}
-            onError={errorHandler}
-            alt="profile photo"
-          />
+      <div className={s.nav}>
+        <div className={s.buttonGroup}>
+          <NavLink to={PATH.PACKS_LIST} className={s.titleContainer}>
+            {'Magic Cards🦒'}
+          </NavLink>
         </div>
-      ) : (
-        <button className={s.navBtn} type={'submit'} color={'primary'} onClick={singInBtnHandler}>
-          Sign in
-        </button>
-      )}
+        {isLoggedIn ? (
+          <div className={s.profileIcon} onClick={profileBtnHandler}>
+            {profileName.toUpperCase()}
+            <img
+              className={s.navAva}
+              src={isAvaBroken ? defaultAva : anotherExpression}
+              onError={errorHandler}
+              alt="profile photo"
+            />
+          </div>
+        ) : (
+          <button className={s.navBtn} type={'submit'} color={'primary'} onClick={singInBtnHandler}>
+            Sign in
+          </button>
+        )}
+      </div>
     </div>
   )
 }

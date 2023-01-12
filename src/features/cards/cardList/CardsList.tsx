@@ -112,7 +112,9 @@ export const CardsList = () => {
               <UniButton className={'learnBtn'} title={'Learn to pack'} onClick={runLearn} />
             )}
           </div>
-          <SearchField paramURL={'cardQuestion'} searchLabel={'Card Question'} fullwidth={true} />
+          <div className={s.search}>
+            <SearchField paramURL={'cardQuestion'} searchLabel={'Card Question'} fullwidth={true} />
+          </div>
           <TableContainer component={Paper} className={s.tableContainer}>
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
               <TableHead>

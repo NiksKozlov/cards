@@ -1,0 +1,36 @@
+.pageBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.pageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    min-width: 65%;
+}
+
+.img {
+    height: 200px;
+}
+
+.infContainer {
+}
+
+.infContainer h1 {
+    margin: 0;
+
+    font-size: 50px;
+}
+
+.infContainer h3 {
+    margin-top: 30px;
+    margin-bottom: 35px;
+
+    font-size: 18px;
+}

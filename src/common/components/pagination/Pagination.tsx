@@ -65,7 +65,13 @@ export const Pagination: React.FC<PropsType> = ({ page, packsCount, totalPacksCo
         <Select
           value={String(packsPerPage)}
           onChange={handleChangePacksPerPage}
-          sx={{ width: '70px', height: '35px', marginLeft: '10px', marginRight: '10px' }}
+          sx={{
+            width: '70px',
+            height: '35px',
+            marginLeft: '10px',
+            marginRight: '10px',
+            backgroundColor: 'white',
+          }}
         >
           <MenuItem value={4}>4</MenuItem>
           <MenuItem value={5}>5</MenuItem>
