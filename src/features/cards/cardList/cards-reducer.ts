@@ -42,6 +42,8 @@ export const cardsReducer = (
           })
         ),
       }
+    case 'PACKS/SET-PACK-NAME':
+      return { ...state, packName: action.packName }
     default:
       return state
   }
@@ -50,6 +52,8 @@ export const cardsReducer = (
 // actions
 export const setCardsDataAC = (cardsData: CardsResponseType) =>
   ({ type: 'CARDS/SET-CARDS', cardsData } as const)
+export const setPackName = (packName: string) =>
+  ({ type: 'PACKS/SET-PACK-NAME', packName } as const)
 
 //thunks
 export const getCardsTC =
@@ -132,4 +136,4 @@ export type EditCardLocalStateType = {
   }
 }
 
-export type CardsActionsTypes = ReturnType<typeof setCardsDataAC>
+export type CardsActionsTypes = ReturnType<typeof setCardsDataAC> | ReturnType<typeof setPackName>

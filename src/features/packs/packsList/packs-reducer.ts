@@ -29,6 +29,7 @@ export const packsReducer = (
   switch (action.type) {
     case 'PACKS/SET-PACKS-LIST':
       return {
+        ...state,
         ...action.packs,
         filter: action.filter,
         cardPacks: action.packs.cardPacks.map(

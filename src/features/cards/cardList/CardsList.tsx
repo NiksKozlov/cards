@@ -34,17 +34,15 @@ export const CardsList = () => {
   const cardsPageCountState = useAppSelector(cardsPageCount)
   const cardsTotal = useAppSelector(cardsTotalCount)
   const authUserId = useAppSelector(st => st.profile._id)
-  // const whosePack = authUserId === userId ? 'my' : 'friends'
-  //const whosePack = useAppSelector(st => st.cards.whosePack)
+  const packUserId = useAppSelector(st => st.cards.packUserId)
+  const packName = useAppSelector(st => st.cards.packName)
   const navigate = useNavigate()
 
-  // if (cards) {
-  //   console.log(cards[0].user_id)
-  // }
+  console.log(packName)
+  console.log(packUserId)
+  console.log(authUserId)
 
-  const whosePack = cards && cards[0].user_id === authUserId ? 'my' : 'all'
-
-  console.log(whosePack)
+  const whosePack = packUserId === authUserId ? 'my' : 'all'
 
   const { packId } = useParams()
   const [searchParams] = useSearchParams()
@@ -77,11 +75,11 @@ export const CardsList = () => {
           <div className={s.addCard}>
             {whosePack === 'my' ? (
               <div className={s.titleContainer}>
-                <h1>My pack</h1>
+                <h1>{packName}</h1>
                 <PackSelector />
               </div>
             ) : (
-              <h1>{"Friend's Pack"}</h1>
+              <h1>{packName}</h1>
             )}
             {whosePack === 'my' ? (
               <AddNewCardModal />
@@ -126,10 +124,18 @@ export const CardsList = () => {
           </div>
         </>
       ) : (
-        <>
-          <span className={s.span}>This pack is empty. Click add new card to fill this pack</span>
-          <AddNewCardModal />
-        </>
+        <div className={s.emptyPack}>
+          {whosePack === 'my' ? (
+            <>
+              <span className={s.span}>
+                This pack is empty. Click add new card to fill this pack
+              </span>
+              <AddNewCardModal />
+            </>
+          ) : (
+            <span className={s.span}>This pack is empty.</span>
+          )}
+        </div>
       )}
     </div>
   )
