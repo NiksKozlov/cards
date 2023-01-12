@@ -43,6 +43,7 @@ export const CardsList = () => {
 
   const [order, setOrder] = useState('asc')
   const [orderBy, setOrderBy] = useState('updated')
+
   console.log(packName)
   console.log(packUserId)
   console.log(authUserId)
