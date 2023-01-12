@@ -10,21 +10,22 @@ import s from './SearchField.module.css'
 type PropsType = {
   paramURL: string
   searchLabel: string
+  fullwidth: boolean
 }
 
-const SearchField: FC<PropsType> = ({ paramURL, searchLabel }) => {
+const SearchField: FC<PropsType> = ({ paramURL, searchLabel, fullwidth }) => {
   const [value, setValue] = useState('')
   const debouncedValue = useDebounce<string>(value, 700)
 
   const [searchParams, setSearchParams] = useSearchParams()
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (searchParams.get(paramURL)) {
       const pageNameSearch = String(searchParams.get(paramURL))
 
       setValue(pageNameSearch)
     }
-  }, [])*/
+  }, [])
 
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const packNameSearch = e.currentTarget.value
@@ -52,6 +53,7 @@ const SearchField: FC<PropsType> = ({ paramURL, searchLabel }) => {
     <div className={s.searchContainer}>
       <h3>Search by {searchLabel}</h3>
       <TextField
+        fullWidth={fullwidth}
         inputProps={{ className: s.textFieldMain }}
         value={value}
         onChange={onChangeHandler}

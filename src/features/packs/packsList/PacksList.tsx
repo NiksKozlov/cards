@@ -9,7 +9,7 @@ import { useLocation, useSearchParams } from 'react-router-dom'
 
 import { DomainPackType } from '../../../api/packs-api'
 import noCover from '../../../assets/images/packNoCover.jpg'
-import { ArrowDropIcon } from '../../../common/components/ArrowDropIcon'
+import { ArrowDropIcon } from '../../../common/components/arrowDropIcon/ArrowDropIcon'
 import { Pagination } from '../../../common/components/pagination/Pagination'
 import SearchField from '../../../common/components/searchField/SearchField'
 import {
@@ -98,7 +98,7 @@ export const PacksList = () => {
         <AddNewPackModal />
       </div>
       <div className={s.filtersContainer}>
-        <SearchField paramURL={'packName'} searchLabel={'Pack Name'} />
+        <SearchField paramURL={'packName'} searchLabel={'Pack Name'} fullwidth={false} />
         <PacksFilterButtons />
         <FilterSlider />
         <ResetFiltersBtn />

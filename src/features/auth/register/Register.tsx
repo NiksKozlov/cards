@@ -1,11 +1,10 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent } from 'react'
 
-import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { FormGroup, IconButton, TextField } from '@mui/material'
+import { FormGroup } from '@mui/material'
 import { useFormik } from 'formik'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-import { BadErrorSnackbar } from '../../../common/components/ErrorSnackbar/BadErrorSnackbar'
+import { BadErrorSnackbar } from '../../../common/components/errorSnackbar/BadErrorSnackbar'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
@@ -15,12 +14,6 @@ import { registrationValidationSchema } from '../../../common/utils/validationSc
 
 import { registration, setRegisterServerError } from './register-reducer'
 import s from './Register.module.css'
-
-type FormikErrorsType = {
-  email?: string
-  password?: string
-  confirmPassword?: string
-}
 
 export const Register = () => {
   const dispatch = useAppDispatch()
@@ -45,7 +38,6 @@ export const Register = () => {
       dispatch(registration(values.email, values.password))
     },
     validateOnChange: false,
-    // validateOnBlur: false,
   })
 
   const handleInput = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {

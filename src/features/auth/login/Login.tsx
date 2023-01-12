@@ -21,11 +21,7 @@ export const Login = () => {
   const dispatch = useAppDispatch()
 
   const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-      rememberMe: false,
-    },
+    initialValues: { email: '', password: '', rememberMe: false },
     validationSchema: loginValidationSchema,
     onSubmit: values => {
       dispatch(loginTC(values))

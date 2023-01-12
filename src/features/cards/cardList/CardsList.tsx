@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { DomainPackType } from '../../../api/packs-api'
-import { ArrowDropIcon } from '../../../common/components/ArrowDropIcon'
+import { ArrowDropIcon } from '../../../common/components/arrowDropIcon/ArrowDropIcon'
 import { BackToPacksList } from '../../../common/components/backToPacksList/BackToPacksList'
 import { Pagination } from '../../../common/components/pagination/Pagination'
 import SearchField from '../../../common/components/searchField/SearchField'
@@ -106,7 +106,7 @@ export const CardsList = () => {
               <UniButton className={'learnBtn'} title={'Learn to pack'} onClick={runLearn} />
             )}
           </div>
-          <SearchField paramURL={'cardQuestion'} searchLabel={'Card Question'} />
+          <SearchField paramURL={'cardQuestion'} searchLabel={'Card Question'} fullwidth={true} />
           <TableContainer component={Paper} className={s.tableContainer}>
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
               <TableHead>

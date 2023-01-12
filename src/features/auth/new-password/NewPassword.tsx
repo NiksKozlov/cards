@@ -1,11 +1,10 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent } from 'react'
 
-import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { FormGroup, IconButton, TextField } from '@mui/material'
+import { FormGroup } from '@mui/material'
 import { useFormik } from 'formik'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { BadErrorSnackbar } from '../../../common/components/ErrorSnackbar/BadErrorSnackbar'
+import { BadErrorSnackbar } from '../../../common/components/errorSnackbar/BadErrorSnackbar'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
@@ -16,20 +15,10 @@ import { newPasswordValidationSchema } from '../../../common/utils/validationSch
 import { createNewPassword, setNewPasswordServerError } from './newPassword-reducer'
 import s from './NewPassword.module.css'
 
-type FormikErrorsType = {
-  password?: string
-}
-
 export const NewPassword = () => {
   const dispatch = useAppDispatch()
 
   const { token } = useParams<{ token: string }>()
-
-  const [showPassword, setShowPassword] = useState(false)
-  const handleClickShowPassword = () => setShowPassword(show => !show)
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-  }
 
   const isCreateNewPassword = useAppSelector(st => st.newPassword.isCreateNewPassword)
   const error = useAppSelector(st => st.newPassword.error)
@@ -81,7 +70,7 @@ export const NewPassword = () => {
             ) : null}
             {error ? <div className={s.error}>{error}</div> : null}
             <span className={s.instruction}>
-              Create new password and we will send you futherinstructions to email
+              Create new password and we will send you further instructions to email
             </span>
             <UniButton
               className={disabled ? 'disabledBtn' : 'submitBtn'}

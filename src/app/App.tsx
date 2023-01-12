@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import './App.css'
 import { CircularProgress, LinearProgress } from '@mui/material'
 
-import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
+import { ErrorSnackbar } from '../common/components/errorSnackbar/ErrorSnackbar'
 import { Navbar } from '../common/components/navbar/Navbar'
 import { useAppDispatch } from '../common/hooks/useAppDispatch'
 import { useAppSelector } from '../common/hooks/useAppSelector'

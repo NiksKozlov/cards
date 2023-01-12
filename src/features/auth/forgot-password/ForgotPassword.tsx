@@ -1,10 +1,10 @@
 import React, { ChangeEvent } from 'react'
 
-import { FormGroup, TextField } from '@mui/material'
+import { FormGroup } from '@mui/material'
 import { useFormik } from 'formik'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-import { BadErrorSnackbar } from '../../../common/components/ErrorSnackbar/BadErrorSnackbar'
+import { BadErrorSnackbar } from '../../../common/components/errorSnackbar/BadErrorSnackbar'
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { useAppSelector } from '../../../common/hooks/useAppSelector'
 import { PATH } from '../../../common/routePaths/routePaths.enum'
@@ -14,12 +14,6 @@ import { forgotPasswordValidationSchema } from '../../../common/utils/validation
 
 import { forgotPassword, setForgotPasswordServerError } from './forgotPassword-reducer'
 import s from './ForgotPassword.module.css'
-
-type FormikErrorsType = {
-  email?: string
-  password?: string
-  confirmPassword?: string
-}
 
 export const ForgotPassword = () => {
   const dispatch = useAppDispatch()
@@ -83,7 +77,7 @@ export const ForgotPassword = () => {
         </form>
         <span>Do you remember your password?</span>
         <NavLink to={PATH.LOGIN} className={s.tryLoginBtn}>
-          Try loggining in
+          Try logging in
         </NavLink>
       </div>
     </div>
