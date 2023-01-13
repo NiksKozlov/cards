@@ -39,14 +39,11 @@ export const CardsList = () => {
   const authUserId = useAppSelector(st => st.profile._id)
   const packUserId = useAppSelector(st => st.cards.packUserId)
   const packName = useAppSelector(st => st.cards.packName)
+  const packCover = useAppSelector(st => st.cards.packCover)
   const navigate = useNavigate()
 
   const [order, setOrder] = useState('asc')
   const [orderBy, setOrderBy] = useState('updated')
-
-  console.log(packName)
-  console.log(packUserId)
-  console.log(authUserId)
 
   const whosePack = packUserId === authUserId ? 'my' : 'all'
 
@@ -104,7 +101,9 @@ export const CardsList = () => {
                 <PackSelector />
               </div>
             ) : (
-              <h1>{packName}</h1>
+              <>
+                <h1>{packName}</h1>
+              </>
             )}
             {whosePack === 'my' ? (
               <AddNewCardModal />
@@ -112,6 +111,7 @@ export const CardsList = () => {
               <UniButton className={'learnBtn'} title={'Learn to pack'} onClick={runLearn} />
             )}
           </div>
+          <img className={s.cover} src={packCover} alt={'cover'} />
           <div className={s.search}>
             <SearchField paramURL={'cardQuestion'} searchLabel={'Card Question'} fullwidth={true} />
           </div>

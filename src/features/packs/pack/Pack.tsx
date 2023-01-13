@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch'
 import { userProfile } from '../../../common/selectors/profile-selector'
-import { setPackName } from '../../cards/cardList/cards-reducer'
+import { setPackCoverAC, setPackName } from '../../cards/cardList/cards-reducer'
 import { DeletePackModal } from '../../modals/basicDeleteModal/deletePackModal/DeletePackModal'
 import { EditPackModal } from '../../modals/basicPackModal/editPackModal/EditPackModal'
 
@@ -22,7 +22,7 @@ type PackPropsType = {
   cardsCount: number
   updated: Date
   created: string
-  deckCover?: string
+  deckCover: string
 }
 
 export const Pack = ({
@@ -47,6 +47,7 @@ export const Pack = ({
 
   const onNameClickHandler = () => {
     dispatch(setPackName(name))
+    dispatch(setPackCoverAC(deckCover))
 
     navigate(`/cards-list/${id}`)
   }
