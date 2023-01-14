@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { UniButton } from '../../common/uniComponents/uniButton/UniButton'
-import { editCardTC, getCardsTC } from '../cards/cardList/cards-reducer'
+import { editCardGradeTC, getCardsTC } from '../cards/cardList/cards-reducer'
 
 import { Checkboxes, grades } from './checkboxes/Checkboxes'
 import { getCardRandom } from './getCardRandom/getCardRandom'
@@ -14,7 +14,6 @@ import { BackToPacksList } from 'common/components/backToPacksList/BackToPacksLi
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
 import { useAppSelector } from 'common/hooks/useAppSelector'
 import { userCards } from 'common/selectors/cards-selector'
-import { userProfile } from 'common/selectors/profile-selector'
 
 export const Learn = () => {
   const [first, setFirst] = useState<boolean>(true)
@@ -24,7 +23,6 @@ export const Learn = () => {
   const dispatch = useAppDispatch()
   const cards = useAppSelector(userCards)
   const { packId } = useParams()
-  const profile = useAppSelector(userProfile)
 
   const [card, setCard] = useState<CardType>({
     answer: '',
@@ -55,20 +53,13 @@ export const Learn = () => {
 
   const nextHandler = () => {
     const index = grades.indexOf(value) + 1
-    const incShots = card.shots + 1
 
-    const editCardLocalState = {
-      card: {
-        _id: card._id,
-        question: card.question,
-        grade: index,
-        shots: incShots,
-      },
+    const editCardGradeLocalState = {
+      card_id: card._id,
+      grade: index,
     }
 
-    profile._id == card.user_id
-      ? dispatch(editCardTC(editCardLocalState))
-      : dispatch(getCardsTC(params))
+    dispatch(editCardGradeTC(editCardGradeLocalState))
 
     setValue(grades[0])
     setIsChecked(false)
@@ -96,9 +87,7 @@ export const Learn = () => {
             </>
           ) : (
             <>
-              {profile._id == card.user_id && (
-                <span className={s.span}>Number of answers to the question: {card.shots}</span>
-              )}
+              <span className={s.span}>Number of answers to the question: {card.shots}</span>
               <div>
                 <h3 className={s.titleH3}>Answer: {card.answer}</h3>
               </div>

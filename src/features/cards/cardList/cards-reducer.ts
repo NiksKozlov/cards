@@ -107,6 +107,23 @@ export const editCardTC =
     }
   }
 
+export const editCardGradeTC =
+  (cardData: EditCardGradeLocalStateType): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      const res = await cardsAPI.editCardGrade(cardData)
+      const params = { cardsPack_id: res.data.updatedGrade.cardsPack_id }
+
+      console.log(res)
+
+      dispatch(getCardsTC(params))
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      handleServerError(e, dispatch)
+    }
+  }
+
 export const deleteCardTC =
   (_id: string): AppThunk =>
   async dispatch => {
@@ -138,6 +155,11 @@ export type EditCardLocalStateType = {
     grade: number
     shots: number
   }
+}
+
+export type EditCardGradeLocalStateType = {
+  card_id: string
+  grade: number
 }
 
 export type CardsActionsTypes =
