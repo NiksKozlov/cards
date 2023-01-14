@@ -25,7 +25,12 @@ import { Pack } from '../pack/Pack'
 import { PacksFilterButtons } from '../packsFilterButtons/PacksFilterButtons'
 import { ResetFiltersBtn } from '../resetFiltersBtn/ResetFiltersBtn'
 
-import { changeSortPacksAC, getPacksTC, setSearchParamsAC } from './packs-reducer'
+import {
+  changeSortPacksAC,
+  getPacksTC,
+  resetPacksStateAC,
+  setSearchParamsAC,
+} from './packs-reducer'
 import s from './PacksList.module.css'
 
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
@@ -89,6 +94,10 @@ export const PacksList = () => {
 
   useEffect(() => {
     dispatch(getPacksTC(URLParams))
+
+    return () => {
+      resetPacksStateAC()
+    }
   }, [URLParams])
 
   return (

@@ -16,6 +16,7 @@ export const PacksFilterButtons = () => {
 
   const onMyClickHandler = () => {
     searchParams.set('user_id', userId)
+    searchParams.delete('page')
     setSearchParams(searchParams)
   }
 

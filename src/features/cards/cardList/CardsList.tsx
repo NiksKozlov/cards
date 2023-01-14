@@ -26,7 +26,7 @@ import { PackSelector } from '../../packs/packSelector/PackSelector'
 import { changeSortPacksAC } from '../../packs/packsList/packs-reducer'
 import { Card } from '../card/Card'
 
-import { getCardsTC } from './cards-reducer'
+import { getCardsTC, resetCardsStateAC } from './cards-reducer'
 import s from './CardsList.module.css'
 
 export const CardsList = () => {
@@ -88,6 +88,12 @@ export const CardsList = () => {
   useEffect(() => {
     dispatch(getCardsTC(URLParams))
   }, [URLParams])
+
+  useEffect(() => {
+    return () => {
+      resetCardsStateAC()
+    }
+  }, [])
 
   return (
     <div className={s.mainContainer}>

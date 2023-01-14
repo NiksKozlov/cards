@@ -74,6 +74,7 @@ export const BasicPackModal = ({ children, title, open, setOpen, id, comp }: Pro
       cardsPack: {
         _id: id as string,
         name: value,
+        deckCover: cover,
       },
     }
 

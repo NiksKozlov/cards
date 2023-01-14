@@ -7,6 +7,7 @@ export type EditPackLocalStateType = {
   cardsPack: {
     _id: string
     name: string
+    deckCover: string
   }
 }
 
@@ -48,6 +49,8 @@ export const packsReducer = (
       return { ...state, sortPacks: action.sortPacks }
     case 'PACKS/SET-SEARCH-PARAMS':
       return { ...state, searchParams: action.searchParams }
+    case 'PACKS/RESET-PACKS-STATE':
+      return {} as PacksType
     default:
       return state
   }
@@ -60,6 +63,7 @@ export const changeSortPacksAC = (sortPacks: string) =>
   ({ type: 'PACKS/CHANGE-SORT-PACKS', sortPacks } as const)
 export const setSearchParamsAC = (searchParams: string) =>
   ({ type: 'PACKS/SET-SEARCH-PARAMS', searchParams } as const)
+export const resetPacksStateAC = () => ({ type: 'PACKS/RESET-PACKS-STATE' } as const)
 
 //thunks
 export const getPacksTC =
@@ -126,3 +130,4 @@ export type PacksActionsTypes =
   | ReturnType<typeof setPacksListAC>
   | ReturnType<typeof changeSortPacksAC>
   | ReturnType<typeof setSearchParamsAC>
+  | ReturnType<typeof resetPacksStateAC>

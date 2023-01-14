@@ -46,6 +46,8 @@ export const cardsReducer = (
       return { ...state, packName: action.packName }
     case 'PACKS/SET-PACK-COVER':
       return { ...state, packCover: action.packCover }
+    case 'PACKS/RESET-CARDS-STATE':
+      return {} as CardsResponseType
     default:
       return state
   }
@@ -58,6 +60,7 @@ export const setPackName = (packName: string) =>
   ({ type: 'PACKS/SET-PACK-NAME', packName } as const)
 export const setPackCoverAC = (packCover: string) =>
   ({ type: 'PACKS/SET-PACK-COVER', packCover } as const)
+export const resetCardsStateAC = () => ({ type: 'PACKS/RESET-CARDS-STATE' } as const)
 
 //thunks
 export const getCardsTC =
@@ -144,3 +147,4 @@ export type CardsActionsTypes =
   | ReturnType<typeof setCardsDataAC>
   | ReturnType<typeof setPackName>
   | ReturnType<typeof setPackCoverAC>
+  | ReturnType<typeof resetCardsStateAC>
