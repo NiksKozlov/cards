@@ -2,6 +2,8 @@ import React from 'react'
 
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
 
+import { BpRadio, StyledFormControlLabel } from '../../../common/styles/formControlLabel'
+
 export const grades = ['didn`t know', 'forgot', 'thought for a long time', 'mixed up', 'knew']
 
 type PropsType = {
@@ -17,18 +19,13 @@ export const Checkboxes = (props: PropsType) => {
   return (
     <>
       <FormControl>
-        <FormLabel id="controlled-radio-buttons-group">Rate yourself:</FormLabel>
-        <RadioGroup
-          aria-labelledby="controlled-radio-buttons-group"
-          name="controlled-radio-buttons-group"
-          value={props.value}
-          onChange={handleChange}
-        >
+        <h3>Rate yourself:</h3>
+        <RadioGroup value={props.value} onChange={handleChange}>
           {grades.map((g, i) => (
-            <FormControlLabel
+            <StyledFormControlLabel
               key={'grade-' + i}
               value={g}
-              control={<Radio size={'small'} />}
+              control={<BpRadio size={'small'} />}
               label={g}
             />
           ))}

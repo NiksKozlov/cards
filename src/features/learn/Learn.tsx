@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useParams } from 'react-router-dom'
 
+import { UniButton } from '../../common/uniComponents/uniButton/UniButton'
 import { editCardTC, getCardsTC } from '../cards/cardList/cards-reducer'
 
 import { Checkboxes, grades } from './checkboxes/Checkboxes'
@@ -47,7 +48,7 @@ export const Learn = () => {
       setFirst(false)
     }
 
-    if (cards.length > 0) {
+    if (cards?.length > 0) {
       setCard(getCardRandom(cards))
     }
   }, [dispatch, cards])
@@ -77,8 +78,9 @@ export const Learn = () => {
     <div className={s.mainContainer}>
       <BackToPacksList />
       <div className={s.container}>
+        <h1>Learn Pack Name</h1>
         <div className={s.formContainer}>
-          <h1>Question: </h1>
+          <h3 className={s.titleH3}>Question: </h3>
           <div>
             {card.questionImg ? (
               <img className={s.questionImg} src={card.questionImg} alt={'questionImg'} />
@@ -88,28 +90,23 @@ export const Learn = () => {
           </div>
           {!isChecked ? (
             <>
-              <button className={s.learnBtn} onClick={() => setIsChecked(true)}>
-                show answer
-              </button>
+              <UniButton className={'learnBtn'} onClick={() => setIsChecked(true)}>
+                Show answer
+              </UniButton>
             </>
           ) : (
             <>
               {profile._id == card.user_id && (
-                <div>
-                  <span>Number of answers to the question: </span>
-                  <span>{card.shots}</span>
-                </div>
+                <span className={s.span}>Number of answers to the question: {card.shots}</span>
               )}
               <div>
-                <h4>Answer: {card.answer}</h4>
+                <h3 className={s.titleH3}>Answer: {card.answer}</h3>
               </div>
-
               <Checkboxes value={value} setValue={setValue} />
-
               <div>
-                <button className={s.learnBtn} onClick={nextHandler}>
+                <UniButton className={'learnBtn'} onClick={nextHandler}>
                   Next
-                </button>
+                </UniButton>
               </div>
             </>
           )}
