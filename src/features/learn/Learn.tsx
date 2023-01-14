@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useParams } from 'react-router-dom'
 
+import defaultCover from '../../assets/images/cardNoCover.png'
 import { UniButton } from '../../common/uniComponents/uniButton/UniButton'
 import { editCardTC, getCardsTC } from '../cards/cardList/cards-reducer'
 
@@ -29,6 +30,7 @@ export const Learn = () => {
   const [card, setCard] = useState<CardType>({
     answer: '',
     question: '',
+    questionImg: '',
     cardsPack_id: '',
     grade: 0,
     shots: 0,
@@ -82,8 +84,12 @@ export const Learn = () => {
         <div className={s.formContainer}>
           <h3 className={s.titleH3}>Question: </h3>
           <div>
-            {card.questionImg ? (
-              <img className={s.questionImg} src={card.questionImg} alt={'questionImg'} />
+            {card.question === 'no question' ? (
+              <img
+                className={s.questionImg}
+                src={card.questionImg?.includes('data:image') ? card.questionImg : defaultCover}
+                alt={'questionImg'}
+              />
             ) : (
               <h4>{card.question}</h4>
             )}

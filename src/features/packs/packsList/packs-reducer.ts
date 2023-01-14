@@ -31,8 +31,8 @@ export const packsReducer = (
     case 'PACKS/SET-PACKS-LIST':
       return {
         ...state,
-        ...action.packs,
         filter: action.filter,
+        ...action.packs,
         cardPacks: action.packs.cardPacks.map(
           ({ _id, name, user_name, updated, cardsCount, user_id, deckCover }) => ({
             _id,
