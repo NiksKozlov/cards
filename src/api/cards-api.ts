@@ -20,6 +20,12 @@ export const cardsAPI = {
       cardData
     )
   },
+  editCardGrade(cardData: editCardGradeDataType) {
+    return instance.put<'', AxiosResponse<editCardGradeResponseType>, editCardGradeDataType>(
+      '/cards/grade',
+      cardData
+    )
+  },
   deleteCard(_id: string) {
     return instance.delete<deletedCardResponseType>(`/cards/card/?id=${_id}`)
   },
@@ -59,6 +65,10 @@ type editCardResponseType = {
   updatedCard: CardType
 }
 
+type editCardGradeResponseType = {
+  updatedGrade: CardType
+}
+
 type deletedCardResponseType = {
   deletedCard: CardType
 }
@@ -80,6 +90,11 @@ type editCardDataType = {
     question: string
     shots: number
   }
+}
+
+type editCardGradeDataType = {
+  card_id: string
+  grade: number
 }
 
 export type CardsParamsType = {
