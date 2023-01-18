@@ -88,6 +88,7 @@ type editCardDataType = {
     _id: string
     grade: number
     question: string
+    questionImg?: string
     shots: number
   }
 }

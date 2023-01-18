@@ -87,6 +87,7 @@ type editPackDataType = {
   cardsPack: {
     _id: string
     name: string
+    deckCover: string
   }
 }
 

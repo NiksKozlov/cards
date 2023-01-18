@@ -101,8 +101,6 @@ export const editCardTC =
       const res = await cardsAPI.editCard(cardData)
       const params = { cardsPack_id: res.data.updatedCard.cardsPack_id }
 
-      console.log(res)
-
       dispatch(getCardsTC(params))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
@@ -155,6 +153,7 @@ export type EditCardLocalStateType = {
   card: {
     _id: string
     question: string
+    questionImg?: string
     grade: number
     shots: number
   }
