@@ -9,11 +9,11 @@ import { maxCardsCount, minCardsCount } from '../../../common/selectors/packs-se
 import s from './filterSlider.module.css'
 
 export const FilterSlider = () => {
+  const status = useAppSelector(state => state.app.status)
+  const instruction = status === 'loading'
   const minValue = useAppSelector(minCardsCount)
   const maxValue = useAppSelector(maxCardsCount)
   const [value, setValue] = useState<number[]>([minValue, maxValue])
-
-  console.log()
 
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -59,6 +59,7 @@ export const FilterSlider = () => {
           onChangeCommitted={onChangeCommittedHandler}
           valueLabelDisplay="auto"
           sx={{ width: '180px', marginLeft: '20px', marginRight: '20px' }}
+          disabled={instruction}
         />
         <div className={s.number}>
           <span>{value[1]}</span>

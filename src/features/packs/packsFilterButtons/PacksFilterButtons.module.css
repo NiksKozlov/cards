@@ -36,3 +36,23 @@
 .filterDefaultBtn:active {
     background-color: #c5c5cb;
 }
+
+.disableChosenBtn {
+    width: 150px;
+    height: 40px;
+
+    color: white;
+
+    background-color: #bdbdbd;
+    border: none
+}
+
+.disableDefaultBtn {
+    width: 150px;
+    height: 40px;
+
+    color: white;
+
+    background-color: #e8e8e8;
+    border: none
+}

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 
-import './App.css'
 import { CircularProgress, LinearProgress } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 
@@ -10,6 +9,7 @@ import { useAppDispatch } from '../common/hooks/useAppDispatch'
 import { useAppSelector } from '../common/hooks/useAppSelector'
 import { meTC } from '../features/auth/login/auth-reducer'
 
+import s from './App.module.css'
 import { RoutePaths } from './RoutePaths'
 
 const App = () => {
@@ -32,9 +32,9 @@ const App = () => {
   }
 
   return (
-    <div className="App">
+    <div className={s.App}>
       {pathname !== '/404' ? <Navbar isLoggedIn={isLoggedIn} /> : null}
-      {status === 'loading' && <LinearProgress />}
+      {status === 'loading' && <LinearProgress sx={{ position: 'absolute', width: '100%' }} />}
       <ErrorSnackbar />
       <RoutePaths isLoggedIn={isLoggedIn} />
     </div>

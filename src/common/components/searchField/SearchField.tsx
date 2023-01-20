@@ -3,6 +3,7 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import { TextField } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
+import { useAppSelector } from '../../hooks/useAppSelector'
 import useDebounce from '../../hooks/useDebounce'
 
 import s from './SearchField.module.css'
@@ -14,6 +15,8 @@ type PropsType = {
 }
 
 const SearchField: FC<PropsType> = ({ paramURL, searchLabel, fullwidth }) => {
+  const status = useAppSelector(state => state.app.status)
+  const instruction = status === 'loading'
   const [value, setValue] = useState('')
   const debouncedValue = useDebounce<string>(value, 700)
 
@@ -59,6 +62,7 @@ const SearchField: FC<PropsType> = ({ paramURL, searchLabel, fullwidth }) => {
         onChange={onChangeHandler}
         className={s.buttons}
         placeholder="Provide your text"
+        disabled={instruction}
       />
     </div>
   )

@@ -3,6 +3,7 @@ import React from 'react'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import { IconButton } from '@mui/material'
 
+import { useAppSelector } from '../../../../common/hooks/useAppSelector'
 import { UniButton } from '../../../../common/uniComponents/uniButton/UniButton'
 import { BasicPackModal } from '../BasicPackModal'
 
@@ -13,6 +14,8 @@ type PropsType = {
 }
 
 export const EditPackModal = ({ id, title, select }: PropsType) => {
+  const status = useAppSelector(state => state.app.status)
+  const instruction = status === 'loading'
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
 
@@ -24,8 +27,12 @@ export const EditPackModal = ({ id, title, select }: PropsType) => {
           {title}
         </UniButton>
       ) : (
-        <IconButton onClick={handleOpen}>
-          <ModeOutlinedIcon sx={{ color: 'black' }} />
+        <IconButton onClick={handleOpen} disabled={instruction}>
+          {instruction ? (
+            <ModeOutlinedIcon sx={{ color: '#bdbdbd' }} />
+          ) : (
+            <ModeOutlinedIcon sx={{ color: 'black' }} />
+          )}
         </IconButton>
       )}
     </BasicPackModal>

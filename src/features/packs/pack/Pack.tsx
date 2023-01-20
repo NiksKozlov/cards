@@ -38,6 +38,8 @@ export const Pack = ({
   const dispatch = useAppDispatch()
 
   const profile = useAppSelector(userProfile)
+  const status = useAppSelector(state => state.app.status)
+  const instruction = status === 'loading'
 
   const date = updated.toString()
   const day = date.substr(8, 2)
@@ -71,7 +73,11 @@ export const Pack = ({
       <StyledBodyTableCell align="left">{created}</StyledBodyTableCell>
       <StyledBodyTableCell align="left">
         <div className={s.iconButtons}>
-          <IconButton disabled={!cardsCount} sx={{ color: 'black' }} onClick={runLearn}>
+          <IconButton
+            disabled={!cardsCount || instruction}
+            sx={{ color: 'black' }}
+            onClick={runLearn}
+          >
             <SchoolOutlinedIcon />
           </IconButton>
           {profile._id == userId && (

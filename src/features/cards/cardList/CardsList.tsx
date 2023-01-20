@@ -40,6 +40,8 @@ export const CardsList = () => {
   const packUserId = useAppSelector(st => st.cards.packUserId)
   const packName = useAppSelector(st => st.cards.packName)
   const packCover = useAppSelector(st => st.cards.packCover)
+  const status = useAppSelector(state => state.app.status)
+  const instruction = status === 'loading'
   const navigate = useNavigate()
 
   const [order, setOrder] = useState('asc')
@@ -108,7 +110,12 @@ export const CardsList = () => {
             {whosePack === 'my' ? (
               <AddNewCardModal />
             ) : (
-              <UniButton className={'learnBtn'} title={'Learn to pack'} onClick={runLearn} />
+              <UniButton
+                className={instruction ? 'disabledAddBtn' : 'addBtn'}
+                title={'Learn to pack'}
+                onClick={runLearn}
+                disabled={instruction}
+              />
             )}
           </div>
           <img className={s.cover} src={packCover} alt={'cover'} />
