@@ -114,7 +114,10 @@ export const editCardGradeTC =
     try {
       dispatch(setAppStatusAC('loading'))
       const res = await cardsAPI.editCardGrade(cardData)
-      const params = { cardsPack_id: res.data.updatedGrade.cardsPack_id }
+      const params = {
+        cardsPack_id: res.data.updatedGrade.cardsPack_id,
+        pageCount: 1000,
+      }
 
       console.log(res)
 

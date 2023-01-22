@@ -14,7 +14,7 @@ import { CardType } from 'api/cards-api'
 import { BackToPacksList } from 'common/components/backToPacksList/BackToPacksList'
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
 import { useAppSelector } from 'common/hooks/useAppSelector'
-import { userCards } from 'common/selectors/cards-selector'
+import { cardsTotalCount, userCards } from 'common/selectors/cards-selector'
 
 export const Learn = () => {
   const [first, setFirst] = useState<boolean>(true)
@@ -23,6 +23,7 @@ export const Learn = () => {
 
   const dispatch = useAppDispatch()
   const cards = useAppSelector(userCards)
+  const cardsNumberToRandom = useAppSelector(cardsTotalCount)
   const { packId } = useParams()
 
   const [card, setCard] = useState<CardType>({
@@ -40,6 +41,7 @@ export const Learn = () => {
 
   const params = {
     cardsPack_id: packId as string,
+    pageCount: cardsNumberToRandom,
   }
 
   useEffect(() => {
